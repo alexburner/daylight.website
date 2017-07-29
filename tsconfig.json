@@ -8,6 +8,7 @@
 		"noImplicitAny": false,
 		"outDir": "./dist/",
 		"sourceMap": true,
+		"strict": true,
 		"target": "es5"
 	},
 	"include": [
