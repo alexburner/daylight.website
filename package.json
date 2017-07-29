@@ -19,6 +19,7 @@
   "dependencies": {
     "@types/react": "15.0.24",
     "@types/react-dom": "15.5.0",
+    "lodash": "4.17.4",
     "react": "15.5.4",
     "react-dom": "15.5.4",
     "suncalc": "1.8.0"
