@@ -1,6 +1,6 @@
 # sunclock
 
-Natural clock
+Natural clock showing time as sun's position within the day
 
 ## install
 Install npm dependencies
