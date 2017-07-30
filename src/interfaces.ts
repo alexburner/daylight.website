@@ -20,16 +20,18 @@ export interface SunCalcs {
     dawn: Date;
 }
 
-export type SunDict = {
-    [P in keyof SunCalcs]: {
-        date: Date;
-        time: number;
-        angle: number;
-        point: Point;
-    };
+export type SunMoment = {
+    date: Date;
+    time: number;
+    angle: number;
+    point: Point;
 }
 
-export interface Time {
+export type SunDict = {
+    [P in keyof SunCalcs]: SunMoment;
+}
+
+export interface Moment {
     angle: number;
     point: Point;
     text: string;

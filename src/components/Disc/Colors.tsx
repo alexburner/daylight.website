@@ -3,12 +3,56 @@ import * as React from 'react';
 import { Point, SunDict } from 'src/interfaces';
 import { WIDTH, HEIGHT, CX, CY, RADIUS, COLORS } from 'src/constants';
 
+const getSegment = ({ ul, ur, ll, lr, radius, color }: {
+    ul: Point;
+    ur: Point;
+    ll: Point;
+    lr: Point;
+    color: string;
+    radius: number,
+}): JSX.Element => getPath(color, `
+    M ${ul.x} ${ul.y}
+    A ${radius} ${radius} 0 0 1 ${ll.x} ${ll.y}
+    L ${lr.x} ${lr.y}
+    A ${radius} ${radius} 0 0 1 ${ur.x} ${ur.y}
+    Z
+`);
+
+const getTopCap = ({ left, right, radius, color }: {
+    left: Point,
+    right: Point,
+    color: string,
+    radius: number,
+}): JSX.Element => getPath(color, `
+    M ${left.x} ${left.y}
+    A ${radius} ${radius} 0 1 0 ${right.x} ${right.y}
+    Z
+`);
+
+const getBottomCap = ({ left, right, radius, color }: {
+    left: Point,
+    right: Point,
+    color: string,
+    radius: number,
+}): JSX.Element => getPath(color, `
+    M ${left.x} ${left.y}
+    A ${radius} ${radius} 0 0 0 ${right.x} ${right.y}
+    Z
+`);
+
+const getPath = (color: string, d: string): JSX.Element => (
+    <path d={d} style={{ fill: color, stroke: color, strokeWidth: 2 }} />
+);
+
 interface Props {
     sunDict: SunDict;
 }
 
 export default ({ sunDict }: Props): JSX.Element => (
-    <g clipPath="url(#clip-disc)">{[
+    <g
+        clipPath="url(#clip-disc)"
+        style={{ opacity: 0.94 }}
+    >{[
         getTopCap({
             // daylight
             left: sunDict.goldenHourEnd.point,
@@ -69,45 +113,4 @@ export default ({ sunDict }: Props): JSX.Element => (
             radius: RADIUS,
         }),
     ]}</g>
-);
-
-const getSegment = ({ ul, ur, ll, lr, radius, color }: {
-    ul: Point;
-    ur: Point;
-    ll: Point;
-    lr: Point;
-    color: string;
-    radius: number,
-}): JSX.Element => getPath(color, `
-    M ${ul.x} ${ul.y}
-    A ${radius} ${radius} 0 0 1 ${ll.x} ${ll.y}
-    L ${lr.x} ${lr.y}
-    A ${radius} ${radius} 0 0 1 ${ur.x} ${ur.y}
-    Z
-`);
-
-const getTopCap = ({ left, right, radius, color }: {
-    left: Point,
-    right: Point,
-    color: string,
-    radius: number,
-}): JSX.Element => getPath(color, `
-    M ${left.x} ${left.y}
-    A ${radius} ${radius} 0 1 0 ${right.x} ${right.y}
-    Z
-`);
-
-const getBottomCap = ({ left, right, radius, color }: {
-    left: Point,
-    right: Point,
-    color: string,
-    radius: number,
-}): JSX.Element => getPath(color, `
-    M ${left.x} ${left.y}
-    A ${radius} ${radius} 0 0 0 ${right.x} ${right.y}
-    Z
-`);
-
-const getPath = (color: string, d: string): JSX.Element => (
-    <path d={d} style={{ fill: color, stroke: color, strokeWidth: 2 }} />
 );

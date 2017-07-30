@@ -3,7 +3,7 @@ import * as React from 'react';
 import { SunDict } from 'src/interfaces';
 import { WIDTH, HEIGHT, CX, CY, RADIUS } from 'src/constants';
 import Colors from 'src/components/Disc/Colors';
-// import Time from 'src/components/Disc/Time/Time';
+import Time from 'src/components/Disc/Time/Time';
 
 interface Props {
     sunDict: SunDict;
@@ -17,7 +17,6 @@ export default ({ sunDict }: Props) => (
         style={{
             display: 'block',
             margin: 'auto',
-            opacity: 0.94,
         }}
     >
         <defs>
@@ -26,5 +25,6 @@ export default ({ sunDict }: Props) => (
             </clipPath>
         </defs>
         <Colors sunDict={sunDict} />
+        <Time sunDict={sunDict} />
     </svg>
 );
