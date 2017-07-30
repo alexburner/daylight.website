@@ -47,12 +47,12 @@ export default ({ sunDict }: Props) => {
                 points={`
                     ${point.x + padding + segment + fudge} ${point.y + back},
                     ${point.x + padding + segment + fudge} ${point.y - back},
-                    ${point.x + padding + segment + fudge + 36} ${point.y - back},
-                    ${point.x + padding + segment + fudge + 36} ${point.y + back}
+                    ${point.x + padding + segment + fudge + 38} ${point.y - back},
+                    ${point.x + padding + segment + fudge + 38} ${point.y + back}
                 `}
             />
             <text
-                x={point.x + padding + segment + padding + fudge + 4}
+                x={point.x + padding + segment + padding + fudge + 5}
                 y={point.y}
                 dominantBaseline="middle"
                 style={{
