@@ -58,13 +58,16 @@ export default ({ sunDict }: Props) => {
     const hours = getHours(sunDict.solarNoon.date, sunDict.solarNoon.time);
     return (
         <g>
-            {_.map(hours, (hour: Moment) => (
-                <circle
-                    cx={hour.point.x}
-                    cy={hour.point.y}
-                    r="6"
-                    fill="red"
-                />
+            {_.map(hours, ({angle, point, text}: Moment) => (
+                <g transform={`rotate(${angle} ${point.x} ${point.y})`}>
+                    <text
+                        x={point.x}
+                        y={point.y}
+                        dominantBaseline="middle"
+                    >
+                        {text}
+                    </text>
+                </g>
             ))}
         </g>
     );

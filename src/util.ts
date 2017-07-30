@@ -4,7 +4,7 @@ import { Point } from 'src/interfaces';
 export const getTimeAngle = (time: number, zeroTime: number): number => {
     const diff = time - zeroTime;
     const angle = diff / MS_PER_DEG;
-    return angle + 90;
+    return angle - 90;
 };
 
 export const getCirclePoint = (angle: number): Point => rotatePoint({
@@ -18,7 +18,7 @@ export const rotatePoint = ({ point, origin, angle }: {
     origin: Point;
     angle: number;
 }): Point => {
-    const radians = (Math.PI / 180) * angle;
+    const radians = -(Math.PI / 180) * angle;
     const cos = Math.cos(radians);
     const sin = Math.sin(radians);
     return {

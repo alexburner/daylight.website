@@ -12,31 +12,20 @@ const getSegment = ({ ul, ur, ll, lr, radius, color }: {
     radius: number,
 }): JSX.Element => getPath(color, `
     M ${ul.x} ${ul.y}
-    A ${radius} ${radius} 0 0 1 ${ll.x} ${ll.y}
+    A ${radius} ${radius} 0 1 0 ${ll.x} ${ll.y}
     L ${lr.x} ${lr.y}
-    A ${radius} ${radius} 0 0 1 ${ur.x} ${ur.y}
+    A ${radius} ${radius} 0 1 0 ${ur.x} ${ur.y}
     Z
 `);
 
-const getTopCap = ({ left, right, radius, color }: {
+const getCap = ({ left, right, radius, color }: {
     left: Point,
     right: Point,
     color: string,
     radius: number,
 }): JSX.Element => getPath(color, `
     M ${left.x} ${left.y}
-    A ${radius} ${radius} 0 1 0 ${right.x} ${right.y}
-    Z
-`);
-
-const getBottomCap = ({ left, right, radius, color }: {
-    left: Point,
-    right: Point,
-    color: string,
-    radius: number,
-}): JSX.Element => getPath(color, `
-    M ${left.x} ${left.y}
-    A ${radius} ${radius} 0 0 0 ${right.x} ${right.y}
+    A ${radius} ${radius} 0 1 1 ${right.x} ${right.y}
     Z
 `);
 
@@ -53,7 +42,7 @@ export default ({ sunDict }: Props): JSX.Element => (
         clipPath="url(#clip-disc)"
         style={{ opacity: 0.94 }}
     >{[
-        getTopCap({
+        getCap({
             // daylight
             left: sunDict.goldenHourEnd.point,
             right: sunDict.goldenHour.point,
@@ -105,7 +94,7 @@ export default ({ sunDict }: Props): JSX.Element => (
             color: COLORS.ASTRODUSK,
             radius: RADIUS,
         }),
-        getBottomCap({
+        getCap({
             // night
             left: sunDict.night.point,
             right: sunDict.nightEnd.point,

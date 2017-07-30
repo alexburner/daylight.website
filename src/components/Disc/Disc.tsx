@@ -21,7 +21,7 @@ export default ({ sunDict }: Props) => (
     >
         <defs>
             <clipPath id="clip-disc">
-                <circle cx={CX} cy={CY} r={RADIUS} />
+                <circle cx={CX} cy={CY} r={RADIUS - 2} />
             </clipPath>
         </defs>
         <Colors sunDict={sunDict} />

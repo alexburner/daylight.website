@@ -65,7 +65,7 @@ export default class App extends React.Component<{}, State> {
             );
         }
         return (
-            <div style={{ padding: '60px 20px'}}>
+            <div style={{ padding: '10px'}}>
                 <Disc sunDict={this.state.sunDict} />
             </div>
         );
