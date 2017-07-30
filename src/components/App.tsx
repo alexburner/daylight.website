@@ -131,7 +131,8 @@ export default class App extends React.Component<{}, State> {
                     height={HEIGHT}
                     style={{
                         display: 'block',
-                        margin: 'auto'
+                        margin: 'auto',
+                        opacity: 0.94,
                     }}
                 >
                     <defs>
