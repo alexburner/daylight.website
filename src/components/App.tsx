@@ -202,7 +202,7 @@ export default class App extends React.Component<{}, State> {
                             }),
                         ]}
                     </g>
-                    <circle
+                    {/*<circle
                         cx={CX}
                         cy={CY}
                         r={RADIUS}
@@ -211,7 +211,7 @@ export default class App extends React.Component<{}, State> {
                             stroke: '#444',
                             strokeWidth: 5,
                         }}
-                    />
+                    />*/}
                 </svg>
             </div>
         );
