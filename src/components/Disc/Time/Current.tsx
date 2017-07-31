@@ -32,12 +32,12 @@ export default ({ sunDict }: Props) => {
     return (
         <g transform={`rotate(${angle} ${point.x} ${point.y})`}>
             <polygon
-                style={{ fill: '#444' }}
+                style={{ fill: '#333' }}
                 points={`
                     ${point.x + padding + fudge} ${point.y},
                     ${point.x + padding + segment + fudge} ${point.y + back},
-                    ${point.x + padding + segment + fudge + 44} ${point.y + back},
-                    ${point.x + padding + segment + fudge + 44} ${point.y - back},
+                    ${point.x + padding + segment + fudge + 45} ${point.y + back},
+                    ${point.x + padding + segment + fudge + 45} ${point.y - back},
                     ${point.x + padding + segment + fudge} ${point.y - back}
                 `}
             />
