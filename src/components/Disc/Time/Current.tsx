@@ -48,6 +48,7 @@ export default ({ sunDict }: Props) => {
                 style={{
                     fill: '#FFF',
                     fontSize: '11px',
+                    opacity: 0.9,
                 }}
             >
                 {text}
