@@ -11,7 +11,7 @@ export const COLORS = {
     GOLDEN: '#ffe881',
     HORIZON: '#f57b75',
     CIVILDUSK: '#406db9',
-    NAUTDUSK: '#0f3980',
+    NAUTDUSK: '#0c306d',
     ASTRODUSK: '#021940',
     NIGHT: '#020813',
 };
