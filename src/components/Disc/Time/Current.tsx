@@ -26,9 +26,9 @@ export default ({ sunDict }: Props) => {
     const point = getCirclePoint(angle);
     const text = 'now';
     const fudge = -2; // over-clipping in Disc (to cover Colors strangeness)
-    const padding = 2;
+    const padding = 0;
     const segment = 8;
-    const back = segment / 2 + 2;
+    const back = segment / 2 + 3;
     return (
         <g transform={`rotate(${angle} ${point.x} ${point.y})`}>
             <polygon
@@ -47,7 +47,7 @@ export default ({ sunDict }: Props) => {
                 dominantBaseline="middle"
                 style={{
                     fill: '#FFF',
-                    fontSize: '10px',
+                    fontSize: '11px',
                 }}
             >
                 {text}
