@@ -64,7 +64,7 @@ export default ({ sunDict }: Props) => {
             {_.map(hours, ({angle, point, text}: Moment) => (
                 <g transform={`rotate(${angle} ${point.x} ${point.y})`}>
                     <text
-                        x={point.x + padding + segment + padding + fudge}
+                        x={point.x + padding + 1 + segment + padding + fudge}
                         y={point.y}
                         dominantBaseline="middle"
                         style={{
@@ -75,9 +75,9 @@ export default ({ sunDict }: Props) => {
                         {text}
                     </text>
                     <line
-                        x1={point.x + padding + fudge}
+                        x1={point.x + padding + 1 + fudge}
                         y1={point.y}
-                        x2={point.x + padding + segment + fudge}
+                        x2={point.x + padding + 1 + segment + fudge}
                         y2={point.y}
                         style={{
                             stroke: '#000',
@@ -91,7 +91,7 @@ export default ({ sunDict }: Props) => {
                 y1={hours[0].point.y}
                 x2={hours[12].point.x}
                 y2={hours[12].point.y}
-                strokeDasharray="5, 5"
+                strokeDasharray="4, 4"
                 style={{
                     opacity: 0.6,
                     stroke: '#000',
