@@ -1,16 +1,17 @@
 import * as React from 'react';
 
-import { SunDict } from 'src/interfaces';
+import { Moment, SunDict } from 'src/interfaces';
 import Current from 'src/components/Disc/Time/Current';
 import Hours from 'src/components/Disc/Time/Hours';
 
 interface Props {
     sunDict: SunDict;
+    hours: Moment[];
 }
 
-export default ({ sunDict }: Props) => (
+export default ({ sunDict, hours }: Props) => (
     <g>
-        <Hours sunDict={sunDict} />
+        <Hours hours={hours} />
         <Current sunDict={sunDict} />
     </g>
 );
