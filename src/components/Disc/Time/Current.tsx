@@ -26,7 +26,7 @@ export default ({ sunDict }: Props) => {
     const point = getCirclePoint(angle);
     const text = 'now';
     const fudge = -2; // over-clipping in Disc (to cover Colors strangeness)
-    const padding = 0;
+    const padding = -2;
     const segment = 8;
     const back = segment / 2 + 3;
     return (
@@ -36,13 +36,13 @@ export default ({ sunDict }: Props) => {
                 points={`
                     ${point.x + padding + fudge} ${point.y},
                     ${point.x + padding + segment + fudge} ${point.y + back},
-                    ${point.x + padding + segment + fudge + 40} ${point.y + back},
-                    ${point.x + padding + segment + fudge + 40} ${point.y - back},
+                    ${point.x + padding + segment + fudge + 44} ${point.y + back},
+                    ${point.x + padding + segment + fudge + 44} ${point.y - back},
                     ${point.x + padding + segment + fudge} ${point.y - back}
                 `}
             />
             <text
-                x={point.x + padding + segment + fudge + 10}
+                x={point.x + padding + segment + fudge + 12}
                 y={point.y}
                 dominantBaseline="middle"
                 style={{
