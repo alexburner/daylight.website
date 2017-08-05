@@ -18,11 +18,11 @@ export const COLORS = {
 
 export const TXT_COLORS = {
     DAYLIGHT: 'rgba(0,0,0,0.7)',
-    GOLDEN: 'rgba(0,0,0,0.6)',
-    HORIZON: 'rgba(0,0,0,0.6)',
-    CIVIL: 'rgba(255,255,255,0.6)',
-    NAUTICAL: 'rgba(255,255,255,0.6)',
-    ASTRONOMICAL: 'rgba(255,255,255,0.6)',
+    GOLDEN: 'rgba(0,0,0,0.7)',
+    HORIZON: 'rgba(0,0,0,0.7)',
+    CIVIL: 'rgba(255,255,255,0.7)',
+    NAUTICAL: 'rgba(255,255,255,0.7)',
+    ASTRONOMICAL: 'rgba(255,255,255,0.7)',
     NIGHT: 'rgba(255,255,255,0.7)',
 };
 

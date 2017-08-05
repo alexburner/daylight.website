@@ -20,6 +20,7 @@ export default ({ sunDict }: Props) => (
                 border-collapse: collapse;
                 font-size: 12px;
                 margin: 24px auto;
+                opacity: 0.94;
                 color: rgba(0,0,0,0.5);
             }
 
