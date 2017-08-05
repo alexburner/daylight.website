@@ -10,10 +10,20 @@ export const COLORS = {
     DAYLIGHT: '#fff6ab',
     GOLDEN: '#ffe881',
     HORIZON: '#f57b75',
-    CIVILDUSK: '#406db9',
-    NAUTDUSK: '#0c306d',
-    ASTRODUSK: '#021940',
+    CIVIL: '#406db9',
+    NAUTICAL: '#0c306d',
+    ASTRONOMICAL: '#021940',
     NIGHT: '#020813',
+};
+
+export const TXT_COLORS = {
+    DAYLIGHT: 'rgba(0,0,0,0.7)',
+    GOLDEN: 'rgba(0,0,0,0.6)',
+    HORIZON: 'rgba(0,0,0,0.6)',
+    CIVIL: 'rgba(255,255,255,0.6)',
+    NAUTICAL: 'rgba(255,255,255,0.6)',
+    ASTRONOMICAL: 'rgba(255,255,255,0.6)',
+    NIGHT: 'rgba(255,255,255,0.7)',
 };
 
 export const MS_PER_DEG = (24 * 60 * 60 * 1000) / 360;

@@ -84,7 +84,7 @@ export default ({ sunDict }: Props): JSX.Element => (
             ur: sunDict.sunset.point,
             ll: sunDict.dawn.point,
             lr: sunDict.dusk.point,
-            color: COLORS.CIVILDUSK,
+            color: COLORS.CIVIL,
             radius: RADIUS,
         }),
         getSegment({
@@ -93,7 +93,7 @@ export default ({ sunDict }: Props): JSX.Element => (
             ur: sunDict.dusk.point,
             ll: sunDict.nauticalDawn.point,
             lr: sunDict.nauticalDusk.point,
-            color: COLORS.NAUTDUSK,
+            color: COLORS.NAUTICAL,
             radius: RADIUS,
         }),
         getSegment({
@@ -102,7 +102,7 @@ export default ({ sunDict }: Props): JSX.Element => (
             ur: sunDict.nauticalDusk.point,
             ll: sunDict.nightEnd.point,
             lr: sunDict.night.point,
-            color: COLORS.ASTRODUSK,
+            color: COLORS.ASTRONOMICAL,
             radius: RADIUS,
         }),
         getBottomCap({

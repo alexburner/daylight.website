@@ -5,7 +5,7 @@ import * as suncalc from 'suncalc';
 import { Moment, SunCalcs, SunDict } from 'src/interfaces';
 import { getSunDict, getHours, getTimeAngle, getCirclePoint } from 'src/util';
 import Disc from 'src/components/Disc/Disc';
-// import Legend from 'src/components/Legend';
+import Legend from 'src/components/Legend';
 
 interface State {
     latitude: number | null;
@@ -72,6 +72,7 @@ export default class App extends React.Component<{}, State> {
         return (
             <div style={{ padding: '10px'}}>
                 <Disc sunDict={this.state.sunDict} hours={this.state.hours} />
+                <Legend sunDict={this.state.sunDict} />
             </div>
         );
     }
