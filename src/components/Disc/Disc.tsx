@@ -26,7 +26,7 @@ export default ({ sunDict, hours }: Props) => {
         >
             <defs>
                 <clipPath id="clip-disc">
-                    <circle cx={CX} cy={CY} r={RADIUS - 2} />
+                    <circle cx={CX} cy={CY} r={RADIUS} />
                 </clipPath>
             </defs>
             <g transform={transform}>

@@ -25,24 +25,24 @@ export default ({ sunDict }: Props) => {
     const angle = getTimeAngle(time, zenithTime);
     const point = getCirclePoint(angle);
     const text = 'now';
-    const fudge = -2; // over-clipping in Disc (to cover Colors strangeness)
-    const padding = -2;
+    const padding = -1;
     const segment = 8;
     const back = segment / 2 + 3;
+    const length = 45;
     return (
         <g transform={`rotate(${angle} ${point.x} ${point.y})`}>
             <polygon
                 style={{ fill: '#444' }}
                 points={`
-                    ${point.x + padding + fudge} ${point.y},
-                    ${point.x + padding + segment + fudge} ${point.y + back},
-                    ${point.x + padding + segment + fudge + 45} ${point.y + back},
-                    ${point.x + padding + segment + fudge + 45} ${point.y - back},
-                    ${point.x + padding + segment + fudge} ${point.y - back}
+                    ${point.x + padding} ${point.y},
+                    ${point.x + padding + segment} ${point.y + back},
+                    ${point.x + padding + segment + length} ${point.y + back},
+                    ${point.x + padding + segment + length} ${point.y - back},
+                    ${point.x + padding + segment} ${point.y - back}
                 `}
             />
             <text
-                x={point.x + padding + segment + fudge + 12}
+                x={point.x + padding + segment + 12}
                 y={point.y}
                 dominantBaseline="middle"
                 style={{

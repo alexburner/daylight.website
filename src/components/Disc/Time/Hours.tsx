@@ -4,12 +4,13 @@ import * as React from 'react';
 import { SunDict, Moment } from 'src/interfaces';
 import { getTimeAngle, getCirclePoint } from 'src/util';
 
+import { WIDTH, HEIGHT, CX, CY, RADIUS, COLORS } from 'src/constants';
+
 interface Props {
     hours: Moment[];
 }
 
 export default ({ hours }: Props) => {
-    const fudge = -2; // over-clipping in Disc (to cover Colors strangeness)
     const padding = 6;
     const segment = 6;
     return (
@@ -17,7 +18,7 @@ export default ({ hours }: Props) => {
             {_.map(hours, ({angle, point, text}: Moment) => (
                 <g transform={`rotate(${angle} ${point.x} ${point.y})`}>
                     <text
-                        x={point.x + padding + 1 + segment + padding + fudge}
+                        x={point.x + padding + 1 + segment + padding - 1}
                         y={point.y}
                         dominantBaseline="middle"
                         style={{
@@ -28,9 +29,9 @@ export default ({ hours }: Props) => {
                         {text}
                     </text>
                     <line
-                        x1={point.x + padding + 1 + fudge}
+                        x1={point.x + padding + 1}
                         y1={point.y}
-                        x2={point.x + padding + 1 + segment + fudge}
+                        x2={point.x + padding + 1 + segment}
                         y2={point.y}
                         style={{
                             stroke: '#000',
