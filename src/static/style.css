@@ -12,3 +12,15 @@ html, body, #app {
     background: #FFF;
     color: #555;
 }
+
+a {
+    text-decoration: none;
+    opacity: 0.8;
+    color: #222;
+}
+
+a:hover,
+a:active {
+    opacity: 1;
+}
+

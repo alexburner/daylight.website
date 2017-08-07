@@ -27,11 +27,13 @@ export default ({ sunDict }: Props) => (
             td {
                 padding: 8px 18px;
                 text-align: center;
+                vertical-align: middle;
             }
 
             td:first-child,
             td:last-child {
                 padding: 8px 12px;
+                width: 120px;
             }
 
             td:first-child {
@@ -48,7 +50,7 @@ export default ({ sunDict }: Props) => (
                 backgroundColor: COLORS.DAYLIGHT,
                 color: TXT_COLORS.DAYLIGHT
             }}>
-                Full Day
+                Daylight
             </td>
             <td>{getTimeString(sunDict.goldenHour.date)}</td>
         </tr>
@@ -61,7 +63,7 @@ export default ({ sunDict }: Props) => (
                 backgroundColor: COLORS.GOLDEN,
                 color: TXT_COLORS.GOLDEN
             }}>
-                Golden Hour
+                Golden Hours
             </td>
             <td>{getTimeRangeString(
                 sunDict.goldenHour.date,
@@ -93,7 +95,7 @@ export default ({ sunDict }: Props) => (
                 backgroundColor: COLORS.CIVIL,
                 color: TXT_COLORS.CIVIL
             }}>
-                Civil Dawn & Dusk
+                Twilight (Civil)
             </td>
             <td>{getTimeRangeString(
                 sunDict.sunset.date,
@@ -109,7 +111,7 @@ export default ({ sunDict }: Props) => (
                 backgroundColor: COLORS.NAUTICAL,
                 color: TXT_COLORS.NAUTICAL
             }}>
-                Nautical Dawn & Dusk
+                Twilight (Nautical)
             </td>
             <td>{getTimeRangeString(
                 sunDict.dusk.date,
@@ -125,7 +127,7 @@ export default ({ sunDict }: Props) => (
                 backgroundColor: COLORS.ASTRONOMICAL,
                 color: TXT_COLORS.ASTRONOMICAL
             }}>
-                Astronomical Dawn & Dusk
+                Twilight (Astronomical)
             </td>
             <td>{getTimeRangeString(
                 sunDict.nauticalDusk.date,
@@ -138,7 +140,7 @@ export default ({ sunDict }: Props) => (
                 backgroundColor: COLORS.NIGHT,
                 color: TXT_COLORS.NIGHT
             }}>
-                Full Night
+                Night
             </td>
             <td>{getTimeString(sunDict.night.date)}</td>
         </tr>
