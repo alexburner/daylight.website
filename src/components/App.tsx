@@ -70,7 +70,7 @@ export default class App extends React.Component<{}, State> {
             );
         }
         return (
-            <div style={{ padding: '10px'}}>
+            <div style={{ padding: '15px'}}>
                 <Disc sunDict={this.state.sunDict} hours={this.state.hours} />
                 <Legend sunDict={this.state.sunDict} />
             </div>

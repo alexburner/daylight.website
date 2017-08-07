@@ -41,14 +41,28 @@ export default ({ hours }: Props) => {
                 </g>
             ))}
             <line
+                clipPath="url(#clip-cap-day)"
                 x1={hours[0].point.x}
                 y1={hours[0].point.y}
                 x2={hours[12].point.x}
                 y2={hours[12].point.y}
                 strokeDasharray="4, 4"
                 style={{
-                    opacity: 0.6,
+                    opacity: 0.5,
                     stroke: '#000',
+                    strokeWidth: 1,
+                }}
+            />
+            <line
+                clipPath="url(#clip-cap-night)"
+                x1={hours[0].point.x}
+                y1={hours[0].point.y}
+                x2={hours[12].point.x}
+                y2={hours[12].point.y}
+                strokeDasharray="4, 4"
+                style={{
+                    opacity: 0.9,
+                    stroke: '#FFF',
                     strokeWidth: 1,
                 }}
             />
