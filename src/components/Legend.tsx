@@ -18,15 +18,21 @@ export default ({ sunDict }: Props) => (
         <style>{`
             table {
                 border-collapse: collapse;
-                font-size: 12px;
-                margin: 24px auto;
-                opacity: 0.94;
+                font-size: 10px;
+                margin: 36px auto;
+                opacity: 0.9;
                 color: rgba(0,0,0,0.5);
             }
 
             td {
                 padding: 8px 18px;
                 text-align: center;
+            }
+
+            td:first-child,
+            td:last-child {
+                font-size: 11px;
+                padding: 8px 12px;
             }
 
             td:first-child {
