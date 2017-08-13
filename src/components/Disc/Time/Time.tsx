@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Moment, SunDict } from 'src/interfaces';
+import { Moment, SunDict } from 'src/singletons/interfaces';
 import Current from 'src/components/Disc/Time/Current';
 import Hours from 'src/components/Disc/Time/Hours';
 

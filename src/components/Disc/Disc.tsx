@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { Moment, Point, SunDict } from 'src/interfaces';
-import { WIDTH, HEIGHT, CX, CY, RADIUS } from 'src/constants';
+import { Moment, Point, SunDict } from 'src/singletons/interfaces';
+import { WIDTH, HEIGHT, CX, CY, RADIUS } from 'src/singletons/constants';
 import Colors from 'src/components/Disc/Colors';
 import Time from 'src/components/Disc/Time/Time';
 

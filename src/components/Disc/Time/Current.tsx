@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 import * as React from 'react';
 
-import { SunDict, Moment } from 'src/interfaces';
-import { getTimeAngle, getCirclePoint } from 'src/util';
+import { SunDict, Moment } from 'src/singletons/interfaces';
+import { getTimeAngle, getCirclePoint } from 'src/singletons/util';
 
 interface Props {
     sunDict: SunDict;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { Point, SunDict } from 'src/interfaces';
-import { WIDTH, HEIGHT, CX, CY, RADIUS, COLORS } from 'src/constants';
+import { Point, SunDict } from 'src/singletons/interfaces';
+import { WIDTH, HEIGHT, CX, CY, RADIUS, COLORS } from 'src/singletons/constants';
 
 const getSegment = ({ ul, ur, ll, lr, radius, color }: {
     ul: Point;

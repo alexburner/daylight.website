@@ -1,8 +1,8 @@
 import * as moment from 'moment';
 import * as React from 'react';
 
-import { COLORS, TXT_COLORS } from 'src/constants';
-import { SunDict } from 'src/interfaces';
+import { COLORS, TXT_COLORS } from 'src/singletons/constants';
+import { SunDict } from 'src/singletons/interfaces';
 
 interface Props {
     sunDict: SunDict;

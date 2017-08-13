@@ -2,8 +2,8 @@ import * as _ from 'lodash';
 import * as React from 'react';
 import * as suncalc from 'suncalc';
 
-import { Moment, SunCalcs, SunDict } from 'src/interfaces';
-import { getSunDict, getHours, getTimeAngle, getCirclePoint } from 'src/util';
+import { Moment, SunCalcs, SunDict } from 'src/singletons/interfaces';
+import { getSunDict, getHours, getTimeAngle, getCirclePoint } from 'src/singletons/util';
 import Disc from 'src/components/Disc/Disc';
 import Legend from 'src/components/Legend';
 
