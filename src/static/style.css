@@ -26,30 +26,34 @@ a:active {
   opacity: 1;
 }
 
+table, tr, td {
+  border: none;
+}
+
 table {
-    border-collapse: collapse;
-    font-size: 11px;
-    margin: 12px auto 36px;
-    opacity: 0.92;
-    color: rgba(0,0,0,0.6);
+  border-collapse: collapse;
+  font-size: 11px;
+  margin: 12px auto 36px;
+  opacity: 0.9;
+  color: rgba(0,0,0,0.6);
 }
 
 td {
-    padding: 8px 18px;
-    text-align: center;
-    vertical-align: middle;
+  padding: 8px 18px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 td:first-child,
 td:last-child {
-    padding: 8px 12px;
-    width: 120px;
+  padding: 8px 12px;
+  width: 120px;
 }
 
 td:first-child {
-    text-align: right;
+  text-align: right;
 }
 
 td:last-child {
-    text-align: left;
+  text-align: left;
 }

@@ -41,7 +41,7 @@ const Legend = ({ suns }: Props): JSX.Element => {
               color: TXT_COLORS.GOLDEN,
             }}
           >
-            Golden Hours
+            Golden Hour
           </td>
           <td>
             {suns.goldenHour.text}
