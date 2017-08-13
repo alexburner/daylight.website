@@ -23,10 +23,10 @@ export default (state: State, action: Action): State => {
       // prepare to compare times
       const currMoment = moment(action.ms)
       const prevMoment = moment(state.ms)
-      // don't update if minute is the same
-      if (currMoment.isSame(prevMoment, 'minute')) return newState
+      // don't update if second is the same
+      if (currMoment.isSame(prevMoment, 'second')) return newState
       if (currMoment.isSame(prevMoment, 'day') && state.suns) {
-        // only minute has changed, just update now
+        // only second has changed, just update now
         const newNow = getNow(action.ms, state.suns.solarNoon)
         return { ...newState, now: newNow }
       }

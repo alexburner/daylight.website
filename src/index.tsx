@@ -37,5 +37,5 @@ if (!space) {
   getSpace().then((space: Space) => store.dispatch({ type: 'space', space }))
 }
 
-// update time every 30 seconds
-setInterval(() => store.dispatch({ type: 'time', ms: Date.now() }), 30 * 1000)
+// update time every second
+setInterval(() => store.dispatch({ type: 'time', ms: Date.now() }), 1000)
