@@ -1,161 +1,155 @@
-import * as moment from 'moment'
 import * as React from 'react'
+import { connect } from 'react-redux'
 
 import { COLORS, TXT_COLORS } from 'src/singletons/constants'
-import { SunDict } from 'src/singletons/interfaces'
+import { Suns, State } from 'src/singletons/interfaces'
 
 interface Props {
-  sunDict: SunDict
+  suns: Suns | null
 }
 
-const getTimeString = (date: Date): string => moment(date).format('h:mma')
-const getTimeRangeString = (from: Date, to: Date): string =>
-  getTimeString(from) + ' – ' + getTimeString(to)
+const Legend = ({ suns }: Props): JSX.Element => {
+  if (!suns) return <div />
+  return (
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            {suns.goldenHourEnd.text}
+          </td>
+          <td
+            style={{
+              backgroundColor: COLORS.DAYLIGHT,
+              color: TXT_COLORS.DAYLIGHT,
+            }}
+          >
+            Daylight
+          </td>
+          <td>
+            {suns.goldenHour.text}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {suns.sunriseEnd.text}
+            &nbsp;&ndash;&nbsp;
+            {suns.goldenHourEnd.text}
+          </td>
+          <td
+            style={{
+              backgroundColor: COLORS.GOLDEN,
+              color: TXT_COLORS.GOLDEN,
+            }}
+          >
+            Golden Hours
+          </td>
+          <td>
+            {suns.goldenHour.text}
+            &nbsp;&ndash;&nbsp;
+            {suns.sunsetStart.text}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {suns.sunrise.text}
+            &nbsp;&ndash;&nbsp;
+            {suns.sunriseEnd.text}
+          </td>
+          <td
+            style={{
+              backgroundColor: COLORS.HORIZON,
+              color: TXT_COLORS.HORIZON,
+            }}
+          >
+            Sunrise & Sunset
+          </td>
+          <td>
+            {suns.sunsetStart.text}
+            &nbsp;&ndash;&nbsp;
+            {suns.sunset.text}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {suns.dawn.text}
+            &nbsp;&ndash;&nbsp;
+            {suns.sunrise.text}
+          </td>
+          <td
+            style={{
+              backgroundColor: COLORS.CIVIL,
+              color: TXT_COLORS.CIVIL,
+            }}
+          >
+            Twilight (Civil)
+          </td>
+          <td>
+            {suns.sunset.text}
+            &nbsp;&ndash;&nbsp;
+            {suns.dusk.text}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {suns.nauticalDawn.text}
+            &nbsp;&ndash;&nbsp;
+            {suns.dawn.text}
+          </td>
+          <td
+            style={{
+              backgroundColor: COLORS.NAUTICAL,
+              color: TXT_COLORS.NAUTICAL,
+            }}
+          >
+            Twilight (Nautical)
+          </td>
+          <td>
+            {suns.dusk.text}
+            &nbsp;&ndash;&nbsp;
+            {suns.nauticalDusk.text}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {suns.nightEnd.text}
+            &nbsp;&ndash;&nbsp;
+            {suns.nauticalDawn.text}
+          </td>
+          <td
+            style={{
+              backgroundColor: COLORS.ASTRONOMICAL,
+              color: TXT_COLORS.ASTRONOMICAL,
+            }}
+          >
+            Twilight (Astronomical)
+          </td>
+          <td>
+            {suns.nauticalDusk.text}
+            &nbsp;&ndash;&nbsp;
+            {suns.night.text}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {suns.nightEnd.text}
+          </td>
+          <td
+            style={{
+              backgroundColor: COLORS.NIGHT,
+              color: TXT_COLORS.NIGHT,
+            }}
+          >
+            Night
+          </td>
+          <td>
+            {suns.night.text}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  )
+}
 
-export default ({ sunDict }: Props) =>
-  <table>
-    <style>{`
-            table {
-                border-collapse: collapse;
-                font-size: 11px;
-                margin: 36px auto;
-                opacity: 0.88;
-                color: rgba(0,0,0,0.6);
-            }
+const mapStateToProps = ({ suns }: State): Props => ({ suns })
 
-            td {
-                padding: 8px 18px;
-                text-align: center;
-                vertical-align: middle;
-            }
-
-            td:first-child,
-            td:last-child {
-                padding: 8px 12px;
-                width: 120px;
-            }
-
-            td:first-child {
-                text-align: right;
-            }
-
-            td:last-child {
-                text-align: left;
-            }
-        `}</style>
-    <tr>
-      <td>
-        {getTimeString(sunDict.goldenHourEnd.date)}
-      </td>
-      <td
-        style={{
-          backgroundColor: COLORS.DAYLIGHT,
-          color: TXT_COLORS.DAYLIGHT,
-        }}
-      >
-        Daylight
-      </td>
-      <td>
-        {getTimeString(sunDict.goldenHour.date)}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {getTimeRangeString(
-          sunDict.sunriseEnd.date,
-          sunDict.goldenHourEnd.date,
-        )}
-      </td>
-      <td
-        style={{
-          backgroundColor: COLORS.GOLDEN,
-          color: TXT_COLORS.GOLDEN,
-        }}
-      >
-        Golden Hours
-      </td>
-      <td>
-        {getTimeRangeString(sunDict.goldenHour.date, sunDict.sunsetStart.date)}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {getTimeRangeString(sunDict.sunrise.date, sunDict.sunriseEnd.date)}
-      </td>
-      <td
-        style={{
-          backgroundColor: COLORS.HORIZON,
-          color: TXT_COLORS.HORIZON,
-        }}
-      >
-        Sunrise & Sunset
-      </td>
-      <td>
-        {getTimeRangeString(sunDict.sunsetStart.date, sunDict.sunset.date)}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {getTimeRangeString(sunDict.dawn.date, sunDict.sunrise.date)}
-      </td>
-      <td
-        style={{
-          backgroundColor: COLORS.CIVIL,
-          color: TXT_COLORS.CIVIL,
-        }}
-      >
-        Twilight (Civil)
-      </td>
-      <td>
-        {getTimeRangeString(sunDict.sunset.date, sunDict.dusk.date)}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {getTimeRangeString(sunDict.nauticalDawn.date, sunDict.dawn.date)}
-      </td>
-      <td
-        style={{
-          backgroundColor: COLORS.NAUTICAL,
-          color: TXT_COLORS.NAUTICAL,
-        }}
-      >
-        Twilight (Nautical)
-      </td>
-      <td>
-        {getTimeRangeString(sunDict.dusk.date, sunDict.nauticalDusk.date)}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {getTimeRangeString(sunDict.nightEnd.date, sunDict.nauticalDawn.date)}
-      </td>
-      <td
-        style={{
-          backgroundColor: COLORS.ASTRONOMICAL,
-          color: TXT_COLORS.ASTRONOMICAL,
-        }}
-      >
-        Twilight (Astronomical)
-      </td>
-      <td>
-        {getTimeRangeString(sunDict.nauticalDusk.date, sunDict.night.date)}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {getTimeString(sunDict.nightEnd.date)}
-      </td>
-      <td
-        style={{
-          backgroundColor: COLORS.NIGHT,
-          color: TXT_COLORS.NIGHT,
-        }}
-      >
-        Night
-      </td>
-      <td>
-        {getTimeString(sunDict.night.date)}
-      </td>
-    </tr>
-  </table>
+export default connect(mapStateToProps)(Legend)

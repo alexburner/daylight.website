@@ -1,9 +1,40 @@
-export interface Point {
+interface ActionReduxInit {
+  type: '@@redux/INIT'
+}
+
+interface ActionSpace {
+  type: 'space'
+  space: Space
+}
+
+interface ActionTime {
+  type: 'time'
+  ms: number
+}
+
+export type Action = ActionReduxInit | ActionSpace | ActionTime
+
+export interface Coord {
   x: number
   y: number
 }
 
-export interface SunCalcs {
+export interface Space {
+  latitude: number
+  longitude: number
+}
+
+export interface State {
+  space: Space | null
+  now: Time | null
+  hours: Time[] | null
+  suns: Suns | null
+  ms: number
+}
+
+export type Suns = { [P in keyof SunsRaw]: Time }
+
+export interface SunsRaw {
   sunrise: Date
   sunriseEnd: Date
   goldenHourEnd: Date
@@ -20,17 +51,9 @@ export interface SunCalcs {
   dawn: Date
 }
 
-export type SunMoment = {
-  date: Date
-  time: number
+export type Time = {
+  ms: number
   angle: number
-  point: Point
-}
-
-export type SunDict = { [P in keyof SunCalcs]: SunMoment }
-
-export interface Moment {
-  angle: number
-  point: Point
+  coord: Coord
   text: string
 }

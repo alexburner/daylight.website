@@ -25,3 +25,31 @@ a:hover,
 a:active {
   opacity: 1;
 }
+
+table {
+    border-collapse: collapse;
+    font-size: 11px;
+    margin: 36px auto;
+    opacity: 0.92;
+    color: rgba(0,0,0,0.6);
+}
+
+td {
+    padding: 8px 18px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+td:first-child,
+td:last-child {
+    padding: 8px 12px;
+    width: 120px;
+}
+
+td:first-child {
+    text-align: right;
+}
+
+td:last-child {
+    text-align: left;
+}

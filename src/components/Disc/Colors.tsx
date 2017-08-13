@@ -1,7 +1,88 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
 
-import { Point, SunDict } from 'src/singletons/interfaces'
+import { Coord, State, Suns } from 'src/singletons/interfaces'
 import { WIDTH, HEIGHT, CX, CY, RADIUS, COLORS } from 'src/singletons/constants'
+
+interface Props {
+  suns: Suns | null
+}
+
+const Colors = ({ suns }: Props): JSX.Element => {
+  if (!suns) return <g />
+  return (
+    <g clipPath="url(#clip-disc)" style={{ opacity: 0.94 }}>
+      {[
+        getTopCap({
+          // daylight
+          left: suns.goldenHourEnd.coord,
+          right: suns.goldenHour.coord,
+          color: COLORS.DAYLIGHT,
+          radius: RADIUS,
+        }),
+        getSegment({
+          // golden hour
+          ul: suns.goldenHourEnd.coord,
+          ur: suns.goldenHour.coord,
+          ll: suns.sunriseEnd.coord,
+          lr: suns.sunsetStart.coord,
+          color: COLORS.GOLDEN,
+          radius: RADIUS,
+        }),
+        getSegment({
+          // sunrise/sunset
+          ul: suns.sunriseEnd.coord,
+          ur: suns.sunsetStart.coord,
+          ll: suns.sunrise.coord,
+          lr: suns.sunset.coord,
+          color: COLORS.HORIZON,
+          radius: RADIUS,
+        }),
+        getSegment({
+          // civil twilight
+          ul: suns.sunrise.coord,
+          ur: suns.sunset.coord,
+          ll: suns.dawn.coord,
+          lr: suns.dusk.coord,
+          color: COLORS.CIVIL,
+          radius: RADIUS,
+        }),
+        getSegment({
+          // nauticaul twilight
+          ul: suns.dawn.coord,
+          ur: suns.dusk.coord,
+          ll: suns.nauticalDawn.coord,
+          lr: suns.nauticalDusk.coord,
+          color: COLORS.NAUTICAL,
+          radius: RADIUS,
+        }),
+        getSegment({
+          // astronomical twilight
+          ul: suns.nauticalDawn.coord,
+          ur: suns.nauticalDusk.coord,
+          ll: suns.nightEnd.coord,
+          lr: suns.night.coord,
+          color: COLORS.ASTRONOMICAL,
+          radius: RADIUS,
+        }),
+        getBottomCap({
+          // night
+          left: suns.night.coord,
+          right: suns.nightEnd.coord,
+          color: COLORS.NIGHT,
+          radius: RADIUS,
+        }),
+      ]}
+    </g>
+  )
+}
+
+const mapStateToProps = ({ suns }: State): Props => ({ suns })
+
+export default connect(mapStateToProps)(Colors)
+
+const getPath = (color: string, d: string): JSX.Element =>
+  <path key={d} d={d} style={{ fill: color, stroke: color, strokeWidth: 2 }} />
 
 const getSegment = ({
   ul,
@@ -11,10 +92,10 @@ const getSegment = ({
   radius,
   color,
 }: {
-  ul: Point
-  ur: Point
-  ll: Point
-  lr: Point
+  ul: Coord
+  ur: Coord
+  ll: Coord
+  lr: Coord
   color: string
   radius: number
 }): JSX.Element =>
@@ -35,8 +116,8 @@ const getTopCap = ({
   radius,
   color,
 }: {
-  left: Point
-  right: Point
+  left: Coord
+  right: Coord
   color: string
   radius: number
 }): JSX.Element =>
@@ -55,8 +136,8 @@ const getBottomCap = ({
   radius,
   color,
 }: {
-  left: Point
-  right: Point
+  left: Coord
+  right: Coord
   color: string
   radius: number
 }): JSX.Element =>
@@ -68,75 +149,3 @@ const getBottomCap = ({
     Z
 `,
   )
-
-const getPath = (color: string, d: string): JSX.Element =>
-  <path d={d} style={{ fill: color, stroke: color, strokeWidth: 2 }} />
-
-interface Props {
-  sunDict: SunDict
-}
-
-export default ({ sunDict }: Props): JSX.Element =>
-  <g clipPath="url(#clip-disc)" style={{ opacity: 0.94 }}>
-    {[
-      getTopCap({
-        // daylight
-        left: sunDict.goldenHourEnd.point,
-        right: sunDict.goldenHour.point,
-        color: COLORS.DAYLIGHT,
-        radius: RADIUS,
-      }),
-      getSegment({
-        // golden hour
-        ul: sunDict.goldenHourEnd.point,
-        ur: sunDict.goldenHour.point,
-        ll: sunDict.sunriseEnd.point,
-        lr: sunDict.sunsetStart.point,
-        color: COLORS.GOLDEN,
-        radius: RADIUS,
-      }),
-      getSegment({
-        // sunrise/sunset
-        ul: sunDict.sunriseEnd.point,
-        ur: sunDict.sunsetStart.point,
-        ll: sunDict.sunrise.point,
-        lr: sunDict.sunset.point,
-        color: COLORS.HORIZON,
-        radius: RADIUS,
-      }),
-      getSegment({
-        // civil twilight
-        ul: sunDict.sunrise.point,
-        ur: sunDict.sunset.point,
-        ll: sunDict.dawn.point,
-        lr: sunDict.dusk.point,
-        color: COLORS.CIVIL,
-        radius: RADIUS,
-      }),
-      getSegment({
-        // nauticaul twilight
-        ul: sunDict.dawn.point,
-        ur: sunDict.dusk.point,
-        ll: sunDict.nauticalDawn.point,
-        lr: sunDict.nauticalDusk.point,
-        color: COLORS.NAUTICAL,
-        radius: RADIUS,
-      }),
-      getSegment({
-        // astronomical twilight
-        ul: sunDict.nauticalDawn.point,
-        ur: sunDict.nauticalDusk.point,
-        ll: sunDict.nightEnd.point,
-        lr: sunDict.night.point,
-        color: COLORS.ASTRONOMICAL,
-        radius: RADIUS,
-      }),
-      getBottomCap({
-        // night
-        left: sunDict.night.point,
-        right: sunDict.nightEnd.point,
-        color: COLORS.NIGHT,
-        radius: RADIUS,
-      }),
-    ]}
-  </g>

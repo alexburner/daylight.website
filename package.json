@@ -9,7 +9,7 @@
   "scripts": {
     "build": "rm -rf docs/* && webpack -p",
     "watch": "webpack-dev-server --profile --progress --colors",
-    "prettier": "prettier --no-semi --single-quote --tab-width 2 --trailing-comma all --write 'src/**/*.+(ts|tsx|html|css|js|json)'"
+    "prettier": "prettier --no-semi --single-quote --trailing-comma all --write 'src/**/*.+(ts|tsx|html|css|js|json)'"
   },
   "repository": {
     "type": "git",
@@ -18,13 +18,16 @@
   "author": "aburner",
   "license": "MIT",
   "dependencies": {
+    "@types/moment": "2.13.0",
     "@types/react": "15.0.24",
     "@types/react-dom": "15.5.0",
+    "@types/react-redux": "5.0.1",
     "@types/redux": "3.6.0",
     "lodash": "4.17.4",
     "moment": "2.18.1",
     "react": "15.5.4",
     "react-dom": "15.5.4",
+    "react-redux": "5.0.6",
     "redux": "3.7.2",
     "suncalc": "1.8.0"
   },

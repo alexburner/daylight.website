@@ -1,35 +1,19 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
 
-import { Moment, Point, SunDict } from 'src/singletons/interfaces'
+import { Coord, State, Suns, Time } from 'src/singletons/interfaces'
 import { WIDTH, HEIGHT, CX, CY, RADIUS } from 'src/singletons/constants'
 import Colors from 'src/components/Disc/Colors'
-import Time from 'src/components/Disc/Time/Time'
+import Hours from 'src/components/Disc/Hours'
+import Now from 'src/components/Disc/Now'
 
 interface Props {
-  sunDict: SunDict
-  hours: Moment[]
+  suns: Suns | null
+  hours: Time[] | null
 }
 
-const getCapPath = ({
-  from,
-  to,
-  radius,
-  sweep,
-}: {
-  from: Point
-  to: Point
-  radius: number
-  sweep: string
-}): JSX.Element =>
-  <path
-    d={`
-        M ${from.x} ${from.y}
-        A ${radius} ${radius} 0 ${sweep} ${to.x} ${to.y}
-        Z
-    `}
-  />
-
-export default ({ sunDict, hours }: Props) => {
+const Disc = ({ suns, hours }: Props): JSX.Element => {
+  if (!suns || !hours) return <div />
   const transform =
     window.location.hash === '#alt'
       ? `rotate(${90 - hours[12].angle + 180} ${CX} ${CY})`
@@ -50,8 +34,8 @@ export default ({ sunDict, hours }: Props) => {
         </clipPath>
         <clipPath id="clip-cap-day">
           {getCapPath({
-            from: sunDict.sunriseEnd.point,
-            to: sunDict.sunsetStart.point,
+            from: suns.sunriseEnd.coord,
+            to: suns.sunsetStart.coord,
             radius: RADIUS,
             sweep: '1 1',
           })}
@@ -59,17 +43,41 @@ export default ({ sunDict, hours }: Props) => {
 
         <clipPath id="clip-cap-night">
           {getCapPath({
-            from: sunDict.sunrise.point,
-            to: sunDict.sunset.point,
+            from: suns.sunrise.coord,
+            to: suns.sunset.coord,
             radius: RADIUS,
             sweep: '0 0',
           })}
         </clipPath>
       </defs>
       <g transform={transform}>
-        <Colors sunDict={sunDict} />
-        <Time sunDict={sunDict} hours={hours} />
+        <Colors />
+        <Hours />
+        <Now />
       </g>
     </svg>
   )
 }
+
+const mapStateToProps = ({ suns, hours }: State): Props => ({ suns, hours })
+
+export default connect(mapStateToProps)(Disc)
+
+const getCapPath = ({
+  from,
+  to,
+  radius,
+  sweep,
+}: {
+  from: Coord
+  to: Coord
+  radius: number
+  sweep: string
+}): JSX.Element =>
+  <path
+    d={`
+        M ${from.x} ${from.y}
+        A ${radius} ${radius} 0 ${sweep} ${to.x} ${to.y}
+        Z
+    `}
+  />

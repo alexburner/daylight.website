@@ -36,8 +36,8 @@ module.exports = {
 	plugins: [
 		new CopyWebpackPlugin([
 			{ from: 'src/static/', to: '' },
-			{ from: 'node_modules/react/dist/react.min.js', to: '' },
-			{ from: 'node_modules/react-dom/dist/react-dom.min.js', to: '' },
+			{ from: 'node_modules/react/dist/react.js', to: '' },
+			{ from: 'node_modules/react-dom/dist/react-dom.js', to: '' },
 		]),
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
@@ -49,7 +49,7 @@ module.exports = {
 			// hash: true, // cache busting // doesn't work with gh-pages ???
 		}),
 		new HtmlWebpackIncludeAssetsPlugin({
-			assets: ['react.min.js', 'react-dom.min.js'],
+			assets: ['react.js', 'react-dom.js'],
 			append: false, // prepend
 		}),
 	],
