@@ -9,7 +9,7 @@
   "scripts": {
     "build": "rm -rf docs/* && webpack -p",
     "watch": "webpack-dev-server --profile --progress --colors",
-    "prettier": "prettier --no-semi --single-quote --tab-width 2 --trailing-comma all --write 'src/*'"
+    "prettier": "prettier --no-semi --single-quote --tab-width 2 --trailing-comma all --write 'src/**/*.+(ts|tsx|html|css|js|json)'"
   },
   "repository": {
     "type": "git",
