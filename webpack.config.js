@@ -41,7 +41,7 @@ module.exports = {
 		]),
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
-			template: 'src/index.html',
+			template: 'src/static/index.html',
 		}),
 		new HtmlWebpackIncludeAssetsPlugin({
 			assets: ['style.css'],
