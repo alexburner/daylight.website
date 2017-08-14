@@ -56,9 +56,6 @@ const Countdown = ({ now, suns }: Props): JSX.Element => {
   )
 }
 
-const mapStateToProps = ({ now, suns }: State): Props => ({
-  now,
-  suns,
-})
+const mapStateToProps = ({ now, suns }: State): Props => ({ now, suns })
 
 export default connect(mapStateToProps)(Countdown)
