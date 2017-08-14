@@ -32,14 +32,12 @@ const Countdown = ({ now, suns }: Props): JSX.Element => {
     const duration = moment.duration(suns.sunsetStart.ms - now.ms)
     const hours = duration.hours()
     const minutes = duration.minutes()
-    const seconds = duration.seconds()
-    text = `${hours}h ${minutes}m ${seconds}s until sunset`
+    text = `${hours}h ${minutes}m until sunset`
   } else if (isNight(now, suns)) {
     const duration = moment.duration(suns.sunrise.ms - now.ms)
     const hours = duration.hours()
     const minutes = duration.minutes()
-    const seconds = duration.seconds()
-    text = `${hours}h ${minutes}m ${seconds}s until sunrise`
+    text = `${hours}h ${minutes}m until sunrise`
   } else {
     text = 'wait, what'
   }
