@@ -1,7 +1,7 @@
 {
   "name": "daylight",
   "version": "0.1.0",
-  "description": "Natural clock, aligning human time & our sun",
+  "description": "Natural clock for visualizing daylight hours",
   "engine": {
     "node": "8.2.1",
     "npm": "5.3.0"
