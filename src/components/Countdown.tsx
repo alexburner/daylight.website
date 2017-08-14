@@ -48,7 +48,7 @@ const Countdown = ({ now, suns }: Props): JSX.Element => {
       style={{
         background: '#FFF',
         color: '#555',
-        fontSize: '24px',
+        fontSize: '21px',
         fontWeight: 'bold',
         height: 'auto',
         padding: '8px',
