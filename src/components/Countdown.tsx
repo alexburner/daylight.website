@@ -26,7 +26,7 @@ const Countdown = ({ now, suns }: Props): JSX.Element => {
   const isSunset = checkSunset(now, suns)
   const isDay = checkDay(now, suns)
   if (isSunrise || isSunset) {
-    text = 'the sun is ' + isSunrise ? 'rising' : 'setting'
+    text = 'the sun is ' + (isSunrise ? 'rising' : 'setting')
   } else {
     const duration = isDay
       ? moment.duration(suns.sunsetStart.ms - now.ms)
