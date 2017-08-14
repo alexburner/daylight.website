@@ -2,10 +2,8 @@ import * as _ from 'lodash'
 import * as moment from 'moment'
 import * as suncalc from 'suncalc'
 
-import { CX, CY, RADIUS } from 'src/singletons/constants'
+import { CX, CY, RADIUS, MS_DEG, MS_HOUR } from 'src/singletons/constants'
 import { Coord, Space, Suns, SunsRaw, Time } from 'src/singletons/interfaces'
-
-const MS_PER_DEG = 24 * 60 * 60 * 1000 / 360
 
 export const getSuns = (ms: number, space: Space): Suns => {
   const sunsRaw: SunsRaw = suncalc.getTimes(
@@ -48,7 +46,7 @@ export const getHours = (ms: number, solarNoon: Time): Time[] => {
     0, // seconds
   ).getTime()
   return _.times(24, (hour: number) => {
-    const ms = startMs + hour * 60 * 60 * 1000
+    const ms = startMs + hour * MS_HOUR
     const angle = getTimeAngle(ms, solarNoon.ms)
     const coord = getCircleCoord(angle)
     const text = moment({ hour }).format('ha')
@@ -59,7 +57,7 @@ export const getHours = (ms: number, solarNoon: Time): Time[] => {
 
 const getTimeAngle = (time: number, zeroTime: number): number => {
   const diff = time - zeroTime
-  const angle = diff / MS_PER_DEG
+  const angle = diff / MS_DEG
   return angle - 90
 }
 

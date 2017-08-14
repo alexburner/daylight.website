@@ -26,9 +26,10 @@ export interface Space {
 
 export interface State {
   space: Space | null
+  suns: Suns | null
+  nextSuns: Suns | null
   now: Time | null
   hours: Time[] | null
-  suns: Suns | null
   ms: number
 }
 

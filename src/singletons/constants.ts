@@ -6,6 +6,9 @@ export const RADIUS = 180
 export const CX = WIDTH / 2
 export const CY = HEIGHT / 2
 
+export const MS_HOUR = 60 * 60 * 1000
+export const MS_DEG = 24 * MS_HOUR / 360
+
 export const COLORS = {
   DAYLIGHT: '#fff6ab',
   GOLDEN: '#ffe881',
