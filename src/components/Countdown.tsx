@@ -11,13 +11,13 @@ interface Props {
 }
 
 const checkSunrise = (now: Time, suns: Suns) =>
-  now.ms > suns.sunrise.ms && now.ms < suns.sunriseEnd.ms
+  now.ms > suns.sunrise.ms && now.ms <= suns.sunriseEnd.ms
 
 const checkSunset = (now: Time, suns: Suns) =>
-  now.ms > suns.sunsetStart.ms && now.ms < suns.sunset.ms
+  now.ms > suns.sunsetStart.ms && now.ms <= suns.sunset.ms
 
 const checkDay = (now: Time, suns: Suns) =>
-  now.ms > suns.sunriseEnd.ms && now.ms < suns.sunsetStart.ms
+  now.ms > suns.sunriseEnd.ms && now.ms <= suns.sunsetStart.ms
 
 const Countdown = ({ now, suns }: Props): JSX.Element => {
   if (!suns || !now) return <div />
@@ -26,7 +26,7 @@ const Countdown = ({ now, suns }: Props): JSX.Element => {
   const isSunset = checkSunset(now, suns)
   const isDay = checkDay(now, suns)
   if (isSunrise || isSunset) {
-    text = 'the sun is ' + (isSunrise ? 'rising' : 'setting')
+    text += 'the sun is ' + (isSunrise ? 'rising' : 'setting')
   } else {
     const duration = isDay
       ? moment.duration(suns.sunsetStart.ms - now.ms)
