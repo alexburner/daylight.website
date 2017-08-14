@@ -2,45 +2,42 @@ import * as moment from 'moment'
 import * as React from 'react'
 import { connect } from 'react-redux'
 
+import { MS_HOUR } from 'src/singletons/constants'
 import { Suns, State, Time } from 'src/singletons/interfaces'
 
 interface Props {
   now: Time | null
   suns: Suns | null
-  nextSuns: Suns | null
 }
 
-const isSunrise = (now: Time, suns: Suns) =>
+const checkSunrise = (now: Time, suns: Suns) =>
   now.ms > suns.sunrise.ms && now.ms < suns.sunriseEnd.ms
 
-const isSunset = (now: Time, suns: Suns) =>
+const checkSunset = (now: Time, suns: Suns) =>
   now.ms > suns.sunsetStart.ms && now.ms < suns.sunset.ms
 
-const isDay = (now: Time, suns: Suns) =>
+const checkDay = (now: Time, suns: Suns) =>
   now.ms > suns.sunriseEnd.ms && now.ms < suns.sunsetStart.ms
 
-const isNight = (now: Time, suns: Suns, nextSuns: Suns) =>
-  now.ms > suns.sunset.ms && now.ms < nextSuns.sunrise.ms
-
-const Countdown = ({ now, suns, nextSuns }: Props): JSX.Element => {
-  if (!suns || !nextSuns || !now) return <div />
+const Countdown = ({ now, suns }: Props): JSX.Element => {
+  if (!suns || !now) return <div />
   let text = ''
-  if (isSunrise(now, suns)) {
-    text = 'the sun is rising'
-  } else if (isSunset(now, suns)) {
-    text = 'the sun is setting'
-  } else if (isDay(now, suns)) {
-    const duration = moment.duration(suns.sunsetStart.ms - now.ms)
-    const hours = duration.hours()
-    const minutes = duration.minutes()
-    text = `${hours}h ${minutes}m until sunset`
-  } else if (isNight(now, suns, nextSuns)) {
-    const duration = moment.duration(nextSuns.sunrise.ms - now.ms)
-    const hours = duration.hours()
-    const minutes = duration.minutes()
-    text = `${hours}h ${minutes}m until sunrise`
+  const isSunrise = checkSunrise(now, suns)
+  const isSunset = checkSunset(now, suns)
+  const isDay = checkDay(now, suns)
+  if (isSunrise || isSunset) {
+    text = 'the sun is ' + isSunrise ? 'rising' : 'setting'
   } else {
-    text = 'wait, what'
+    const duration = isDay
+      ? moment.duration(suns.sunsetStart.ms - now.ms)
+      : moment.duration(suns.sunrise.ms + 24 * MS_HOUR - now.ms) // near enough
+    const hours = duration.hours()
+    const minutes = duration.minutes()
+    const seconds = hours === 0 && minutes === 0 && duration.seconds()
+    if (hours) text += hours + 'h '
+    if (minutes) text += minutes + 'm '
+    if (seconds) text += seconds + 's '
+    text += 'until ' + (isDay ? 'sunset' : 'sunrise')
   }
   return (
     <div
@@ -59,10 +56,9 @@ const Countdown = ({ now, suns, nextSuns }: Props): JSX.Element => {
   )
 }
 
-const mapStateToProps = ({ now, suns, nextSuns }: State): Props => ({
+const mapStateToProps = ({ now, suns }: State): Props => ({
   now,
   suns,
-  nextSuns,
 })
 
 export default connect(mapStateToProps)(Countdown)
