@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { COLORS, CX, CY, RADIUS } from 'src/singletons/constants'
+import { COLOR_FUDGE, COLORS, CX, CY, RADIUS } from 'src/singletons/constants'
 import { Coord, State, Suns } from 'src/singletons/interfaces'
 
 interface Props {
@@ -89,7 +89,11 @@ const mapStateToProps = ({ suns }: State): Props => ({ suns })
 export default connect(mapStateToProps)(Colors)
 
 const getPath = (color: string, d: string): JSX.Element =>
-  <path key={d} d={d} style={{ fill: color, stroke: color, strokeWidth: 2 }} />
+  <path
+    key={d}
+    d={d}
+    style={{ fill: color, stroke: color, strokeWidth: COLOR_FUDGE }}
+  />
 
 const getSegment = ({
   ul,

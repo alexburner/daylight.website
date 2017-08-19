@@ -2,7 +2,7 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { RADIUS } from 'src/singletons/constants'
+import { COLOR_FUDGE, RADIUS } from 'src/singletons/constants'
 import { Coord, State, Suns, Time } from 'src/singletons/interfaces'
 
 interface Props {
@@ -10,30 +10,30 @@ interface Props {
   suns: Suns | null
 }
 
+const CAP_FUDGE = COLOR_FUDGE / 2
+
 const PADDING = 6
 const SEGMENT = 6
 
 const Hours = ({ hours, suns }: Props): JSX.Element => {
   if (!hours || !suns) return <g />
+  const from = {
+    x: suns.sunrise.coord.x,
+    y: suns.sunrise.coord.y - CAP_FUDGE,
+  }
+  const to = {
+    x: suns.sunset.coord.x,
+    y: suns.sunset.coord.y - CAP_FUDGE,
+  }
+  const radius = RADIUS
   return (
     <g style={{ opacity: 0.4 }}>
       <defs>
         <clipPath id="clip-cap-day">
-          {getCapPath({
-            from: suns.sunriseEnd.coord,
-            to: suns.sunsetStart.coord,
-            radius: RADIUS,
-            sweep: '1 1',
-          })}
+          {getCapPath({ from, to, radius, sweep: '1 1' })}
         </clipPath>
-
         <clipPath id="clip-cap-night">
-          {getCapPath({
-            from: suns.sunrise.coord,
-            to: suns.sunset.coord,
-            radius: RADIUS,
-            sweep: '0 0',
-          })}
+          {getCapPath({ from, to, radius, sweep: '0 0' })}
         </clipPath>
       </defs>
       {_.map(hours, ({ angle, coord, text }: Time) =>
