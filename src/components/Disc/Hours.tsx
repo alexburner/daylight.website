@@ -17,23 +17,36 @@ const SEGMENT = 6
 
 const Hours = ({ hours, suns }: Props): JSX.Element => {
   if (!hours || !suns) return <g />
-  const from = {
-    x: suns.sunrise.coord.x,
-    y: suns.sunrise.coord.y - CAP_FUDGE,
-  }
-  const to = {
-    x: suns.sunset.coord.x,
-    y: suns.sunset.coord.y - CAP_FUDGE,
-  }
-  const radius = RADIUS
   return (
     <g style={{ opacity: 0.4 }}>
       <defs>
         <clipPath id="clip-cap-day">
-          {getCapPath({ from, to, radius, sweep: '1 1' })}
+          {getCapPath({
+            from: {
+              x: suns.sunriseEnd.coord.x,
+              y: suns.sunriseEnd.coord.y - CAP_FUDGE,
+            },
+            to: {
+              x: suns.sunsetStart.coord.x,
+              y: suns.sunsetStart.coord.y - CAP_FUDGE,
+            },
+            radius: RADIUS,
+            sweep: '1 1',
+          })}
         </clipPath>
         <clipPath id="clip-cap-night">
-          {getCapPath({ from, to, radius, sweep: '0 0' })}
+          {getCapPath({
+            from: {
+              x: suns.sunrise.coord.x,
+              y: suns.sunrise.coord.y - CAP_FUDGE,
+            },
+            to: {
+              x: suns.sunset.coord.x,
+              y: suns.sunset.coord.y - CAP_FUDGE,
+            },
+            radius: RADIUS,
+            sweep: '0 0',
+          })}
         </clipPath>
       </defs>
       {_.map(hours, ({ angle, coord, text }: Time) =>
