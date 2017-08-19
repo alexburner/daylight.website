@@ -28,28 +28,6 @@ const Disc = ({ suns, hours }: Props): JSX.Element => {
         margin: 'auto',
       }}
     >
-      <defs>
-        <clipPath id="clip-disc">
-          <circle cx={CX} cy={CY} r={RADIUS} />
-        </clipPath>
-        <clipPath id="clip-cap-day">
-          {getCapPath({
-            from: suns.sunriseEnd.coord,
-            to: suns.sunsetStart.coord,
-            radius: RADIUS,
-            sweep: '1 1',
-          })}
-        </clipPath>
-
-        <clipPath id="clip-cap-night">
-          {getCapPath({
-            from: suns.sunrise.coord,
-            to: suns.sunset.coord,
-            radius: RADIUS,
-            sweep: '0 0',
-          })}
-        </clipPath>
-      </defs>
       <g transform={transform}>
         <Colors />
         <Hours />
@@ -62,22 +40,3 @@ const Disc = ({ suns, hours }: Props): JSX.Element => {
 const mapStateToProps = ({ suns, hours }: State): Props => ({ suns, hours })
 
 export default connect(mapStateToProps)(Disc)
-
-const getCapPath = ({
-  from,
-  to,
-  radius,
-  sweep,
-}: {
-  from: Coord
-  to: Coord
-  radius: number
-  sweep: string
-}): JSX.Element =>
-  <path
-    d={`
-        M ${from.x} ${from.y}
-        A ${radius} ${radius} 0 ${sweep} ${to.x} ${to.y}
-        Z
-    `}
-  />

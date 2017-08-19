@@ -2,19 +2,40 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { State, Time } from 'src/singletons/interfaces'
+import { Coord, State, Suns, Time } from 'src/singletons/interfaces'
+import { WIDTH, HEIGHT, CX, CY, RADIUS } from 'src/singletons/constants'
 
 interface Props {
   hours: Time[] | null
+  suns: Suns | null
 }
 
 const PADDING = 6
 const SEGMENT = 6
 
-const Hours = ({ hours }: Props): JSX.Element => {
-  if (!hours) return <g />
+const Hours = ({ hours, suns }: Props): JSX.Element => {
+  if (!hours || !suns) return <g />
   return (
     <g style={{ opacity: 0.4 }}>
+      <defs>
+        <clipPath id="clip-cap-day">
+          {getCapPath({
+            from: suns.sunriseEnd.coord,
+            to: suns.sunsetStart.coord,
+            radius: RADIUS,
+            sweep: '1 1',
+          })}
+        </clipPath>
+
+        <clipPath id="clip-cap-night">
+          {getCapPath({
+            from: suns.sunrise.coord,
+            to: suns.sunset.coord,
+            radius: RADIUS,
+            sweep: '0 0',
+          })}
+        </clipPath>
+      </defs>
       {_.map(hours, ({ angle, coord, text }: Time) =>
         <g key={text} transform={`rotate(${angle} ${coord.x} ${coord.y})`}>
           <text
@@ -70,6 +91,25 @@ const Hours = ({ hours }: Props): JSX.Element => {
   )
 }
 
-const mapStateToProps = ({ hours }: State): Props => ({ hours })
+const mapStateToProps = ({ hours, suns }: State): Props => ({ hours, suns })
 
 export default connect(mapStateToProps)(Hours)
+
+const getCapPath = ({
+  from,
+  to,
+  radius,
+  sweep,
+}: {
+  from: Coord
+  to: Coord
+  radius: number
+  sweep: string
+}): JSX.Element =>
+  <path
+    d={`
+        M ${from.x} ${from.y}
+        A ${radius} ${radius} 0 ${sweep} ${to.x} ${to.y}
+        Z
+    `}
+  />

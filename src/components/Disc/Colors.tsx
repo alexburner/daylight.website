@@ -11,68 +11,75 @@ interface Props {
 const Colors = ({ suns }: Props): JSX.Element => {
   if (!suns) return <g />
   return (
-    <g clipPath="url(#clip-disc)" style={{ opacity: 0.94 }}>
-      {[
-        getTopCap({
-          // daylight
-          left: suns.goldenHourEnd.coord,
-          right: suns.goldenHour.coord,
-          color: COLORS.DAYLIGHT,
-          radius: RADIUS,
-        }),
-        getSegment({
-          // golden hour
-          ul: suns.goldenHourEnd.coord,
-          ur: suns.goldenHour.coord,
-          ll: suns.sunriseEnd.coord,
-          lr: suns.sunsetStart.coord,
-          color: COLORS.GOLDEN,
-          radius: RADIUS,
-        }),
-        getSegment({
-          // sunrise/sunset
-          ul: suns.sunriseEnd.coord,
-          ur: suns.sunsetStart.coord,
-          ll: suns.sunrise.coord,
-          lr: suns.sunset.coord,
-          color: COLORS.HORIZON,
-          radius: RADIUS,
-        }),
-        getSegment({
-          // civil twilight
-          ul: suns.sunrise.coord,
-          ur: suns.sunset.coord,
-          ll: suns.dawn.coord,
-          lr: suns.dusk.coord,
-          color: COLORS.CIVIL,
-          radius: RADIUS,
-        }),
-        getSegment({
-          // nauticaul twilight
-          ul: suns.dawn.coord,
-          ur: suns.dusk.coord,
-          ll: suns.nauticalDawn.coord,
-          lr: suns.nauticalDusk.coord,
-          color: COLORS.NAUTICAL,
-          radius: RADIUS,
-        }),
-        getSegment({
-          // astronomical twilight
-          ul: suns.nauticalDawn.coord,
-          ur: suns.nauticalDusk.coord,
-          ll: suns.nightEnd.coord,
-          lr: suns.night.coord,
-          color: COLORS.ASTRONOMICAL,
-          radius: RADIUS,
-        }),
-        getBottomCap({
-          // night
-          left: suns.night.coord,
-          right: suns.nightEnd.coord,
-          color: COLORS.NIGHT,
-          radius: RADIUS,
-        }),
-      ]}
+    <g>
+      <defs>
+        <clipPath id="clip-disc">
+          <circle cx={CX} cy={CY} r={RADIUS} />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#clip-disc)" style={{ opacity: 0.94 }}>
+        {[
+          getTopCap({
+            // daylight
+            left: suns.goldenHourEnd.coord,
+            right: suns.goldenHour.coord,
+            color: COLORS.DAYLIGHT,
+            radius: RADIUS,
+          }),
+          getSegment({
+            // golden hour
+            ul: suns.goldenHourEnd.coord,
+            ur: suns.goldenHour.coord,
+            ll: suns.sunriseEnd.coord,
+            lr: suns.sunsetStart.coord,
+            color: COLORS.GOLDEN,
+            radius: RADIUS,
+          }),
+          getSegment({
+            // sunrise/sunset
+            ul: suns.sunriseEnd.coord,
+            ur: suns.sunsetStart.coord,
+            ll: suns.sunrise.coord,
+            lr: suns.sunset.coord,
+            color: COLORS.HORIZON,
+            radius: RADIUS,
+          }),
+          getSegment({
+            // civil twilight
+            ul: suns.sunrise.coord,
+            ur: suns.sunset.coord,
+            ll: suns.dawn.coord,
+            lr: suns.dusk.coord,
+            color: COLORS.CIVIL,
+            radius: RADIUS,
+          }),
+          getSegment({
+            // nauticaul twilight
+            ul: suns.dawn.coord,
+            ur: suns.dusk.coord,
+            ll: suns.nauticalDawn.coord,
+            lr: suns.nauticalDusk.coord,
+            color: COLORS.NAUTICAL,
+            radius: RADIUS,
+          }),
+          getSegment({
+            // astronomical twilight
+            ul: suns.nauticalDawn.coord,
+            ur: suns.nauticalDusk.coord,
+            ll: suns.nightEnd.coord,
+            lr: suns.night.coord,
+            color: COLORS.ASTRONOMICAL,
+            radius: RADIUS,
+          }),
+          getBottomCap({
+            // night
+            left: suns.night.coord,
+            right: suns.nightEnd.coord,
+            color: COLORS.NIGHT,
+            radius: RADIUS,
+          }),
+        ]}
+      </g>
     </g>
   )
 }
