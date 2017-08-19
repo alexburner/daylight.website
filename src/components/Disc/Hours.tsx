@@ -2,7 +2,7 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { CX, CY, HEIGHT, RADIUS, WIDTH } from 'src/singletons/constants'
+import { RADIUS } from 'src/singletons/constants'
 import { Coord, State, Suns, Time } from 'src/singletons/interfaces'
 
 interface Props {

@@ -10,7 +10,7 @@
     "build": "rm -rf docs/* && webpack -p",
     "watch": "webpack-dev-server --profile --progress --colors",
     "prettier": "prettier --no-semi --single-quote --trailing-comma all --write 'src/**/*.+(ts|tsx|js|json)'",
-    "tslint": "tslint --fix 'src/**/*.+(ts|tsx|js|json)'",
+    "tslint": "tslint --fix -p tsconfig.json --exclude 'node_modules/*'",
     "style": "npm run prettier && npm run tslint"
   },
   "repository": {

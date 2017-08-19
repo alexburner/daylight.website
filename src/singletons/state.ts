@@ -1,4 +1,3 @@
-import { MS_HOUR } from 'src/singletons/constants'
 import { Space, State } from 'src/singletons/interfaces'
 import { getHours, getNow, getSuns } from 'src/singletons/times'
 

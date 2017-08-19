@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import Colors from 'src/components/Disc/Colors'
 import Hours from 'src/components/Disc/Hours'
 import Now from 'src/components/Disc/Now'
-import { CX, CY, HEIGHT, RADIUS, WIDTH } from 'src/singletons/constants'
-import { Coord, State, Suns, Time } from 'src/singletons/interfaces'
+import { CX, CY, HEIGHT, WIDTH } from 'src/singletons/constants'
+import { State, Suns, Time } from 'src/singletons/interfaces'
 
 interface Props {
   suns: Suns | null
