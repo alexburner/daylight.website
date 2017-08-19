@@ -25,11 +25,35 @@ module.exports = {
 
 	module: {
 		rules: [
-			// All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-			{ test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
-
-			// All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-			{ enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+			{
+                test: /\.tsx?$/,
+                enforce: 'pre',
+                loader: 'tslint-loader',
+                options: {
+                	fix: true, // code will be rewritten where possible
+                	typeCheck: true, // needed for no-unused-variable
+                }
+            },
+			{
+                test: /\.(ts|tsx|js|json|css)$/,
+                enforce: 'pre',
+                loader: 'prettier-webpack-loader',
+                options: {
+                	parser: 'typescript',
+                	semi: false,
+                	singleQuote: true,
+                	trailingComma: 'all',
+                }
+            },
+			{
+				test: /\.tsx?$/,
+				loader: 'awesome-typescript-loader'
+			},
+			{
+				enforce: 'pre',
+				test: /\.js$/,
+				loader: 'source-map-loader'
+			},
 		],
 	},
 
