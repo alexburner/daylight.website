@@ -51,7 +51,7 @@ export interface SunsRaw {
   dawn: Date
 }
 
-export type Time = {
+export interface Time {
   ms: number
   angle: number
   coord: Coord

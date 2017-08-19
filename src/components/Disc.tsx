@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { Coord, State, Suns, Time } from 'src/singletons/interfaces'
-import { WIDTH, HEIGHT, CX, CY, RADIUS } from 'src/singletons/constants'
 import Colors from 'src/components/Disc/Colors'
 import Hours from 'src/components/Disc/Hours'
 import Now from 'src/components/Disc/Now'
+import { CX, CY, HEIGHT, RADIUS, WIDTH } from 'src/singletons/constants'
+import { Coord, State, Suns, Time } from 'src/singletons/interfaces'
 
 interface Props {
   suns: Suns | null

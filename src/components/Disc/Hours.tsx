@@ -2,8 +2,8 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 
+import { CX, CY, HEIGHT, RADIUS, WIDTH } from 'src/singletons/constants'
 import { Coord, State, Suns, Time } from 'src/singletons/interfaces'
-import { WIDTH, HEIGHT, CX, CY, RADIUS } from 'src/singletons/constants'
 
 interface Props {
   hours: Time[] | null

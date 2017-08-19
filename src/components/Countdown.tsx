@@ -3,7 +3,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 import { MS_HOUR } from 'src/singletons/constants'
-import { Suns, State, Time } from 'src/singletons/interfaces'
+import { State, Suns, Time } from 'src/singletons/interfaces'
 
 interface Props {
   now: Time | null

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 import { COLORS, TXT_COLORS } from 'src/singletons/constants'
-import { Suns, State } from 'src/singletons/interfaces'
+import { State, Suns } from 'src/singletons/interfaces'
 
 interface Props {
   suns: Suns | null

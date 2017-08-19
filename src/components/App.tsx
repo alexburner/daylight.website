@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { Space, State } from 'src/singletons/interfaces'
-import { WIDTH } from 'src/singletons/constants'
 import Countdown from 'src/components/Countdown'
 import Disc from 'src/components/Disc'
 import Legend from 'src/components/Legend'
 import Links from 'src/components/Links'
 import Waiting from 'src/components/Waiting'
+import { WIDTH } from 'src/singletons/constants'
+import { Space, State } from 'src/singletons/interfaces'
 
 interface Props {
   space: Space | null

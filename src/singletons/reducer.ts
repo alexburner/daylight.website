@@ -2,7 +2,7 @@ import * as _ from 'lodash'
 import * as moment from 'moment'
 
 import { Action, State } from 'src/singletons/interfaces'
-import { getNow, getSuns, getHours } from 'src/singletons/times'
+import { getHours, getNow, getSuns } from 'src/singletons/times'
 
 export default (state: State, action: Action): State => {
   switch (action.type) {
@@ -44,6 +44,6 @@ const updateTimes = (state: State): State => {
   if (!state.space) return state // XXX: ts bug, unreachable condition
   const suns = getSuns(state.ms, state.space)
   const now = getNow(state.ms, suns.solarNoon)
-  const hours = getHours(state.ms, suns.solarNoon)
+  const hours = getHours(suns.solarNoon)
   return { ...state, suns, now, hours }
 }

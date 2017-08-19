@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-eslint-rules",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "curly": false,
+    "interface-name": false,
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "object-literal-sort-keys": false
+  }
+}

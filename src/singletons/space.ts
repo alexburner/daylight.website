@@ -21,9 +21,9 @@ export const getSpace = (): Promise<Space> => {
 }
 
 export const getSavedSpace = (): Space | null => {
-  const string = window.localStorage.getItem(LS_KEY)
-  if (!(string && string.length)) return null
-  const parts = string.split(',')
+  const saved = window.localStorage.getItem(LS_KEY)
+  if (!(saved && saved.length)) return null
+  const parts = saved.split(',')
   const latitude = Number(parts[0])
   const longitude = Number(parts[1])
   return { latitude, longitude }

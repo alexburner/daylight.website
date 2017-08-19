@@ -1,13 +1,13 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 
-import { getInitState } from 'src/singletons/state'
-import { getSavedSpace, getSpace } from 'src/singletons/space'
-import { Space } from 'src/singletons/interfaces'
 import App from 'src/components/App'
+import { Space } from 'src/singletons/interfaces'
 import reducer from 'src/singletons/reducer'
+import { getSavedSpace, getSpace } from 'src/singletons/space'
+import { getInitState } from 'src/singletons/state'
 
 {
   // TODO TEMP
@@ -34,7 +34,7 @@ ReactDOM.render(
 
 if (!space) {
   // request user device geolocation if not already set
-  getSpace().then((space: Space) => store.dispatch({ type: 'space', space }))
+  getSpace().then((s: Space) => store.dispatch({ type: 'space', space: s }))
 }
 
 // update time every second

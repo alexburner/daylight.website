@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
+import { COLORS, CX, CY, HEIGHT, RADIUS, WIDTH } from 'src/singletons/constants'
 import { Coord, State, Suns } from 'src/singletons/interfaces'
-import { WIDTH, HEIGHT, CX, CY, RADIUS, COLORS } from 'src/singletons/constants'
 
 interface Props {
   suns: Suns | null
