@@ -20,8 +20,8 @@ Clean out `docs` + run webpack build with production optimizations
 npm run build
 ```
 
-## prettier
-Apply `prettier` style formatting to `src` files
+## style
+Apply `prettier` and `tslint --fix` formatting to `src` files
 ```
-npm run prettier
+npm run style
 ```
