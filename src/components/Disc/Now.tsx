@@ -14,22 +14,22 @@ const LENGTH = 48
 
 const Now = ({ now }: Props): JSX.Element => {
   if (!now) return <g />
-  const { angle, coord, text } = now
+  const { angle, point, text } = now
   return (
-    <g transform={`rotate(${angle} ${coord.x} ${coord.y})`}>
+    <g transform={`rotate(${angle} ${point.x} ${point.y})`}>
       <polygon
         style={{ fill: '#444' }}
         points={`
-            ${coord.x + PADDING} ${coord.y},
-            ${coord.x + PADDING + SEGMENT} ${coord.y + HALFHEIGHT},
-            ${coord.x + PADDING + SEGMENT + LENGTH} ${coord.y + HALFHEIGHT},
-            ${coord.x + PADDING + SEGMENT + LENGTH} ${coord.y - HALFHEIGHT},
-            ${coord.x + PADDING + SEGMENT} ${coord.y - HALFHEIGHT}
+            ${point.x + PADDING} ${point.y},
+            ${point.x + PADDING + SEGMENT} ${point.y + HALFHEIGHT},
+            ${point.x + PADDING + SEGMENT + LENGTH} ${point.y + HALFHEIGHT},
+            ${point.x + PADDING + SEGMENT + LENGTH} ${point.y - HALFHEIGHT},
+            ${point.x + PADDING + SEGMENT} ${point.y - HALFHEIGHT}
           `}
       />
       <text
-        x={coord.x + PADDING + SEGMENT + 14}
-        y={coord.y}
+        x={point.x + PADDING + SEGMENT + 14}
+        y={point.y}
         baselineShift="-28%"
         style={{
           fill: '#FFF',

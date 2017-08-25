@@ -14,7 +14,7 @@ interface ActionTime {
 
 export type Action = ActionReduxInit | ActionSpace | ActionTime
 
-export interface Coord {
+export interface Point {
   x: number
   y: number
 }
@@ -54,6 +54,6 @@ export interface SunsRaw {
 export interface Time {
   ms: number
   angle: number
-  coord: Coord
+  point: Point
   text: string
 }

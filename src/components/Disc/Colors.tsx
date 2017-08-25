@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 import { COLOR_FUDGE, COLORS, CX, CY, RADIUS } from 'src/singletons/constants'
-import { Coord, State, Suns } from 'src/singletons/interfaces'
+import { Point, State, Suns } from 'src/singletons/interfaces'
 
 interface Props {
   suns: Suns | null
@@ -21,60 +21,60 @@ const Colors = ({ suns }: Props): JSX.Element => {
         {[
           getTopCap({
             // daylight
-            left: suns.goldenHourEnd.coord,
-            right: suns.goldenHour.coord,
+            left: suns.goldenHourEnd.point,
+            right: suns.goldenHour.point,
             color: COLORS.DAYLIGHT,
             radius: RADIUS,
           }),
           getSegment({
             // golden hour
-            ul: suns.goldenHourEnd.coord,
-            ur: suns.goldenHour.coord,
-            ll: suns.sunriseEnd.coord,
-            lr: suns.sunsetStart.coord,
+            ul: suns.goldenHourEnd.point,
+            ur: suns.goldenHour.point,
+            ll: suns.sunriseEnd.point,
+            lr: suns.sunsetStart.point,
             color: COLORS.GOLDEN,
             radius: RADIUS,
           }),
           getSegment({
             // sunrise/sunset
-            ul: suns.sunriseEnd.coord,
-            ur: suns.sunsetStart.coord,
-            ll: suns.sunrise.coord,
-            lr: suns.sunset.coord,
+            ul: suns.sunriseEnd.point,
+            ur: suns.sunsetStart.point,
+            ll: suns.sunrise.point,
+            lr: suns.sunset.point,
             color: COLORS.HORIZON,
             radius: RADIUS,
           }),
           getSegment({
             // civil twilight
-            ul: suns.sunrise.coord,
-            ur: suns.sunset.coord,
-            ll: suns.dawn.coord,
-            lr: suns.dusk.coord,
+            ul: suns.sunrise.point,
+            ur: suns.sunset.point,
+            ll: suns.dawn.point,
+            lr: suns.dusk.point,
             color: COLORS.CIVIL,
             radius: RADIUS,
           }),
           getSegment({
             // nauticaul twilight
-            ul: suns.dawn.coord,
-            ur: suns.dusk.coord,
-            ll: suns.nauticalDawn.coord,
-            lr: suns.nauticalDusk.coord,
+            ul: suns.dawn.point,
+            ur: suns.dusk.point,
+            ll: suns.nauticalDawn.point,
+            lr: suns.nauticalDusk.point,
             color: COLORS.NAUTICAL,
             radius: RADIUS,
           }),
           getSegment({
             // astronomical twilight
-            ul: suns.nauticalDawn.coord,
-            ur: suns.nauticalDusk.coord,
-            ll: suns.nightEnd.coord,
-            lr: suns.night.coord,
+            ul: suns.nauticalDawn.point,
+            ur: suns.nauticalDusk.point,
+            ll: suns.nightEnd.point,
+            lr: suns.night.point,
             color: COLORS.ASTRONOMICAL,
             radius: RADIUS,
           }),
           getBottomCap({
             // night
-            left: suns.night.coord,
-            right: suns.nightEnd.coord,
+            left: suns.night.point,
+            right: suns.nightEnd.point,
             color: COLORS.NIGHT,
             radius: RADIUS,
           }),
@@ -103,10 +103,10 @@ const getSegment = ({
   radius,
   color,
 }: {
-  ul: Coord
-  ur: Coord
-  ll: Coord
-  lr: Coord
+  ul: Point
+  ur: Point
+  ll: Point
+  lr: Point
   color: string
   radius: number
 }): JSX.Element =>
@@ -127,8 +127,8 @@ const getTopCap = ({
   radius,
   color,
 }: {
-  left: Coord
-  right: Coord
+  left: Point
+  right: Point
   color: string
   radius: number
 }): JSX.Element =>
@@ -147,8 +147,8 @@ const getBottomCap = ({
   radius,
   color,
 }: {
-  left: Coord
-  right: Coord
+  left: Point
+  right: Point
   color: string
   radius: number
 }): JSX.Element =>

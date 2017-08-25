@@ -3,7 +3,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 import { COLOR_FUDGE, RADIUS } from 'src/singletons/constants'
-import { Coord, State, Suns, Time } from 'src/singletons/interfaces'
+import { Point, State, Suns, Time } from 'src/singletons/interfaces'
 
 interface Props {
   hours: Time[] | null
@@ -23,12 +23,12 @@ const Hours = ({ hours, suns }: Props): JSX.Element => {
         <clipPath id="clip-cap-day">
           {getCapPath({
             from: {
-              x: suns.sunriseEnd.coord.x,
-              y: suns.sunriseEnd.coord.y - CAP_FUDGE,
+              x: suns.sunriseEnd.point.x,
+              y: suns.sunriseEnd.point.y - CAP_FUDGE,
             },
             to: {
-              x: suns.sunsetStart.coord.x,
-              y: suns.sunsetStart.coord.y - CAP_FUDGE,
+              x: suns.sunsetStart.point.x,
+              y: suns.sunsetStart.point.y - CAP_FUDGE,
             },
             radius: RADIUS,
             sweep: '1 1',
@@ -37,23 +37,23 @@ const Hours = ({ hours, suns }: Props): JSX.Element => {
         <clipPath id="clip-cap-night">
           {getCapPath({
             from: {
-              x: suns.sunrise.coord.x,
-              y: suns.sunrise.coord.y - CAP_FUDGE,
+              x: suns.sunrise.point.x,
+              y: suns.sunrise.point.y - CAP_FUDGE,
             },
             to: {
-              x: suns.sunset.coord.x,
-              y: suns.sunset.coord.y - CAP_FUDGE,
+              x: suns.sunset.point.x,
+              y: suns.sunset.point.y - CAP_FUDGE,
             },
             radius: RADIUS,
             sweep: '0 0',
           })}
         </clipPath>
       </defs>
-      {_.map(hours, ({ angle, coord, text }: Time) =>
-        <g key={text} transform={`rotate(${angle} ${coord.x} ${coord.y})`}>
+      {_.map(hours, ({ angle, point, text }: Time) =>
+        <g key={text} transform={`rotate(${angle} ${point.x} ${point.y})`}>
           <text
-            x={coord.x + PADDING + 1 + SEGMENT + PADDING - 1}
-            y={coord.y}
+            x={point.x + PADDING + 1 + SEGMENT + PADDING - 1}
+            y={point.y}
             dominantBaseline="middle"
             style={{
               fill: '#000',
@@ -63,10 +63,10 @@ const Hours = ({ hours, suns }: Props): JSX.Element => {
             {text}
           </text>
           <line
-            x1={coord.x + PADDING + 1}
-            y1={coord.y}
-            x2={coord.x + PADDING + 1 + SEGMENT}
-            y2={coord.y}
+            x1={point.x + PADDING + 1}
+            y1={point.y}
+            x2={point.x + PADDING + 1 + SEGMENT}
+            y2={point.y}
             style={{
               stroke: '#000',
               strokeWidth: 1,
@@ -76,10 +76,10 @@ const Hours = ({ hours, suns }: Props): JSX.Element => {
       )}
       <line
         clipPath="url(#clip-cap-day)"
-        x1={hours[0].coord.x}
-        y1={hours[0].coord.y}
-        x2={hours[12].coord.x}
-        y2={hours[12].coord.y}
+        x1={hours[0].point.x}
+        y1={hours[0].point.y}
+        x2={hours[12].point.x}
+        y2={hours[12].point.y}
         strokeDasharray="4, 4"
         style={{
           opacity: 0.5,
@@ -89,10 +89,10 @@ const Hours = ({ hours, suns }: Props): JSX.Element => {
       />
       <line
         clipPath="url(#clip-cap-night)"
-        x1={hours[0].coord.x}
-        y1={hours[0].coord.y}
-        x2={hours[12].coord.x}
-        y2={hours[12].coord.y}
+        x1={hours[0].point.x}
+        y1={hours[0].point.y}
+        x2={hours[12].point.x}
+        y2={hours[12].point.y}
         strokeDasharray="4, 4"
         style={{
           opacity: 0.9,
@@ -114,8 +114,8 @@ const getCapPath = ({
   radius,
   sweep,
 }: {
-  from: Coord
-  to: Coord
+  from: Point
+  to: Point
   radius: number
   sweep: string
 }): JSX.Element =>
