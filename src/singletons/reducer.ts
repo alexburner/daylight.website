@@ -17,6 +17,7 @@ export default (state: State, action: Action): State => {
       return updateTimes(newState)
     }
     case 'time': {
+      // always update ms, space may need it for setting time
       const newState = { ...state, ms: action.ms }
       // only do work if we have location
       if (!state.space) return newState
