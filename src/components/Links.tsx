@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export default () =>
+export default () => (
   <div
     style={{
       fontSize: '10px',
@@ -24,3 +24,4 @@ export default () =>
       SunCalc
     </a>
   </div>
+)

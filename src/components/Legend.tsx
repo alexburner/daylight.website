@@ -14,9 +14,7 @@ const Legend = ({ suns }: Props): JSX.Element => {
     <table>
       <tbody>
         <tr>
-          <td>
-            {suns.goldenHourEnd.text}
-          </td>
+          <td>{suns.goldenHourEnd.text}</td>
           <td
             style={{
               backgroundColor: COLORS.DAYLIGHT,
@@ -25,9 +23,7 @@ const Legend = ({ suns }: Props): JSX.Element => {
           >
             Daylight
           </td>
-          <td>
-            {suns.goldenHour.text}
-          </td>
+          <td>{suns.goldenHour.text}</td>
         </tr>
         <tr>
           <td>
@@ -130,9 +126,7 @@ const Legend = ({ suns }: Props): JSX.Element => {
           </td>
         </tr>
         <tr>
-          <td>
-            {suns.nightEnd.text}
-          </td>
+          <td>{suns.nightEnd.text}</td>
           <td
             style={{
               backgroundColor: COLORS.NIGHT,
@@ -141,9 +135,7 @@ const Legend = ({ suns }: Props): JSX.Element => {
           >
             Night
           </td>
-          <td>
-            {suns.night.text}
-          </td>
+          <td>{suns.night.text}</td>
         </tr>
       </tbody>
     </table>

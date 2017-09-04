@@ -49,7 +49,7 @@ const Hours = ({ hours, suns }: Props): JSX.Element => {
           })}
         </clipPath>
       </defs>
-      {_.map(hours, ({ angle, point, text }: Time) =>
+      {_.map(hours, ({ angle, point, text }: Time) => (
         <g key={text} transform={`rotate(${angle} ${point.x} ${point.y})`}>
           <text
             x={point.x + PADDING + 1 + SEGMENT + PADDING - 1}
@@ -72,8 +72,8 @@ const Hours = ({ hours, suns }: Props): JSX.Element => {
               strokeWidth: 1,
             }}
           />
-        </g>,
-      )}
+        </g>
+      ))}
       <line
         clipPath="url(#clip-cap-day)"
         x1={hours[0].point.x}
@@ -118,7 +118,7 @@ const getCapPath = ({
   to: Point
   radius: number
   sweep: string
-}): JSX.Element =>
+}): JSX.Element => (
   <path
     d={`
         M ${from.x} ${from.y}
@@ -126,3 +126,4 @@ const getCapPath = ({
         Z
     `}
   />
+)

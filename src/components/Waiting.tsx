@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export default (): JSX.Element =>
+export default (): JSX.Element => (
   <div
     style={{
       textAlign: 'center',
@@ -11,3 +11,4 @@ export default (): JSX.Element =>
   >
     Waiting for geolocation...
   </div>
+)

@@ -88,12 +88,13 @@ const mapStateToProps = ({ suns }: State): Props => ({ suns })
 
 export default connect(mapStateToProps)(Colors)
 
-const getPath = (color: string, d: string): JSX.Element =>
+const getPath = (color: string, d: string): JSX.Element => (
   <path
     key={d}
     d={d}
     style={{ fill: color, stroke: color, strokeWidth: COLOR_FUDGE }}
   />
+)
 
 const getSegment = ({
   ul,
