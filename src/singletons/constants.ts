@@ -18,7 +18,7 @@ export const COLORS = {
   CIVIL: '#406db9',
   NAUTICAL: '#0c306d',
   ASTRONOMICAL: '#021940',
-  NIGHT: '#020813',
+  NIGHT: '#00061f',
 }
 
 export const TXT_COLORS = {

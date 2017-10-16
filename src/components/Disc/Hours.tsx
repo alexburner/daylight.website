@@ -21,12 +21,12 @@ const Hours = ({ hours, suns }: Props): JSX.Element => {
     <g style={{ opacity: 0.4 }}>
       <defs>
         <clipPath id="clip-cap-day">
-          {getCapPath({
-            from: {
+          {getDayPath({
+            left: {
               x: suns.sunriseEnd.point.x,
               y: suns.sunriseEnd.point.y - CAP_FUDGE,
             },
-            to: {
+            right: {
               x: suns.sunsetStart.point.x,
               y: suns.sunsetStart.point.y - CAP_FUDGE,
             },
@@ -35,12 +35,12 @@ const Hours = ({ hours, suns }: Props): JSX.Element => {
           })}
         </clipPath>
         <clipPath id="clip-cap-night">
-          {getCapPath({
-            from: {
+          {getNightPath({
+            left: {
               x: suns.sunrise.point.x,
               y: suns.sunrise.point.y - CAP_FUDGE,
             },
-            to: {
+            right: {
               x: suns.sunset.point.x,
               y: suns.sunset.point.y - CAP_FUDGE,
             },
@@ -108,22 +108,42 @@ const mapStateToProps = ({ hours, suns }: State): Props => ({ hours, suns })
 
 export default connect(mapStateToProps)(Hours)
 
-const getCapPath = ({
-  from,
-  to,
+const getDayPath = ({
+  left,
+  right,
   radius,
   sweep,
 }: {
-  from: Point
-  to: Point
+  left: Point
+  right: Point
   radius: number
   sweep: string
 }): JSX.Element => (
   <path
     d={`
-        M ${from.x} ${from.y}
-        A ${radius} ${radius} 0 ${sweep} ${to.x} ${to.y}
-        Z
+      M ${left.x} ${left.y}
+      A ${radius} ${radius} 0 1 1 ${right.x} ${right.y}
+      Z
+    `}
+  />
+)
+
+const getNightPath = ({
+  left,
+  right,
+  radius,
+  sweep,
+}: {
+  left: Point
+  right: Point
+  radius: number
+  sweep: string
+}): JSX.Element => (
+  <path
+    d={`
+      M ${left.x} ${left.y}
+      A ${radius} ${radius} 0 1 0 ${right.x} ${right.y}
+      Z
     `}
   />
 )

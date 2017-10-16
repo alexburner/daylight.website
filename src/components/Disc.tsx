@@ -15,7 +15,7 @@ interface Props {
 const Disc = ({ suns, hours }: Props): JSX.Element => {
   if (!suns || !hours) return <div />
   const transform =
-    window.location.hash === '#alt'
+    window.location.hash !== '#alt'
       ? `rotate(${90 - hours[12].angle + 180} ${CX} ${CY})`
       : ''
   return (

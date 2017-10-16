@@ -73,8 +73,8 @@ const Colors = ({ suns }: Props): JSX.Element => {
           }),
           getBottomCap({
             // night
-            left: suns.night.point,
-            right: suns.nightEnd.point,
+            right: suns.night.point,
+            left: suns.nightEnd.point,
             color: COLORS.NIGHT,
             radius: RADIUS,
           }),
@@ -119,7 +119,7 @@ const getSegment = ({
     L ${lr.x} ${lr.y}
     A ${radius} ${radius} 0 0 0 ${ur.x} ${ur.y}
     Z
-`,
+    `,
   )
 
 const getTopCap = ({
@@ -139,7 +139,7 @@ const getTopCap = ({
     M ${left.x} ${left.y}
     A ${radius} ${radius} 0 1 1 ${right.x} ${right.y}
     Z
-`,
+    `,
   )
 
 const getBottomCap = ({
@@ -156,8 +156,8 @@ const getBottomCap = ({
   getPath(
     color,
     `
-    M ${right.x} ${right.y}
-    A ${radius} ${radius} 0 0 0 ${left.x} ${left.y}
+    M ${left.x} ${left.y}
+    A ${radius} ${radius} 0 1 0 ${right.x} ${right.y}
     Z
-`,
+    `,
   )
