@@ -18,7 +18,10 @@ const Now = ({ now }: Props): JSX.Element => {
   return (
     <g transform={`rotate(${angle} ${point.x} ${point.y})`}>
       <polygon
-        style={{ fill: '#444' }}
+        style={{
+          fill: '#0b0d15',
+          opacity: 0.8,
+        }}
         points={`
             ${point.x + PADDING} ${point.y},
             ${point.x + PADDING + SEGMENT} ${point.y + HALFHEIGHT},

@@ -18,15 +18,18 @@ export const COLORS = {
   CIVIL: '#406db9',
   NAUTICAL: '#0c306d',
   ASTRONOMICAL: '#021940',
-  NIGHT: '#00061f',
+  NIGHT: '#000a23',
 }
 
+const TXT_LIGHT = 'rgba(0,0,0,0.6)'
+const TXT_DARK = 'rgba(255,255,255,0.6)'
+
 export const TXT_COLORS = {
-  DAYLIGHT: 'rgba(0,0,0,0.8)',
-  GOLDEN: 'rgba(0,0,0,0.77)',
-  HORIZON: 'rgba(0,0,0,0.72)',
-  CIVIL: 'rgba(255,255,255,0.7)',
-  NAUTICAL: 'rgba(255,255,255,0.72)',
-  ASTRONOMICAL: 'rgba(255,255,255,0.77)',
-  NIGHT: 'rgba(255,255,255,0.8)',
+  DAYLIGHT: TXT_LIGHT,
+  GOLDEN: TXT_LIGHT,
+  HORIZON: TXT_LIGHT,
+  CIVIL: TXT_DARK,
+  NAUTICAL: TXT_DARK,
+  ASTRONOMICAL: TXT_DARK,
+  NIGHT: TXT_DARK,
 }

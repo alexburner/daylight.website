@@ -20,10 +20,12 @@ import { getInitState } from 'src/singletons/state'
   }
 }
 
-const ms = Date.now()
+let nudge = 0
+
+const ms = () => Date.now() + nudge
 const space = getSavedSpace()
 
-const store = createStore(reducer, getInitState(space, ms))
+const store = createStore(reducer, getInitState(space, ms()))
 
 ReactDOM.render(
   <Provider store={store}>
@@ -38,4 +40,4 @@ if (!space) {
 }
 
 // update time every second
-setInterval(() => store.dispatch({ type: 'time', ms: Date.now() }), 1000)
+setInterval(() => store.dispatch({ type: 'time', ms: ms() }), 1000)
