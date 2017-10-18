@@ -21,11 +21,11 @@ import { getInitState } from 'src/singletons/state'
 }
 
 let nudge = 0
-
 const ms = () => Date.now() + nudge
 const space = getSavedSpace()
-
 const store = createStore(reducer, getInitState(space, ms()))
+const setSpace = (s: Space) => store.dispatch({ type: 'space', space: s })
+const setTime = () => store.dispatch({ type: 'time', ms: ms() })
 
 ReactDOM.render(
   <Provider store={store}>
@@ -36,8 +36,22 @@ ReactDOM.render(
 
 if (!space) {
   // request user device geolocation if not already set
-  getSpace().then((s: Space) => store.dispatch({ type: 'space', space: s }))
+  getSpace().then(setSpace)
 }
 
 // update time every second
-setInterval(() => store.dispatch({ type: 'time', ms: ms() }), 1000)
+setInterval(setTime, 1000)
+
+// shift time with arrow keys
+window.addEventListener('keydown', e => {
+  // 37 - left
+  // 38 - up
+  // 39 - right
+  // 40 - down
+  if (e.which < 37 || e.which > 40) return
+  const shift = 1000 * 60 * 60 // 1h
+  const factor = e.shiftKey ? 96 : 24
+  const direction = e.which === 37 || e.which === 40 ? -1 : 1
+  nudge += shift * factor * direction
+  setTime()
+})

@@ -47,7 +47,7 @@ td {
 td:first-child,
 td:last-child {
   padding: 8px 12px;
-  width: 120px;
+  width: 128px;
 }
 
 td:first-child {
