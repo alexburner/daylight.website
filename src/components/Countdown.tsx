@@ -21,12 +21,13 @@ const checkDay = (now: Time, suns: Suns) =>
 
 const Countdown = ({ now, suns }: Props): JSX.Element => {
   if (!suns || !now) return <div />
-  let text = ''
+  const dateText = moment(now.ms).format('YYYY MMM Do, h:mm a')
+  let untilText = ''
   const isSunrise = checkSunrise(now, suns)
   const isSunset = checkSunset(now, suns)
   const isDay = checkDay(now, suns)
   if (isSunrise || isSunset) {
-    text += 'the sun is ' + (isSunrise ? 'rising' : 'setting')
+    untilText += 'the sun is ' + (isSunrise ? 'rising' : 'setting')
   } else {
     const duration = isDay
       ? moment.duration(suns.sunsetStart.ms - now.ms)
@@ -34,15 +35,14 @@ const Countdown = ({ now, suns }: Props): JSX.Element => {
     const hours = duration.hours()
     const minutes = duration.minutes()
     const seconds = hours === 0 && minutes === 0 && duration.seconds()
-    if (hours) text += hours + 'h '
-    if (minutes) text += minutes + 'm '
-    if (seconds) text += seconds + 's '
-    text += 'until ' + (isDay ? 'sunset' : 'sunrise')
+    if (hours) untilText += hours + 'h '
+    if (minutes) untilText += minutes + 'm '
+    if (seconds) untilText += seconds + 's '
+    untilText += 'until ' + (isDay ? 'sunset' : 'sunrise')
   }
   return (
     <div
       style={{
-        background: '#FFF',
         color: '#555',
         fontSize: '21px',
         fontWeight: 'bold',
@@ -51,7 +51,22 @@ const Countdown = ({ now, suns }: Props): JSX.Element => {
         textAlign: 'center',
       }}
     >
-      {text}
+      <div
+        style={{
+          fontSize: '11px',
+          margin: '3px 9px',
+        }}
+      >
+        {dateText}
+      </div>
+      <div
+        style={{
+          fontSize: '21px',
+          fontWeight: 'bold',
+        }}
+      >
+        {untilText}
+      </div>
     </div>
   )
 }

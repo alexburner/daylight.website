@@ -49,6 +49,8 @@ window.addEventListener('keydown', e => {
   // 39 - right
   // 40 - down
   if (e.which < 37 || e.which > 40) return
+  e.preventDefault()
+  e.stopPropagation()
   const shift = 1000 * 60 * 60 // 1h
   const factor = e.shiftKey ? 96 : 24
   const direction = e.which === 37 || e.which === 40 ? -1 : 1

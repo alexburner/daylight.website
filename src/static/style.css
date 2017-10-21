@@ -33,7 +33,7 @@ table, tr, td {
 table {
   border-collapse: collapse;
   font-size: 11px;
-  margin: 12px auto 36px;
+  margin: 14px auto 36px;
   opacity: 0.9;
   color: rgba(0,0,0,0.6);
 }
