@@ -44,8 +44,6 @@ const Countdown = ({ now, suns }: Props): JSX.Element => {
     <div
       style={{
         color: '#555',
-        fontSize: '21px',
-        fontWeight: 'bold',
         height: 'auto',
         padding: '8px',
         textAlign: 'center',
@@ -61,7 +59,7 @@ const Countdown = ({ now, suns }: Props): JSX.Element => {
       </div>
       <div
         style={{
-          fontSize: '21px',
+          fontSize: '24px',
           fontWeight: 'bold',
         }}
       >
