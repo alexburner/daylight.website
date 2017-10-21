@@ -52,7 +52,16 @@ window.addEventListener('keydown', e => {
   e.preventDefault()
   e.stopPropagation()
   const shift = 1000 * 60 * 60 // 1h
-  const factor = e.shiftKey ? 96 : 24
+  let factor = 24 // 1d
+  if (e.altKey && e.shiftKey && e.ctrlKey) {
+    factor = 1 / 60 / 60 // 1s
+  } else if (e.altKey && e.shiftKey) {
+    factor = 1 / 60 // 1m
+  } else if (e.altKey) {
+    factor = 1 // 1h
+  } else if (e.shiftKey) {
+    factor = 96 // 3d
+  }
   const direction = e.which === 37 || e.which === 40 ? -1 : 1
   nudge += shift * factor * direction
   setTime()
