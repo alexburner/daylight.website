@@ -1,15 +1,127 @@
 {
-  "extends": [
-    "tslint:recommended",
-    "tslint-react",
-    "tslint-eslint-rules",
-    "tslint-config-prettier"
-  ],
   "rules": {
-    "curly": false,
-    "interface-name": false,
-    "no-console": ["error", {"allow": ["warn", "error"]}],
-    "no-unused-variable": [true, {"ignore-pattern": "^_"}],
-    "object-literal-sort-keys": false
-  }
+    "array-type": [true, "array"],
+    "arrow-return-shorthand": [true, "multiline"],
+    "await-promise": true,
+    "ban": [
+      true,
+      {
+        "name": ["*", "bind"],
+        "message": "Native? Use an arrow function. jQuery? Use .on()"
+      }
+    ],
+    "ban-comma-operator": true,
+    "ban-types": {
+      "options": [
+        ["Object", "Avoid using the `Object` type. Did you mean `object`?"],
+        ["Function", "Avoid using the `Function` type. Prefer a specific function type, like `() => void`."],
+        ["Boolean", "Avoid using the `Boolean` type. Did you mean `boolean`?"],
+        ["Number", "Avoid using the `Number` type. Did you mean `number`?"],
+        ["String", "Avoid using the `String` type. Did you mean `string`?"],
+        ["Symbol", "Avoid using the `Symbol` type. Did you mean `symbol`?"]
+      ]
+    },
+    "callable-types": true,
+    "class-name": true,
+    "comment-format": {
+      "options": ["check-space"]
+    },
+    "curly": [true, "ignore-same-line"],
+    "early-exit": true,
+    // "export-name": true,
+    // "import-name": [true, {
+    //   "react": "React",
+    //   "react-masonry-component": "Masonry"
+    // }],
+    "interface-over-type-literal": true,
+    "jsdoc-format": true,
+    "jsx-boolean-value": [true, "never"],
+    "jsx-key": true,
+    "jsx-no-string-ref": true,
+    "max-classes-per-file": {
+      "options": [1]
+    },
+    "member-access": true,
+    "member-ordering": {
+      "options": {
+        "order": "statics-first"
+      }
+    },
+    "new-parens": true,
+    "no-accessor-recursion": true,
+    "no-angle-bracket-type-assertion": true,
+    "no-boolean-literal-compare": true,
+    "no-collapsible-if": true,
+    "no-conditional-assignment": true,
+    "no-console": [true, "debug", "log"],
+    "no-construct": true,
+    "no-debugger": true,
+    "no-duplicate-imports": true,
+    "no-duplicate-super": true,
+    "no-duplicate-switch-case": true,
+    "no-eval": true,
+    "no-for-in": true,
+    "no-invalid-template-strings": true,
+    "no-invalid-this": true,
+    // "no-magic-numbers": true,
+    "no-null-keyword": true,
+    "no-relative-imports": true,
+    "no-return-await": true,
+    "no-shadowed-variable": true,
+    "no-sparse-arrays": true,
+    "no-static-this": true,
+    "no-string-literal": true,
+    "no-string-throw": true,
+    "no-switch-case-fall-through": true,
+    "no-this-assignment": [true, {
+      "allow-destructuring": true
+    }],
+    "no-unbound-method": [true, "ignore-static"],
+    "no-unnecessary-bind": true,
+    "no-unnecessary-class": true,
+    "no-unnecessary-else": true,
+    "no-unsafe-finally": true,
+    "no-unused-expression": true,
+    "no-unused-variable": true,
+    "no-var-keyword": true,
+    "object-literal-shorthand": true,
+    "one-variable-per-declaration": {
+      "options": ["ignore-for-loop"]
+    },
+    "only-arrow-functions": {
+      "options": ["allow-named-functions"]
+    },
+    "ordered-imports": true,
+    "prefer-const": [true, {
+      "destructuring": "all"
+    }],
+    "prefer-function-over-method": [true, "allow-public", "allow-protected"],
+    "prefer-method-signature": true,
+    "prefer-object-spread": true,
+    "prefer-readonly": true,
+    "radix": true,
+    "restrict-plus-operands": true,
+    "triple-equals": true,
+    "typedef": [
+      true,
+      "call-signature",
+      "parameter",
+      "member-variable-declaration"
+    ],
+    "use-isnan": true,
+    "variable-name": {
+      "options": [
+        "ban-keywords",
+        "check-format",
+        "allow-pascal-case",
+        "allow-leading-underscore"
+      ]
+    }
+  },
+  "rulesDirectory": [
+    "node_modules/tslint/lib/rules",
+    "node_modules/tslint-react/rules",
+    "node_modules/tslint-consistent-codestyle/rules",
+    "node_modules/tslint-microsoft-contrib"
+  ]
 }

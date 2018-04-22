@@ -8,8 +8,8 @@ import { CX, CY, HEIGHT, WIDTH } from 'src/singletons/constants'
 import { State, Suns, Time } from 'src/singletons/interfaces'
 
 interface Props {
-  suns: Suns | null
-  hours: Time[] | null
+  suns?: Suns
+  hours?: Time[]
 }
 
 const Disc = ({ suns, hours }: Props): JSX.Element => {

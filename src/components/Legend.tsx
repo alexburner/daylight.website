@@ -5,7 +5,7 @@ import { COLORS, TXT_COLORS } from 'src/singletons/constants'
 import { State, Suns } from 'src/singletons/interfaces'
 
 interface Props {
-  suns: Suns | null
+  suns?: Suns
 }
 
 const Legend = ({ suns }: Props): JSX.Element => {

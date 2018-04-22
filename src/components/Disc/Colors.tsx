@@ -5,7 +5,7 @@ import { COLOR_FUDGE, COLORS, CX, CY, RADIUS } from 'src/singletons/constants'
 import { Point, State, Suns } from 'src/singletons/interfaces'
 
 interface Props {
-  suns: Suns | null
+  suns?: Suns
 }
 
 const Colors = ({ suns }: Props): JSX.Element => {

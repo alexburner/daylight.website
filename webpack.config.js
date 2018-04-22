@@ -1,9 +1,8 @@
-const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
+const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
 module.exports = {
-
   entry: './src/index.tsx',
   output: {
     filename: 'bundle.[hash].js',
@@ -17,10 +16,7 @@ module.exports = {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ['.ts', '.tsx', '.js', '.json'],
     // Add node_modules and project directory for absolute paths
-    modules: [
-      path.resolve(__dirname),
-      'node_modules',
-    ],
+    modules: [path.resolve(__dirname), 'node_modules'],
   },
 
   module: {
@@ -59,8 +55,7 @@ module.exports = {
   // This is important because it allows us to avoid bundling all of our
   // dependencies, which allows browsers to cache those libraries between builds.
   externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM'
+    react: 'React',
+    'react-dom': 'ReactDOM',
   },
-
-};
+}

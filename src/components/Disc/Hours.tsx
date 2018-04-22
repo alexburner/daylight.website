@@ -6,8 +6,8 @@ import { COLOR_FUDGE, RADIUS } from 'src/singletons/constants'
 import { Point, State, Suns, Time } from 'src/singletons/interfaces'
 
 interface Props {
-  hours: Time[] | null
-  suns: Suns | null
+  hours?: Time[]
+  suns?: Suns
 }
 
 const CAP_FUDGE = COLOR_FUDGE / 2

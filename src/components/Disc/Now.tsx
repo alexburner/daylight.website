@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { State, Time } from 'src/singletons/interfaces'
 
 interface Props {
-  now: Time | null
+  now?: Time
 }
 
 const PADDING = -3

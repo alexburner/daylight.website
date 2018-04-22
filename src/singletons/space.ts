@@ -2,8 +2,8 @@ import { Space } from 'src/singletons/interfaces'
 
 const LS_KEY = 'space'
 
-export const getSpace = (): Promise<Space> => {
-  return new Promise((resolve, reject) => {
+export const getSpace = (): Promise<Space> =>
+  new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
       (position: Position) => {
         const latitude = position.coords.latitude
@@ -18,11 +18,10 @@ export const getSpace = (): Promise<Space> => {
       },
     )
   })
-}
 
-export const getSavedSpace = (): Space | null => {
+export const getSavedSpace = (): Space | undefined => {
   const saved = window.localStorage.getItem(LS_KEY)
-  if (!(saved && saved.length)) return null
+  if (!(saved && saved.length)) return
   const parts = saved.split(',')
   const latitude = Number(parts[0])
   const longitude = Number(parts[1])

@@ -10,7 +10,7 @@ import { WIDTH } from 'src/singletons/constants'
 import { Space, State } from 'src/singletons/interfaces'
 
 interface Props {
-  space: Space | null
+  space?: Space
 }
 
 const App = ({ space }: Props): JSX.Element => {

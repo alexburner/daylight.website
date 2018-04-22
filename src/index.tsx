@@ -23,7 +23,7 @@ import { getInitState } from 'src/singletons/state'
 let nudge = 0
 const ms = () => Date.now() + nudge
 const space = getSavedSpace()
-const store = createStore(reducer, getInitState(space, ms()))
+const store = createStore(reducer, getInitState(ms(), space))
 const setSpace = (s: Space) => store.dispatch({ type: 'space', space: s })
 const setTime = () => store.dispatch({ type: 'time', ms: ms() })
 

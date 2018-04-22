@@ -6,8 +6,8 @@ import { MS_HOUR } from 'src/singletons/constants'
 import { State, Suns, Time } from 'src/singletons/interfaces'
 
 interface Props {
-  now: Time | null
-  suns: Suns | null
+  now: Time
+  suns: Suns
 }
 
 const checkSunrise = (now: Time, suns: Suns) =>
@@ -35,9 +35,9 @@ const Countdown = ({ now, suns }: Props): JSX.Element => {
     const hours = duration.hours()
     const minutes = duration.minutes()
     const seconds = hours === 0 && minutes === 0 && duration.seconds()
-    if (hours) untilText += hours + 'h '
-    if (minutes) untilText += minutes + 'm '
-    if (seconds) untilText += seconds + 's '
+    if (hours) untilText += `${hours}h `
+    if (minutes) untilText += `${minutes}m `
+    if (seconds) untilText += `${seconds}s `
     untilText += 'until ' + (isDay ? 'sunset' : 'sunrise')
   }
   return (
