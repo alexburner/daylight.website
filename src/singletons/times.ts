@@ -1,16 +1,12 @@
 import * as _ from 'lodash'
 import * as moment from 'moment'
-import * as suncalc from 'suncalc'
+import { getTimes } from 'suncalc'
 
 import { CX, CY, MS_DEG, MS_HOUR, RADIUS } from 'src/singletons/constants'
 import { Point, Space, Suns, SunsRaw, Time } from 'src/singletons/interfaces'
 
 export const getSuns = (nowMs: number, space: Space): Suns => {
-  const sunsRaw = suncalc.getTimes(
-    new Date(nowMs),
-    space.latitude,
-    space.longitude,
-  ) as SunsRaw
+  const sunsRaw = getTimes(new Date(nowMs), space.latitude, space.longitude)
   const zeroMs = sunsRaw.solarNoon.getTime()
   return _.reduce(
     sunsRaw,
@@ -20,10 +16,10 @@ export const getSuns = (nowMs: number, space: Space): Suns => {
       const point = getCirclePoint(angle)
       const text = moment(date).format('h:mma')
       const time: Time = { ms, angle, point, text }
-      suns[key] = time
+      suns[key as keyof SunsRaw] = time
       return suns
     },
-    {},
+    {} as Suns,
   ) as Suns
 }
 

@@ -6,8 +6,8 @@ import { MS_HOUR } from 'src/singletons/constants'
 import { State, Suns, Time } from 'src/singletons/interfaces'
 
 interface Props {
-  now: Time
-  suns: Suns
+  now?: Time
+  suns?: Suns
 }
 
 const checkSunrise = (now: Time, suns: Suns) =>
