@@ -6,7 +6,9 @@ import { CX, CY, MS_DEG, MS_HOUR, RADIUS } from 'src/singletons/constants'
 import { Point, Space, Suns, SunsRaw, Time } from 'src/singletons/interfaces'
 
 export const getSuns = (nowMs: number, space: Space): Suns => {
-  const sunsRaw = getTimes(new Date(nowMs), space.latitude, space.longitude)
+  const safeDate = new Date(nowMs)
+  safeDate.setHours(12) // ensure SunCalc identifies correct day
+  const sunsRaw = getTimes(safeDate, space.latitude, space.longitude)
   const zeroMs = sunsRaw.solarNoon.getTime()
   return _.reduce(
     sunsRaw,
