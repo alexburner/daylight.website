@@ -3,7 +3,15 @@ import * as moment from 'moment'
 import { getTimes } from 'suncalc'
 
 import { CX, CY, MS_DEG, MS_HOUR, RADIUS } from 'src/singletons/constants'
-import { Point, Space, Suns, SunsRaw, Time } from 'src/singletons/interfaces'
+import {
+  NudgeDuration,
+  Point,
+  Space,
+  Suns,
+  SunsRaw,
+  Time,
+} from 'src/singletons/interfaces'
+import { asserNever } from 'src/singletons/types'
 
 export const getSuns = (nowMs: number, space: Space): Suns => {
   const safeDate = new Date(nowMs)
@@ -51,6 +59,27 @@ export const getHours = (solarNoon: Time): Time[] => {
     const time: Time = { ms, angle, point, text }
     return time
   })
+}
+
+export const getNudgeMs = (duration: NudgeDuration): number => {
+  switch (duration) {
+    case NudgeDuration.Minute: {
+      return 1000 * 60
+    }
+    case NudgeDuration.Hour: {
+      return 1000 * 60 * 60
+    }
+    case NudgeDuration.Day: {
+      return 1000 * 60 * 60 * 24
+    }
+    case NudgeDuration.Week: {
+      return 1000 * 60 * 60 * 24 * 7
+    }
+    default: {
+      asserNever(duration)
+      return 0
+    }
+  }
 }
 
 const getTimeAngle = (time: number, zeroTime: number): number => {

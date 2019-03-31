@@ -26,6 +26,17 @@ a:active {
   opacity: 1;
 }
 
+/* Countdown */
+.countdown button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 4px;
+}
+
+/* TimeTable */
+
 table, tr, td {
   border: none;
 }

@@ -1,14 +1,27 @@
 import * as moment from 'moment'
 import * as React from 'react'
-import { connect } from 'react-redux'
+import { connect, Dispatch } from 'react-redux'
 
 import { MS_HOUR } from 'src/singletons/constants'
-import { State, Suns, Time } from 'src/singletons/interfaces'
+import {
+  ActionType,
+  NudgeDirection,
+  NudgeDuration,
+  State,
+  Suns,
+  Time,
+} from 'src/singletons/interfaces'
 
-interface Props {
+interface StateProps {
   now?: Time
   suns?: Suns
 }
+
+interface DispatchProps {
+  nudge(direction: NudgeDirection, duration: NudgeDuration): void
+}
+
+type Props = StateProps & DispatchProps
 
 const checkSunrise = (now: Time, suns: Suns) =>
   now.ms > suns.sunrise.ms && now.ms <= suns.sunriseEnd.ms
@@ -19,7 +32,7 @@ const checkSunset = (now: Time, suns: Suns) =>
 const checkDay = (now: Time, suns: Suns) =>
   now.ms > suns.sunriseEnd.ms && now.ms <= suns.sunsetStart.ms
 
-const Countdown = ({ now, suns }: Props): JSX.Element => {
+const Countdown = ({ now, suns, nudge }: Props): JSX.Element => {
   if (!suns || !now) return <div />
   const dateText = moment(now.ms).format('ddd MMM Do YYYY, h:mma')
   let untilText = ''
@@ -42,6 +55,7 @@ const Countdown = ({ now, suns }: Props): JSX.Element => {
   }
   return (
     <div
+      className="countdown"
       style={{
         color: '#555',
         height: 'auto',
@@ -51,11 +65,31 @@ const Countdown = ({ now, suns }: Props): JSX.Element => {
     >
       <div
         style={{
-          fontSize: '11px',
+          fontSize: '15px',
           margin: '3px 9px',
         }}
       >
-        {dateText}
+        <button
+          onClick={() => nudge(NudgeDirection.Backward, NudgeDuration.Week)}
+        >
+          <i className="fa fa-angle-double-left" />
+        </button>
+        <button
+          onClick={() => nudge(NudgeDirection.Backward, NudgeDuration.Day)}
+        >
+          <i className="fa fa-angle-left" />
+        </button>
+        <span style={{ margin: '0 8px' }}>{dateText}</span>
+        <button
+          onClick={() => nudge(NudgeDirection.Forward, NudgeDuration.Day)}
+        >
+          <i className="fa fa-angle-right" />
+        </button>
+        <button
+          onClick={() => nudge(NudgeDirection.Forward, NudgeDuration.Week)}
+        >
+          <i className="fa fa-angle-double-right" />
+        </button>
       </div>
       <div
         style={{
@@ -69,6 +103,11 @@ const Countdown = ({ now, suns }: Props): JSX.Element => {
   )
 }
 
-const mapStateToProps = ({ now, suns }: State): Props => ({ now, suns })
+const mapStateToProps = ({ now, suns }: State): StateProps => ({ now, suns })
 
-export default connect(mapStateToProps)(Countdown)
+const mapDispatchToProps = (dispatch: Dispatch<State>): DispatchProps => ({
+  nudge: (direction, duration) =>
+    dispatch({ type: ActionType.Nudge, direction, duration }),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Countdown)

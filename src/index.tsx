@@ -1,10 +1,16 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, Reducer } from 'redux'
+import { install } from 'redux-loop'
 
 import App from 'src/components/App'
-import { Space } from 'src/singletons/interfaces'
+import {
+  ActionType,
+  NudgeDirection,
+  NudgeDuration,
+  State,
+} from 'src/singletons/interfaces'
 import reducer from 'src/singletons/reducer'
 import { getSavedSpace, getSpace } from 'src/singletons/space'
 import { getInitState } from 'src/singletons/state'
@@ -20,12 +26,12 @@ import { getInitState } from 'src/singletons/state'
   }
 }
 
-let nudge = 0
-const ms = () => Date.now() + nudge
 const space = getSavedSpace()
-const store = createStore(reducer, getInitState(ms(), space))
-const setSpace = (s: Space) => store.dispatch({ type: 'space', space: s })
-const setTime = () => store.dispatch({ type: 'time', ms: ms() })
+const store = createStore(
+  (reducer as any) as Reducer<State>,
+  getInitState(Date.now(), space),
+  install(),
+)
 
 ReactDOM.render(
   <Provider store={store}>
@@ -36,33 +42,69 @@ ReactDOM.render(
 
 if (!space) {
   // request user device geolocation if not already set
-  getSpace().then(setSpace)
+  getSpace().then(s => store.dispatch({ type: ActionType.Space, space: s }))
 }
 
 // update time every second
-setInterval(setTime, 1000)
+setInterval(
+  () =>
+    store.dispatch({
+      type: ActionType.Time,
+      ms: Date.now() + store.getState().nudge,
+    }),
+  1000,
+)
 
 // shift time with arrow keys
 window.addEventListener('keydown', e => {
-  // 37 - left
-  // 38 - up
-  // 39 - right
-  // 40 - down
-  if (e.which < 37 || e.which > 40) return
+  let direction: NudgeDirection
+  let duration: NudgeDuration
+  switch (e.key) {
+    case 'm': {
+      direction = NudgeDirection.Forward
+      duration = NudgeDuration.Minute
+      break
+    }
+    case 'M': {
+      direction = NudgeDirection.Backward
+      duration = NudgeDuration.Minute
+      break
+    }
+    case 'h': {
+      direction = NudgeDirection.Forward
+      duration = NudgeDuration.Hour
+      break
+    }
+    case 'H': {
+      direction = NudgeDirection.Backward
+      duration = NudgeDuration.Hour
+      break
+    }
+    case 'd': {
+      direction = NudgeDirection.Forward
+      duration = NudgeDuration.Day
+      break
+    }
+    case 'D': {
+      direction = NudgeDirection.Backward
+      duration = NudgeDuration.Day
+      break
+    }
+    case 'w': {
+      direction = NudgeDirection.Forward
+      duration = NudgeDuration.Week
+      break
+    }
+    case 'W': {
+      direction = NudgeDirection.Backward
+      duration = NudgeDuration.Week
+      break
+    }
+    default: {
+      return
+    }
+  }
   e.preventDefault()
   e.stopPropagation()
-  const shift = 1000 * 60 * 60 // 1h
-  let factor = 24 // 1d
-  if (e.altKey && e.shiftKey && e.ctrlKey) {
-    factor = 1 / 60 / 60 // 1s
-  } else if (e.altKey && e.shiftKey) {
-    factor = 1 / 60 // 1m
-  } else if (e.altKey) {
-    factor = 1 // 1h
-  } else if (e.shiftKey) {
-    factor = 96 // 3d
-  }
-  const direction = e.which === 37 || e.which === 40 ? -1 : 1
-  nudge += shift * factor * direction
-  setTime()
+  store.dispatch({ type: ActionType.Nudge, direction, duration })
 })

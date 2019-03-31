@@ -1,18 +1,43 @@
+export const enum NudgeDirection {
+  Forward = 'Forward',
+  Backward = 'Backward',
+}
+
+export const enum NudgeDuration {
+  Minute = 'Minute',
+  Hour = 'Hour',
+  Day = 'Day',
+  Week = 'Week',
+}
+
+export const enum ActionType {
+  ReduxInit = '@@redux/INIT',
+  Space = 'Space',
+  Time = 'Time',
+  Nudge = 'Nudge',
+}
+
 interface ActionReduxInit {
-  type: '@@redux/INIT'
+  type: ActionType.ReduxInit
 }
 
 interface ActionSpace {
-  type: 'space'
+  type: ActionType.Space
   space: Space
 }
 
-interface ActionTime {
-  type: 'time'
+export interface ActionTime {
+  type: ActionType.Time
   ms: number
 }
 
-export type Action = ActionReduxInit | ActionSpace | ActionTime
+interface ActionNudge {
+  type: ActionType.Nudge
+  direction: NudgeDirection
+  duration: NudgeDuration
+}
+
+export type Action = ActionReduxInit | ActionSpace | ActionTime | ActionNudge
 
 export interface Point {
   x: number
@@ -30,6 +55,7 @@ export interface State {
   now?: Time
   hours?: Time[]
   ms: number
+  nudge: number
 }
 
 export type Suns = { [P in keyof SunsRaw]: Time }

@@ -35,6 +35,7 @@
     "react-dom": "16.3.2",
     "react-redux": "5.0.6",
     "redux": "3.7.2",
+    "redux-loop": "4.5.4",
     "suncalc": "1.8.0"
   },
   "devDependencies": {

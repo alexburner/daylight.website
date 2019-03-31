@@ -5,5 +5,6 @@ export const getInitState = (ms: number, space?: Space): State => {
   const suns = space ? getSuns(ms, space) : undefined
   const now = suns ? getNow(ms, suns.solarNoon) : undefined
   const hours = suns ? getHours(suns.solarNoon) : undefined
-  return { space, suns, now, hours, ms }
+  const nudge = 0
+  return { space, suns, now, hours, ms, nudge }
 }
