@@ -8,7 +8,7 @@ interface Props {
   suns?: Suns
 }
 
-const Legend = ({ suns }: Props): JSX.Element => {
+const TimeTable = ({ suns }: Props): JSX.Element => {
   if (!suns) return <div />
   return (
     <table>
@@ -144,4 +144,4 @@ const Legend = ({ suns }: Props): JSX.Element => {
 
 const mapStateToProps = ({ suns }: State): Props => ({ suns })
 
-export default connect(mapStateToProps)(Legend)
+export default connect(mapStateToProps)(TimeTable)

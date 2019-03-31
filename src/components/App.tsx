@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 
 import Countdown from 'src/components/Countdown'
 import Disc from 'src/components/Disc'
-import Legend from 'src/components/Legend'
 import Links from 'src/components/Links'
+import TimeTable from 'src/components/TimeTable'
 import Waiting from 'src/components/Waiting'
 import { WIDTH } from 'src/singletons/constants'
 import { Space, State } from 'src/singletons/interfaces'
@@ -24,7 +24,7 @@ const App = ({ space }: Props): JSX.Element => {
     >
       <Countdown />
       <Disc />
-      <Legend />
+      <TimeTable />
       <Links />
     </div>
   )
