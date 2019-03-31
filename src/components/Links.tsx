@@ -31,7 +31,7 @@ export default () => (
         title="Daylight – GitHub"
         target="_blank"
       >
-        Daylight
+        GitHub
       </a>
     </div>
   </div>
