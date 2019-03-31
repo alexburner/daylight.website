@@ -4,7 +4,7 @@ export default () => (
   <div
     style={{
       fontSize: '10px',
-      margin: '48px auto 72px',
+      margin: '32px auto 72px',
       textAlign: 'center',
     }}
   >

@@ -33,7 +33,7 @@ table, tr, td {
 table {
   border-collapse: collapse;
   font-size: 11px;
-  margin: 14px auto 36px;
+  margin: 12px auto 36px;
   opacity: 0.9;
   color: rgba(0,0,0,0.6);
 }
@@ -44,16 +44,16 @@ td {
   vertical-align: middle;
 }
 
-td:first-child,
-td:last-child {
+tr td:first-child,
+tr td:last-child {
   padding: 8px 12px;
   width: 128px;
 }
 
-td:first-child {
+tr td:first-child {
   text-align: right;
 }
 
-td:last-child {
+tr td:last-child {
   text-align: left;
 }

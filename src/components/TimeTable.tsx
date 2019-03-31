@@ -2,14 +2,15 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 import { COLORS, TXT_COLORS } from 'src/singletons/constants'
-import { State, Suns } from 'src/singletons/interfaces'
+import { State, Suns, Time } from 'src/singletons/interfaces'
 
 interface Props {
+  now?: Time
   suns?: Suns
 }
 
-const TimeTable = ({ suns }: Props): JSX.Element => {
-  if (!suns) return <div />
+const TimeTable = ({ suns, now }: Props): JSX.Element => {
+  if (!suns || !now) return <div />
   return (
     <table>
       <tbody>
@@ -27,8 +28,8 @@ const TimeTable = ({ suns }: Props): JSX.Element => {
         </tr>
         <tr>
           <td>
-            {suns.sunriseEnd.text}
-            &nbsp;&ndash;&nbsp;
+            {suns.sunriseEnd.text.slice(0, -2)}
+            &ndash;
             {suns.goldenHourEnd.text}
           </td>
           <td
@@ -40,15 +41,15 @@ const TimeTable = ({ suns }: Props): JSX.Element => {
             Golden Hour
           </td>
           <td>
-            {suns.goldenHour.text}
-            &nbsp;&ndash;&nbsp;
+            {suns.goldenHour.text.slice(0, -2)}
+            &ndash;
             {suns.sunsetStart.text}
           </td>
         </tr>
         <tr>
           <td>
-            {suns.sunrise.text}
-            &nbsp;&ndash;&nbsp;
+            {suns.sunrise.text.slice(0, -2)}
+            &ndash;
             {suns.sunriseEnd.text}
           </td>
           <td
@@ -60,15 +61,15 @@ const TimeTable = ({ suns }: Props): JSX.Element => {
             Sunrise & Sunset
           </td>
           <td>
-            {suns.sunsetStart.text}
-            &nbsp;&ndash;&nbsp;
+            {suns.sunsetStart.text.slice(0, -2)}
+            &ndash;
             {suns.sunset.text}
           </td>
         </tr>
         <tr>
           <td>
-            {suns.dawn.text}
-            &nbsp;&ndash;&nbsp;
+            {suns.dawn.text.slice(0, -2)}
+            &ndash;
             {suns.sunrise.text}
           </td>
           <td
@@ -80,15 +81,15 @@ const TimeTable = ({ suns }: Props): JSX.Element => {
             Twilight (Civil)
           </td>
           <td>
-            {suns.sunset.text}
-            &nbsp;&ndash;&nbsp;
+            {suns.sunset.text.slice(0, -2)}
+            &ndash;
             {suns.dusk.text}
           </td>
         </tr>
         <tr>
           <td>
-            {suns.nauticalDawn.text}
-            &nbsp;&ndash;&nbsp;
+            {suns.nauticalDawn.text.slice(0, -2)}
+            &ndash;
             {suns.dawn.text}
           </td>
           <td
@@ -100,15 +101,15 @@ const TimeTable = ({ suns }: Props): JSX.Element => {
             Twilight (Nautical)
           </td>
           <td>
-            {suns.dusk.text}
-            &nbsp;&ndash;&nbsp;
+            {suns.dusk.text.slice(0, -2)}
+            &ndash;
             {suns.nauticalDusk.text}
           </td>
         </tr>
         <tr>
           <td>
-            {suns.nightEnd.text}
-            &nbsp;&ndash;&nbsp;
+            {suns.nightEnd.text.slice(0, -2)}
+            &ndash;
             {suns.nauticalDawn.text}
           </td>
           <td
@@ -120,8 +121,8 @@ const TimeTable = ({ suns }: Props): JSX.Element => {
             Twilight (Astronomical)
           </td>
           <td>
-            {suns.nauticalDusk.text}
-            &nbsp;&ndash;&nbsp;
+            {suns.nauticalDusk.text.slice(0, -2)}
+            &ndash;
             {suns.night.text}
           </td>
         </tr>
@@ -142,6 +143,6 @@ const TimeTable = ({ suns }: Props): JSX.Element => {
   )
 }
 
-const mapStateToProps = ({ suns }: State): Props => ({ suns })
+const mapStateToProps = ({ suns, now }: State): Props => ({ suns, now })
 
 export default connect(mapStateToProps)(TimeTable)

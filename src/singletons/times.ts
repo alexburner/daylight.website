@@ -16,9 +16,7 @@ export const getSuns = (nowMs: number, space: Space): Suns => {
       const ms = date.getTime()
       const angle = getTimeAngle(ms, zeroMs)
       const point = getCirclePoint(angle)
-      const text = moment(date)
-        .format('h:mma')
-        .slice(0, -1)
+      const text = moment(date).format('h:mma')
       const time: Time = { ms, angle, point, text }
       suns[key as keyof SunsRaw] = time
       return suns
