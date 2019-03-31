@@ -21,7 +21,9 @@ const checkDay = (now: Time, suns: Suns) =>
 
 const Countdown = ({ now, suns }: Props): JSX.Element => {
   if (!suns || !now) return <div />
-  const dateText = moment(now.ms).format('ddd MMM Do YYYY, h:mm a')
+  const dateText = moment(now.ms)
+    .format('ddd MMM Do YYYY, h:mma')
+    .slice(0, -1)
   let untilText = ''
   const isSunrise = checkSunrise(now, suns)
   const isSunset = checkSunset(now, suns)
