@@ -63,7 +63,7 @@ const Countdown = ({ now, suns, nudge }: Props): JSX.Element => {
         textAlign: 'center',
       }}
     >
-      <div
+      {/* <div
         style={{
           fontSize: '15px',
           margin: '3px 9px',
@@ -90,6 +90,14 @@ const Countdown = ({ now, suns, nudge }: Props): JSX.Element => {
         >
           <i className="fa fa-angle-double-right" />
         </button>
+      </div> */}
+      <div
+        style={{
+          fontSize: '11px',
+          margin: '3px 9px',
+        }}
+      >
+        {dateText}
       </div>
       <div
         style={{
