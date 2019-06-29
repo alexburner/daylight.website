@@ -24,14 +24,10 @@ const TimeTable = ({ suns, now }: Props): JSX.Element => {
           >
             Daylight
           </td>
-          <td>{suns.goldenHour.text}</td>
+          <td />
         </tr>
         <tr>
-          <td>
-            {suns.sunriseEnd.text.slice(0, -2)}
-            &ndash;
-            {suns.goldenHourEnd.text}
-          </td>
+          <td>{suns.sunriseEnd.text}</td>
           <td
             style={{
               backgroundColor: COLORS.GOLDEN,
@@ -40,38 +36,22 @@ const TimeTable = ({ suns, now }: Props): JSX.Element => {
           >
             Golden Hour
           </td>
-          <td>
-            {suns.goldenHour.text.slice(0, -2)}
-            &ndash;
-            {suns.sunsetStart.text}
-          </td>
+          <td>{suns.goldenHour.text}</td>
         </tr>
         <tr>
-          <td>
-            {suns.sunrise.text.slice(0, -2)}
-            &ndash;
-            {suns.sunriseEnd.text}
-          </td>
+          <td>{suns.sunrise.text}</td>
           <td
             style={{
               backgroundColor: COLORS.HORIZON,
               color: TXT_COLORS.HORIZON,
             }}
           >
-            Sunrise & Sunset
+            Sunrise &nbsp;|&nbsp; Sunset
           </td>
-          <td>
-            {suns.sunsetStart.text.slice(0, -2)}
-            &ndash;
-            {suns.sunset.text}
-          </td>
+          <td>{suns.sunsetStart.text}</td>
         </tr>
         <tr>
-          <td>
-            {suns.dawn.text.slice(0, -2)}
-            &ndash;
-            {suns.sunrise.text}
-          </td>
+          <td>{suns.dawn.text}</td>
           <td
             style={{
               backgroundColor: COLORS.CIVIL,
@@ -80,18 +60,10 @@ const TimeTable = ({ suns, now }: Props): JSX.Element => {
           >
             Twilight (Civil)
           </td>
-          <td>
-            {suns.sunset.text.slice(0, -2)}
-            &ndash;
-            {suns.dusk.text}
-          </td>
+          <td>{suns.sunset.text}</td>
         </tr>
         <tr>
-          <td>
-            {suns.nauticalDawn.text.slice(0, -2)}
-            &ndash;
-            {suns.dawn.text}
-          </td>
+          <td>{suns.nauticalDawn.text}</td>
           <td
             style={{
               backgroundColor: COLORS.NAUTICAL,
@@ -100,18 +72,10 @@ const TimeTable = ({ suns, now }: Props): JSX.Element => {
           >
             Twilight (Nautical)
           </td>
-          <td>
-            {suns.dusk.text.slice(0, -2)}
-            &ndash;
-            {suns.nauticalDusk.text}
-          </td>
+          <td>{suns.dusk.text}</td>
         </tr>
         <tr>
-          <td>
-            {suns.nightEnd.text.slice(0, -2)}
-            &ndash;
-            {suns.nauticalDawn.text}
-          </td>
+          <td>{suns.nightEnd.text}</td>
           <td
             style={{
               backgroundColor: COLORS.ASTRONOMICAL,
@@ -120,14 +84,10 @@ const TimeTable = ({ suns, now }: Props): JSX.Element => {
           >
             Twilight (Astronomical)
           </td>
-          <td>
-            {suns.nauticalDusk.text.slice(0, -2)}
-            &ndash;
-            {suns.night.text}
-          </td>
+          <td>{suns.nauticalDusk.text}</td>
         </tr>
         <tr>
-          <td>{suns.nightEnd.text}</td>
+          <td />
           <td
             style={{
               backgroundColor: COLORS.NIGHT,
