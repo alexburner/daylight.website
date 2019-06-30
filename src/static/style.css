@@ -44,7 +44,7 @@ table, tr, td {
 table {
   border-collapse: collapse;
   font-size: 11px;
-  margin: 12px auto 36px;
+  margin: 12px auto 0;
   opacity: 0.9;
   color: rgba(0,0,0,0.6);
 }
@@ -68,3 +68,4 @@ tr td:first-child {
 tr td:last-child {
   text-align: left;
 }
+

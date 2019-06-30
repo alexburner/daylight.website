@@ -93,16 +93,9 @@ const Countdown = ({ now, suns, nudge }: Props): JSX.Element => {
       </div> */}
       <div
         style={{
-          fontSize: '11px',
-          margin: '3px 9px',
-        }}
-      >
-        {dateText}
-      </div>
-      <div
-        style={{
-          fontSize: '24px',
+          fontSize: '28px',
           fontWeight: 'bold',
+          margin: '8px 8px -2px',
         }}
       >
         {untilText}
