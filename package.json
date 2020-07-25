@@ -25,7 +25,7 @@
     "lodash": "4.17.4",
     "moment": "2.18.1",
     "react": "16.3.2",
-    "react-dom": "16.3.2",
+    "react-dom": "16.3.3",
     "react-redux": "5.0.6",
     "redux": "3.7.2",
     "redux-loop": "4.5.4",
