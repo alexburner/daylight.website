@@ -8,7 +8,16 @@
     /* Make JSX work */
     "jsx": "react",
     /* Make code good */
-    "strict": true
+    "strict": true,
+    /* Make absolute-ish imports work */
+    "baseUrl": ".",
+    "paths": {
+      "~*": [
+        "./src/*"
+      ]
+    }
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }
