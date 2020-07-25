@@ -24,8 +24,8 @@
   "dependencies": {
     "lodash": "4.17.4",
     "moment": "2.18.1",
-    "react": "16.3.2",
-    "react-dom": "16.3.2",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
     "react-redux": "5.0.6",
     "redux": "3.7.2",
     "redux-loop": "4.5.4",
@@ -34,19 +34,19 @@
   },
   "devDependencies": {
     "@types/lodash": "4.14.107",
-    "@types/react": "16.3.12",
-    "@types/react-dom": "16.0.5",
+    "@types/react": "16.9.43",
+    "@types/react-dom": "16.9.8",
     "@types/moment": "2.13.0",
     "@types/react-redux": "5.0.1",
     "@types/redux": "3.6.0",
-    "@typescript-eslint/eslint-plugin": "3.6.1",
-    "@typescript-eslint/parser": "3.6.1",
-    "eslint": "7.4.0",
+    "@typescript-eslint/eslint-plugin": "3.7.0",
+    "@typescript-eslint/parser": "3.7.0",
+    "eslint": "7.5.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-react": "7.20.3",
     "eslint-plugin-react-hooks": "4.0.8",
     "parcel-bundler": "1.12.4",
     "prettier": "2.0.5",
-    "typescript": "3.9.6"
+    "typescript": "3.9.7"
   }
 }
