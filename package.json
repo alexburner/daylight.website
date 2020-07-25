@@ -22,7 +22,7 @@
   "author": "aburner",
   "license": "MIT",
   "dependencies": {
-    "lodash": "4.17.4",
+    "lodash": "4.17.19",
     "moment": "2.18.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
