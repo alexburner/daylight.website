@@ -1,23 +1,19 @@
 {
-  "name": "daylight",
-  "version": "0.1.0",
+  "name": "daylight.website",
+  "version": "1.0.0",
   "description": "Natural clock for visualizing daylight hours",
   "engine": {
-    "node": "8.2.1",
-    "npm": "5.3.0"
+    "node": "14.6.0",
+    "npm": "6.14.7"
   },
   "scripts": {
-    "build": "rm -rf docs/* && webpack -p",
-    "watch": "webpack-dev-server --profile --progress --colors",
-    "prettier": "prettier --write 'src/**/*.+(ts|tsx|js|json)'",
-    "tslint": "tslint --fix -p tsconfig.json --exclude 'node_modules/*'",
-    "style": "npm run tslint && npm run prettier"
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "parser": "typescript"
+    "dev": "rm -rf ./dev && parcel --out-dir dev ./src/index.html",
+    "types": "tsc --watch --noEmit",
+    "format": "npm run eslint && npm run prettier",
+    "prettier": "prettier --write 'src/**/*.+(ts|tsx|json|html|css)'",
+    "eslint": "eslint . --ext .ts,.tsx --fix",
+    "build": "rm -rf ./docs && parcel build --out-dir ./docs --public-url ./ ./src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -26,9 +22,6 @@
   "author": "aburner",
   "license": "MIT",
   "dependencies": {
-    "@types/moment": "2.13.0",
-    "@types/react-redux": "5.0.1",
-    "@types/redux": "3.6.0",
     "lodash": "4.17.4",
     "moment": "2.18.1",
     "react": "16.3.2",
@@ -42,18 +35,17 @@
     "@types/lodash": "4.14.107",
     "@types/react": "16.3.12",
     "@types/react-dom": "16.0.5",
-    "awesome-typescript-loader": "3.1.3",
-    "copy-webpack-plugin": "4.0.1",
-    "html-webpack-include-assets-plugin": "0.0.5",
-    "html-webpack-plugin": "2.28.0",
-    "prettier": "1.12.1",
-    "source-map-loader": "0.2.1",
-    "tslint": "5.9.1",
-    "tslint-consistent-codestyle": "1.13.0",
-    "tslint-microsoft-contrib": "5.0.3",
-    "tslint-react": "3.2.0",
-    "typescript": "2.8.3",
-    "webpack": "2.5.1",
-    "webpack-dev-server": "2.4.5"
+    "@types/moment": "2.13.0",
+    "@types/react-redux": "5.0.1",
+    "@types/redux": "3.6.0",
+    "@typescript-eslint/eslint-plugin": "3.6.1",
+    "@typescript-eslint/parser": "3.6.1",
+    "eslint": "7.4.0",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-plugin-react": "7.20.3",
+    "eslint-plugin-react-hooks": "4.0.8",
+    "parcel-bundler": "1.12.4",
+    "prettier": "2.0.5",
+    "typescript": "3.9.6"
   }
 }

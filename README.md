@@ -1,27 +1,19 @@
-# daylight
+# daylight.website
 
-Natural clock for visualizing daylight hours
+```sh
+# Installation
+npm install  #  download all dependencies
 
-## install
-Install npm dependencies
-```
-npm install
-```
+# Development
+npm run dev    # start dev server
+npm run types  # start type checking
+npm run test   # run unit tests
 
-## watch
-Run webpack dev server with watch
-```
-npm run watch
-```
+# Production (outputs to docs/)
+npm run build  # run production build
 
-## build
-Clean out `docs` + run webpack build with production optimizations
-```
-npm run build
-```
-
-## style
-Apply `prettier` and `tslint --fix` formatting to `src` files
-```
-npm run style
+# Code formatting (optional: most editors can handle these themselves)
+npm run format    # run all formatters
+npm run prettier  # run prettier on src
+npm run eslint    # run eslint on src
 ```

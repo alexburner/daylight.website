@@ -1,19 +1,14 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "jsx": "react",
-    "lib": ["dom", "es2015"],
-    "module": "commonjs",
+    /* Make modules work good */
+    "esModuleInterop": true,
     "moduleResolution": "node",
-    "outDir": "./dist/",
-    "sourceMap": true,
-    "strict": true,
-    "target": "es5"
+    "module": "esnext",
+    "target": "esnext",
+    /* Make JSX work */
+    "jsx": "react",
+    /* Make code good */
+    "strict": true
   },
-  "include": [
-    "./src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src"]
 }
