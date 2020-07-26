@@ -12,7 +12,7 @@ import {
   State,
 } from '~singletons/interfaces'
 import reducer from '~singletons/reducer'
-import { getSavedSpace, getSpace } from '~singletons/space'
+import { getSavedSpace, getSpace, clearSavedSpace } from '~singletons/space'
 import { getInitState } from '~singletons/state'
 
 {
@@ -21,7 +21,7 @@ import { getInitState } from '~singletons/state'
   const hash = window.location.hash
   const RESET = '#reset'
   if (hash === RESET) {
-    window.localStorage.removeItem('position')
+    clearSavedSpace()
     window.location.href = window.location.href.slice(0, -RESET.length)
   }
 }
