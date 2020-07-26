@@ -61,19 +61,61 @@ export interface State {
 export type Suns = { [P in keyof SunsRaw]: Time }
 
 export interface SunsRaw {
+  /**
+   * sunrise (top edge of the sun appears on the horizon)
+   */
   sunrise: Date
+  /**
+   * sunrise ends (bottom edge of the sun touches the horizon)
+   */
   sunriseEnd: Date
+  /**
+   * morning golden hour (soft light, best time for photography) ends
+   */
   goldenHourEnd: Date
+  /**
+   * solar noon (sun is in the highest position)
+   */
   solarNoon: Date
+  /**
+   * evening golden hour starts
+   */
   goldenHour: Date
+  /**
+   * sunset starts (bottom edge of the sun touches the horizon)
+   */
   sunsetStart: Date
+  /**
+   * sunset (sun disappears below the horizon, evening civil twilight starts)
+   */
   sunset: Date
+  /**
+   * dusk (evening nautical twilight starts)
+   */
   dusk: Date
+  /**
+   * nautical dusk (evening astronomical twilight starts)
+   */
   nauticalDusk: Date
+  /**
+   * night starts (dark enough for astronomical observations)
+   */
   night: Date
+  /**
+   * nadir (darkest moment of the night, sun is in the lowest position)
+   */
   nadir: Date
+  /**
+   * night ends (morning astronomical twilight starts)
+   */
   nightEnd: Date
+  /**
+   * nautical dawn (morning nautical twilight starts)
+   */
   nauticalDawn: Date
+  /**
+   * dawn (morning nautical twilight ends, morning civil twilight starts)
+   */
   dawn: Date
 }
 
