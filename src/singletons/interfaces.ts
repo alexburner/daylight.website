@@ -124,4 +124,5 @@ export interface Time {
   angle: number
   point: Point
   text: string
+  key: keyof Suns | 'now' | 'hour'
 }

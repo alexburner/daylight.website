@@ -20,17 +20,35 @@ export const getSuns = (nowMs: number, space: Space): Suns => {
   const zeroMs = sunsRaw.solarNoon.getTime()
   return _.reduce(
     sunsRaw,
-    (suns: Suns, date: Date, key: string) => {
+    (suns: Suns, date: Date, untypedKey: string) => {
+      const key = untypedKey as keyof SunsRaw
       const ms = date.getTime()
       const angle = getTimeAngle(ms, zeroMs)
       const point = getCirclePoint(angle)
       const text = Number.isNaN(ms) ? 'N/A' : moment(date).format('h:mma')
-      const time: Time = { ms, angle, point, text }
-      suns[key as keyof SunsRaw] = time
+      const time: Time = { ms, angle, point, text, key }
+      suns[key] = time
       return suns
     },
     {} as Suns,
   ) as Suns
+}
+
+/**
+ * Filter out sun times that don't exist for this space/time
+ * and sort by earliest -> latest
+ */
+export const getRealSunTimes = (suns: Suns): Time[] => {
+  let times = Object.values(suns)
+  // Filter out unused times
+  times = times.filter((t) => t.key !== 'solarNoon' && t.key !== 'nadir')
+  // Filter out missing times
+  times = times.filter((t) => !Number.isNaN(t.ms))
+  // Sort earliest -> latest
+  times = times.sort((a, b) => a.ms - b.ms)
+  // Make sure it's even - hopefully never called?
+  if (times.length % 2) times.pop()
+  return times
 }
 
 export const getNow = (ms: number, solarNoon: Time): Time => {
@@ -38,7 +56,8 @@ export const getNow = (ms: number, solarNoon: Time): Time => {
   const point = getCirclePoint(angle)
   // const text = moment(ms).format('h : mm')
   const text = 'now'
-  return { ms, angle, point, text }
+  const key = 'now'
+  return { ms, angle, point, text, key }
 }
 
 export const getHours = (solarNoon: Time): Time[] => {
@@ -56,7 +75,8 @@ export const getHours = (solarNoon: Time): Time[] => {
     const angle = getTimeAngle(ms, solarNoon.ms)
     const point = getCirclePoint(angle)
     const text = moment({ hour }).format('ha')
-    const time: Time = { ms, angle, point, text }
+    const key = 'hour'
+    const time: Time = { ms, angle, point, text, key }
     return time
   })
 }

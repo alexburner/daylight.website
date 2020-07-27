@@ -21,6 +21,38 @@ export const COLORS = {
   NIGHT: '#00081b',
 }
 
+export const getColorFromKey = (key: string): string => {
+  switch (key) {
+    case 'sunrise':
+      return COLORS.HORIZON
+    case 'sunriseEnd':
+      return COLORS.GOLDEN
+    case 'goldenHourEnd':
+      return COLORS.DAYLIGHT
+    case 'goldenHour':
+      return COLORS.GOLDEN
+    case 'sunsetStart':
+      return COLORS.HORIZON
+    case 'sunset':
+      return COLORS.CIVIL
+    case 'dusk':
+      return COLORS.NAUTICAL
+    case 'nauticalDusk':
+      return COLORS.ASTRONOMICAL
+    case 'night':
+      return COLORS.NIGHT
+    case 'nightEnd':
+      return COLORS.ASTRONOMICAL
+    case 'nauticalDawn':
+      return COLORS.NAUTICAL
+    case 'dawn':
+      return COLORS.CIVIL
+    default:
+      console.log(key)
+      return '#F00'
+  }
+}
+
 const TXT_LIGHT = 'rgba(0,0,0,0.6)'
 const TXT_DARK = 'rgba(255,255,255,0.6)'
 

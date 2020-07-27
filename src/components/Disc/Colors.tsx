@@ -1,8 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { COLOR_FUDGE, COLORS, CX, CY, RADIUS } from '~singletons/constants'
+import {
+  COLOR_FUDGE,
+  CX,
+  CY,
+  RADIUS,
+  getColorFromKey,
+} from '~singletons/constants'
 import { Point, State, Suns } from '~singletons/interfaces'
+import { getRealSunTimes } from '~singletons/times'
 
 interface Props {
   suns?: Suns
@@ -10,6 +17,39 @@ interface Props {
 
 const Colors = ({ suns }: Props): JSX.Element => {
   if (!suns) return <g />
+
+  const times = getRealSunTimes(suns)
+  if (!times.length) return <g />
+
+  const topCap = getTopCap({
+    left: times[times.length / 2 - 1].point,
+    right: times[times.length / 2].point,
+    color: getColorFromKey(times[times.length / 2 - 1].key),
+  })
+
+  const segments: JSX.Element[] = []
+  for (let i = 0, l = times.length / 2 - 1; i < l; i++) {
+    const ll = i
+    const ul = i + 1
+    const lr = times.length - 1 - i
+    const ur = times.length - 2 - i
+    segments.push(
+      getSegment({
+        ul: times[ul].point,
+        ur: times[ur].point,
+        ll: times[ll].point,
+        lr: times[lr].point,
+        color: getColorFromKey(times[ll].key),
+      }),
+    )
+  }
+
+  const bottomCap = getBottomCap({
+    left: times[0].point,
+    right: times[times.length - 1].point,
+    color: getColorFromKey(times[times.length - 1].key),
+  })
+
   return (
     <g>
       <defs>
@@ -18,67 +58,7 @@ const Colors = ({ suns }: Props): JSX.Element => {
         </clipPath>
       </defs>
       <g clipPath="url(#clip-disc)" style={{ opacity: 0.94 }}>
-        {[
-          getTopCap({
-            // daylight
-            left: suns.goldenHourEnd.point,
-            right: suns.goldenHour.point,
-            color: COLORS.DAYLIGHT,
-            radius: RADIUS,
-          }),
-          getSegment({
-            // golden hour
-            ul: suns.goldenHourEnd.point,
-            ur: suns.goldenHour.point,
-            ll: suns.sunriseEnd.point,
-            lr: suns.sunsetStart.point,
-            color: COLORS.GOLDEN,
-            radius: RADIUS,
-          }),
-          getSegment({
-            // sunrise/sunset
-            ul: suns.sunriseEnd.point,
-            ur: suns.sunsetStart.point,
-            ll: suns.sunrise.point,
-            lr: suns.sunset.point,
-            color: COLORS.HORIZON,
-            radius: RADIUS,
-          }),
-          getSegment({
-            // civil twilight
-            ul: suns.sunrise.point,
-            ur: suns.sunset.point,
-            ll: suns.dawn.point,
-            lr: suns.dusk.point,
-            color: COLORS.CIVIL,
-            radius: RADIUS,
-          }),
-          getSegment({
-            // nauticaul twilight
-            ul: suns.dawn.point,
-            ur: suns.dusk.point,
-            ll: suns.nauticalDawn.point,
-            lr: suns.nauticalDusk.point,
-            color: COLORS.NAUTICAL,
-            radius: RADIUS,
-          }),
-          getSegment({
-            // astronomical twilight
-            ul: suns.nauticalDawn.point,
-            ur: suns.nauticalDusk.point,
-            ll: suns.nightEnd.point,
-            lr: suns.night.point,
-            color: COLORS.ASTRONOMICAL,
-            radius: RADIUS,
-          }),
-          getBottomCap({
-            // night
-            right: suns.night.point,
-            left: suns.nightEnd.point,
-            color: COLORS.NIGHT,
-            radius: RADIUS,
-          }),
-        ]}
+        {[topCap, ...segments, bottomCap]}
       </g>
     </g>
   )
@@ -101,7 +81,6 @@ const getSegment = ({
   ur,
   ll,
   lr,
-  radius,
   color,
 }: {
   ul: Point
@@ -109,15 +88,14 @@ const getSegment = ({
   ll: Point
   lr: Point
   color: string
-  radius: number
 }): JSX.Element =>
   getPath(
     color,
     `
     M ${ul.x} ${ul.y}
-    A ${radius} ${radius} 0 0 0 ${ll.x} ${ll.y}
+    A ${RADIUS} ${RADIUS} 0 0 0 ${ll.x} ${ll.y}
     L ${lr.x} ${lr.y}
-    A ${radius} ${radius} 0 0 0 ${ur.x} ${ur.y}
+    A ${RADIUS} ${RADIUS} 0 0 0 ${ur.x} ${ur.y}
     Z
     `,
   )
@@ -125,19 +103,17 @@ const getSegment = ({
 const getTopCap = ({
   left,
   right,
-  radius,
   color,
 }: {
   left: Point
   right: Point
   color: string
-  radius: number
 }): JSX.Element =>
   getPath(
     color,
     `
     M ${left.x} ${left.y}
-    A ${radius} ${radius} 0 1 1 ${right.x} ${right.y}
+    A ${RADIUS} ${RADIUS} 0 1 1 ${right.x} ${right.y}
     Z
     `,
   )
@@ -145,19 +121,17 @@ const getTopCap = ({
 const getBottomCap = ({
   left,
   right,
-  radius,
   color,
 }: {
   left: Point
   right: Point
   color: string
-  radius: number
 }): JSX.Element =>
   getPath(
     color,
     `
     M ${left.x} ${left.y}
-    A ${radius} ${radius} 0 1 0 ${right.x} ${right.y}
+    A ${RADIUS} ${RADIUS} 0 1 0 ${right.x} ${right.y}
     Z
     `,
   )
