@@ -8,27 +8,40 @@ import { State, Suns, Time } from '~singletons/interfaces'
 interface Props {
   now?: Time
   suns?: Suns
+  realSuns?: Time[]
+  isDay?: boolean
 }
 
-const checkSunrise = (now: Time, suns: Suns) =>
+const checkSunrise = (now: Time, suns: Suns): boolean =>
   now.ms > suns.sunrise.ms && now.ms <= suns.sunriseEnd.ms
 
-const checkSunset = (now: Time, suns: Suns) =>
+const checkSunset = (now: Time, suns: Suns): boolean =>
   now.ms > suns.sunsetStart.ms && now.ms <= suns.sunset.ms
 
-const checkDay = (now: Time, suns: Suns) =>
-  now.ms > suns.sunriseEnd.ms && now.ms <= suns.sunsetStart.ms
+const checkDay = (now: Time, suns: Suns): boolean =>
+  (now.ms >= suns.sunriseEnd.ms ||
+    now.ms >= suns.goldenHourEnd.ms ||
+    now.ms >= suns.goldenHour.ms) &&
+  (now.ms <= suns.goldenHourEnd.ms ||
+    now.ms <= suns.goldenHour.ms ||
+    now.ms <= suns.sunsetStart.ms)
 
-const Countdown = ({ now, suns }: Props): JSX.Element => {
-  if (!suns || !now) return <div />
+const Countdown = ({ now, suns, realSuns, isDay }: Props): JSX.Element => {
+  if (!suns || !now || !realSuns) return <div />
   let untilText = ''
+  const hasSunrise = realSuns.find((t) => t.key === 'sunrise')
+  const hasSunset = realSuns.find((t) => t.key === 'sunsetStart')
   const isSunrise = checkSunrise(now, suns)
   const isSunset = checkSunset(now, suns)
-  const isDay = checkDay(now, suns)
-  if (isSunrise || isSunset) {
+  const isNowDay = checkDay(now, suns)
+  if ((!realSuns.length && isDay) || (isNowDay && !hasSunset)) {
+    untilText += 'no sunset today'
+  } else if ((!realSuns.length && !isDay) || (!isNowDay && !hasSunrise)) {
+    untilText += 'no sunrise today'
+  } else if (isSunrise || isSunset) {
     untilText += 'the sun is ' + (isSunrise ? 'rising' : 'setting')
   } else {
-    const duration = isDay
+    const duration = isNowDay
       ? moment.duration(suns.sunsetStart.ms - now.ms)
       : moment.duration(suns.sunrise.ms + 24 * MS_HOUR - now.ms) // near enough
     const hours = duration.hours()
@@ -37,7 +50,7 @@ const Countdown = ({ now, suns }: Props): JSX.Element => {
     if (hours) untilText += `${hours}h `
     if (minutes) untilText += `${minutes}m `
     if (seconds) untilText += `${seconds}s `
-    untilText += 'until ' + (isDay ? 'sunset' : 'sunrise')
+    untilText += 'until ' + (isNowDay ? 'sunset' : 'sunrise')
   }
   return (
     <div
@@ -62,6 +75,11 @@ const Countdown = ({ now, suns }: Props): JSX.Element => {
   )
 }
 
-const mapStateToProps = ({ suns, now }: State): Props => ({ suns, now })
+const mapStateToProps = ({ suns, now, realSuns, isDay }: State): Props => ({
+  suns,
+  now,
+  realSuns,
+  isDay,
+})
 
 export default connect(mapStateToProps)(Countdown)
