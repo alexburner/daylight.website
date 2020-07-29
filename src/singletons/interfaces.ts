@@ -56,6 +56,8 @@ export interface State {
   hours?: Time[]
   ms: number
   nudge: number
+  realSuns?: Time[]
+  isDay?: boolean
 }
 
 export type Suns = { [P in keyof SunsRaw]: Time }

@@ -7,47 +7,58 @@ import {
   CY,
   RADIUS,
   getColorFromKey,
+  COLORS,
 } from '~singletons/constants'
-import { Point, State, Suns } from '~singletons/interfaces'
-import { getRealSunTimes } from '~singletons/times'
+import { Point, State, Time } from '~singletons/interfaces'
 
 interface Props {
-  suns?: Suns
+  realSuns?: Time[]
+  isDay?: boolean
 }
 
-const Colors = ({ suns }: Props): JSX.Element => {
-  if (!suns) return <g />
-
-  const times = getRealSunTimes(suns)
-  if (!times.length) return <g />
+const Colors = ({ realSuns, isDay }: Props): JSX.Element => {
+  if (!realSuns) return <g />
+  if (!realSuns.length) {
+    const color = isDay ? COLORS.DAYLIGHT : COLORS.NIGHT
+    return (
+      <g style={{ opacity: 0.94 }}>
+        <circle
+          cx={CX}
+          cy={CY}
+          r={RADIUS}
+          style={{ fill: color, stroke: color, strokeWidth: COLOR_FUDGE }}
+        />
+      </g>
+    )
+  }
 
   const topCap = getTopCap({
-    left: times[times.length / 2 - 1].point,
-    right: times[times.length / 2].point,
-    color: getColorFromKey(times[times.length / 2 - 1].key),
+    left: realSuns[realSuns.length / 2 - 1].point,
+    right: realSuns[realSuns.length / 2].point,
+    color: getColorFromKey(realSuns[realSuns.length / 2 - 1].key),
   })
 
   const segments: JSX.Element[] = []
-  for (let i = 0, l = times.length / 2 - 1; i < l; i++) {
+  for (let i = 0, l = realSuns.length / 2 - 1; i < l; i++) {
     const ll = i
     const ul = i + 1
-    const lr = times.length - 1 - i
-    const ur = times.length - 2 - i
+    const lr = realSuns.length - 1 - i
+    const ur = realSuns.length - 2 - i
     segments.push(
       getSegment({
-        ul: times[ul].point,
-        ur: times[ur].point,
-        ll: times[ll].point,
-        lr: times[lr].point,
-        color: getColorFromKey(times[ll].key),
+        ul: realSuns[ul].point,
+        ur: realSuns[ur].point,
+        ll: realSuns[ll].point,
+        lr: realSuns[lr].point,
+        color: getColorFromKey(realSuns[ll].key),
       }),
     )
   }
 
   const bottomCap = getBottomCap({
-    left: times[0].point,
-    right: times[times.length - 1].point,
-    color: getColorFromKey(times[times.length - 1].key),
+    left: realSuns[0].point,
+    right: realSuns[realSuns.length - 1].point,
+    color: getColorFromKey(realSuns[realSuns.length - 1].key),
   })
 
   return (
@@ -64,7 +75,10 @@ const Colors = ({ suns }: Props): JSX.Element => {
   )
 }
 
-const mapStateToProps = ({ suns }: State): Props => ({ suns })
+const mapStateToProps = ({ realSuns, isDay }: State): Props => ({
+  realSuns,
+  isDay,
+})
 
 export default connect(mapStateToProps)(Colors)
 

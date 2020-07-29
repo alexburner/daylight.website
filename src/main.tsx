@@ -13,7 +13,7 @@ import {
 } from '~singletons/interfaces'
 import reducer from '~singletons/reducer'
 import { getSavedSpace, getSpace, clearSavedSpace } from '~singletons/space'
-import { getInitState } from '~singletons/state'
+import { calculateState } from '~singletons/state'
 
 {
   // TODO TEMP
@@ -29,7 +29,7 @@ import { getInitState } from '~singletons/state'
 const space = getSavedSpace()
 const store = createStore(
   (reducer as unknown) as Reducer<State>,
-  getInitState(Date.now(), space),
+  calculateState({ ms: Date.now(), space }),
   install(),
 )
 

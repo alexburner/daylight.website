@@ -9,8 +9,9 @@ import {
   NudgeDirection,
   State,
 } from '~singletons/interfaces'
-import { getHours, getNow, getNudgeMs, getSuns } from '~singletons/times'
+import { getNow, getNudgeMs } from '~singletons/times'
 import { asserNever } from '~singletons/types'
+import { calculateState } from '~singletons/state'
 
 export default (state: State, action: Action): State | Loop<State, Action> => {
   switch (action.type) {
@@ -21,8 +22,11 @@ export default (state: State, action: Action): State | Loop<State, Action> => {
       // only update if location has changed
       if (_.isEqual(state.space, action.space)) return state
       // location has changed, update both space and time
-      const nextState = { ...state, space: action.space }
-      return updateTimes(nextState)
+      return calculateState({
+        ms: state.ms,
+        space: action.space,
+        nudge: state.nudge,
+      })
     }
     case ActionType.Time: {
       // always update ms, space may need it for setting time
@@ -40,7 +44,11 @@ export default (state: State, action: Action): State | Loop<State, Action> => {
         return { ...nextState, now: nextNow }
       }
       // day has changed, update all the times
-      return updateTimes(nextState)
+      return calculateState({
+        ms: action.ms,
+        space: state.space,
+        nudge: state.nudge,
+      })
     }
     case ActionType.Nudge: {
       const sign = action.direction === NudgeDirection.Forward ? +1 : -1
@@ -56,12 +64,4 @@ export default (state: State, action: Action): State | Loop<State, Action> => {
       return state
     }
   }
-}
-
-const updateTimes = (state: State): State => {
-  if (!state.space) return state // XXX: ts bug, unreachable condition
-  const suns = getSuns(state.ms, state.space)
-  const now = getNow(state.ms, suns.solarNoon)
-  const hours = getHours(suns.solarNoon)
-  return { ...state, suns, now, hours }
 }

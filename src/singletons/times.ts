@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import moment from 'moment'
-import { getTimes } from 'suncalc'
+import { getTimes, getPosition } from 'suncalc'
 
 import { CX, CY, MS_DEG, MS_HOUR, RADIUS } from '~singletons/constants'
 import {
@@ -13,10 +13,17 @@ import {
 } from '~singletons/interfaces'
 import { asserNever } from '~singletons/types'
 
+export const checkIfDay = (ms: number, space: Space): boolean => {
+  const date = new Date(ms)
+  date.setHours(12) // ensure SunCalc identifies correct day
+  const position = getPosition(date, space.latitude, space.longitude)
+  return Boolean(position.altitude > 0)
+}
+
 export const getSuns = (nowMs: number, space: Space): Suns => {
-  const safeDate = new Date(nowMs)
-  safeDate.setHours(12) // ensure SunCalc identifies correct day
-  const sunsRaw = getTimes(safeDate, space.latitude, space.longitude)
+  const nowDate = new Date(nowMs)
+  nowDate.setHours(12) // ensure SunCalc identifies correct day
+  const sunsRaw = getTimes(nowDate, space.latitude, space.longitude)
   const zeroMs = sunsRaw.solarNoon.getTime()
   return _.reduce(
     sunsRaw,
