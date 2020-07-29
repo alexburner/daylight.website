@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import Colors from '~components/Disc/Colors'
 import Hours from '~components/Disc/Hours'
+import Line from '~components/Disc/Line'
 import Now from '~components/Disc/Now'
 import { CX, CY, HEIGHT, WIDTH } from '~singletons/constants'
 import { State, Suns, Time } from '~singletons/interfaces'
@@ -31,6 +32,7 @@ const Disc = ({ suns, hours }: Props): JSX.Element => {
       <g transform={transform}>
         <Colors />
         <Hours />
+        <Line />
         <Now />
       </g>
     </svg>
