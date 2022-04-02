@@ -5,6 +5,7 @@ import Countdown from '~components/Countdown'
 import Disc from '~components/Disc'
 import Links from '~components/Links'
 import TimeTable from '~components/TimeTable'
+import LngLatInput from '~components/LngLatInput'
 import Waiting from '~components/Waiting'
 import { WIDTH } from '~singletons/constants'
 import { Space, State } from '~singletons/interfaces'
@@ -25,6 +26,7 @@ const App = ({ space }: Props): JSX.Element => {
       <Countdown />
       <Disc />
       <TimeTable />
+      <LngLatInput />
       <Links />
     </div>
   )

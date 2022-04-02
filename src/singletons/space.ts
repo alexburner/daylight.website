@@ -13,8 +13,8 @@ export const getSpace = (): Promise<Space> =>
         resolve(space)
       },
       (e: PositionError) => {
-        alert(e.message)
-        reject(e)
+        alert(e.message + ', using default location.')
+        resolve({ longitude: 18.09, latitude: 59.25 })
       },
     )
   })
