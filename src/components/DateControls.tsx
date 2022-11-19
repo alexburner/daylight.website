@@ -119,7 +119,7 @@ const Button = ({
         cursor: 'pointer',
         fontSize: '14px',
         padding: ' 0 4px',
-        color: '#999',
+        color: '#888',
         userSelect: 'none',
       }}
       {...mouseHold}
