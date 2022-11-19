@@ -9,6 +9,7 @@ import {
   NudgeDirection,
   NudgeDuration,
 } from '~singletons/interfaces'
+import { useMouseHold } from '~util/useMouseHold'
 
 interface StateProps {
   now?: Time
@@ -105,6 +106,7 @@ const Button = ({
   label: string
   callback: () => void
 }): JSX.Element => {
+  const mouseHold = useMouseHold(callback)
   return (
     <button
       style={{
@@ -118,8 +120,9 @@ const Button = ({
         fontSize: '14px',
         padding: ' 0 4px',
         color: '#999',
+        userSelect: 'none',
       }}
-      onClick={callback}
+      {...mouseHold}
     >
       {label}
     </button>

@@ -27,6 +27,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-redux": "5.0.6",
+    "react-use": "17.4.0",
     "redux": "3.7.2",
     "redux-loop": "4.5.4",
     "src": "^1.1.2",
