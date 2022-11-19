@@ -121,6 +121,7 @@ const Button = ({
         padding: ' 0 4px',
         color: '#888',
         userSelect: 'none',
+        WebkitUserSelect: 'none',
       }}
       {...mouseHold}
     >
