@@ -8,6 +8,7 @@ import TimeTable from '~components/TimeTable'
 import Waiting from '~components/Waiting'
 import { WIDTH } from '~singletons/constants'
 import { Space, State } from '~singletons/interfaces'
+import DateControls from '~components/DateControls'
 
 interface Props {
   space?: Space
@@ -24,7 +25,9 @@ const App = ({ space }: Props): JSX.Element => {
     >
       <Countdown />
       <Disc />
-      <TimeTable />
+      <DateControls>
+        <TimeTable />
+      </DateControls>
       <Links />
     </div>
   )

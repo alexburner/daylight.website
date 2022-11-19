@@ -1,28 +1,17 @@
 import moment from 'moment'
 import React from 'react'
-import { connect, Dispatch } from 'react-redux'
+import { connect } from 'react-redux'
 
-import {
-  State,
-  Suns,
-  Time,
-  ActionType,
-  NudgeDirection,
-  NudgeDuration,
-} from '~singletons/interfaces'
+import { State, Suns, Time } from '~singletons/interfaces'
 
 interface StateProps {
   now?: Time
   suns?: Suns
 }
 
-interface DispatchProps {
-  nudge(direction: NudgeDirection, duration: NudgeDuration): void
-}
+type Props = StateProps
 
-type Props = StateProps & DispatchProps
-
-const Links = ({ now, nudge }: Props): JSX.Element => {
+const Links = ({ now }: Props): JSX.Element => {
   if (!now) return <div />
   const isOdd = Boolean(Math.floor(now.ms / 1000) % 2)
   return (
@@ -35,31 +24,11 @@ const Links = ({ now, nudge }: Props): JSX.Element => {
           textAlign: 'center',
         }}
       >
-        <button
-          onClick={() => nudge(NudgeDirection.Backward, NudgeDuration.Week)}
-        >
-          ◀◀
-        </button>
-        <button
-          onClick={() => nudge(NudgeDirection.Backward, NudgeDuration.Day)}
-        >
-          ◀
-        </button>
         <span style={{ margin: '0 14px' }}>
           {isOdd
             ? moment(now.ms).format('ddd MMM Do YYYY — h:mma')
             : moment(now.ms).format('ddd MMM Do YYYY — h mma')}
         </span>
-        <button
-          onClick={() => nudge(NudgeDirection.Forward, NudgeDuration.Day)}
-        >
-          ▶
-        </button>
-        <button
-          onClick={() => nudge(NudgeDirection.Forward, NudgeDuration.Week)}
-        >
-          ▶▶
-        </button>
       </div>
       <div
         style={{
@@ -104,9 +73,4 @@ const Links = ({ now, nudge }: Props): JSX.Element => {
 
 const mapStateToProps = ({ now, suns }: State): StateProps => ({ now, suns })
 
-const mapDispatchToProps = (dispatch: Dispatch<State>): DispatchProps => ({
-  nudge: (direction, duration) =>
-    dispatch({ type: ActionType.Nudge, direction, duration }),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Links)
+export default connect(mapStateToProps)(Links)
