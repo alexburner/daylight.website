@@ -29,7 +29,7 @@ type Props = StateProps & DispatchProps & ComponentProps
 const OUTER_PADDING = '10px'
 const BUTTON_GAP = '10px'
 
-const DateControls = ({ now, nudge, children }: Props): JSX.Element => {
+const TimeControls = ({ now, nudge, children }: Props): JSX.Element => {
   if (!now) return <div />
   return (
     <div style={{ position: 'relative' }}>
@@ -55,9 +55,9 @@ const DateControls = ({ now, nudge, children }: Props): JSX.Element => {
             bottom: 0,
             left: OUTER_PADDING,
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
             flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
             gap: BUTTON_GAP,
           }}
         >
@@ -137,4 +137,4 @@ const mapDispatchToProps = (dispatch: Dispatch<State>): DispatchProps => ({
     dispatch({ type: ActionType.Nudge, direction, duration }),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DateControls)
+export default connect(mapStateToProps, mapDispatchToProps)(TimeControls)
