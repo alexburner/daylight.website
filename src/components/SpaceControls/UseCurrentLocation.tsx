@@ -10,7 +10,7 @@ export const UseCurrentLocation = ({
   const [loading, setLoading] = useState(false)
   return (
     <button
-      className="button"
+      className="button is-info is-light is-large"
       disabled={loading}
       onClick={() => {
         setLoading(true)

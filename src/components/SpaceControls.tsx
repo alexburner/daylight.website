@@ -65,7 +65,6 @@ const SpaceDisplay = ({ space }: { space: Space }): JSX.Element => {
 }
 
 const POPOVER_PADDING = '20px'
-const FIELD_FONT_SIZE = '16px'
 
 const SpacePopover = ({
   children,
@@ -85,38 +84,17 @@ const SpacePopover = ({
     <PopoverWrapper>
       <PopoverTrigger setOpen={setOpen}>{children}</PopoverTrigger>
       <Popover isOpen={isOpen} setClose={setClose}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            height: '100%',
-          }}
-        >
-          <div style={{ padding: POPOVER_PADDING }}>
-            {/* <div style={{ margin: '12px 0 0', textAlign: 'center' }}>
-              <SearchForLocation setLocalSpace={setLocalSpace} />
-            </div> */}
-            <div style={{ margin: '12px 0 0', textAlign: 'center' }}>
-              <UseCurrentLocation setLocalSpace={setLocalSpace} />
-            </div>
-            <div style={{ margin: '12px 0 0', textAlign: 'center' }}>
-              <LatLongFields
-                localSpace={localSpace}
-                setLocalSpace={setLocalSpace}
-              />
-            </div>
+        <div className="space-popover-items">
+          <div className="p-5">
+            <UseCurrentLocation setLocalSpace={setLocalSpace} />
           </div>
-          {/* Popover Footer */}
-          <div
-            style={{
-              padding: POPOVER_PADDING,
-              height: '74px',
-              borderTop: '1px solid #E8E8E8',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+          <div className="p-3">
+            <LatLongFields
+              localSpace={localSpace}
+              setLocalSpace={setLocalSpace}
+            />
+          </div>
+          <div className="p-2">
             {/* Save/Cancel */}
             <div style={{ textAlign: 'center' }}>
               <FormButton

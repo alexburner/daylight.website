@@ -61,3 +61,9 @@ tr td:first-child {
 tr td:last-child {
   text-align: left;
 }
+
+/* Space Popover */
+
+.space-popover-items > div:not(:last-child) {
+  border-bottom: 1px solid #e8e8e8;
+}
