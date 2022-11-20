@@ -1,7 +1,14 @@
-import React, { ReactNode, useEffect, useMemo, useState } from 'react'
+import React, {
+  ButtonHTMLAttributes,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import { connect, Dispatch } from 'react-redux'
 
 import { State, Space, ActionType } from '~singletons/interfaces'
+import { getSpace } from '~singletons/space'
 import { getDmsStrings } from '~util/dms'
 
 interface StateProps {
@@ -113,6 +120,7 @@ const SpacePopover = ({
               borderRadius: '10px',
               boxShadow:
                 '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+              paddingTop: POPOVER_PADDING,
             }}
           >
             {/* Arrow */}
@@ -129,6 +137,7 @@ const SpacePopover = ({
                 background: '#FFF',
               }}
             />
+            {/* Popover content */}
             <div
               style={{
                 display: 'flex',
@@ -201,7 +210,12 @@ const SpacePopover = ({
                     />
                   </div>
                 </div>
+                {/* Detect current location */}
+                <div style={{ margin: '12px 0 0', textAlign: 'center' }}>
+                  <CurrentLocationButton setLocalSpace={setLocalSpace} />
+                </div>
               </div>
+              {/* Popover footer */}
               <div
                 style={{
                   padding: POPOVER_PADDING,
@@ -214,43 +228,24 @@ const SpacePopover = ({
               >
                 {/* Save/Cancel */}
                 <div style={{ textAlign: 'center' }}>
-                  <button
-                    style={{
-                      border: '1px solid #E8E8E8',
-                      borderRadius: '6px',
-                      fontSize: '18px',
-                      padding: ' 12px 24px',
-                      background: 'transparent',
-                      color: '#555',
-                      cursor: hasChanges ? 'pointer' : 'not-allowed',
-                      opacity: hasChanges ? 1 : 0.5,
-                    }}
-                    disabled={!hasChanges}
+                  <FormButton
+                    isDisabled={!hasChanges}
                     onClick={() => {
                       setSpace(localSpace.longitude, localSpace.latitude)
                       setShowPopover(false)
                     }}
                   >
                     Save
-                  </button>
+                  </FormButton>
                   &nbsp; &nbsp;
-                  <button
-                    style={{
-                      border: '1px solid #E8E8E8',
-                      borderRadius: '6px',
-                      cursor: 'pointer',
-                      fontSize: '18px',
-                      padding: ' 12px 24px',
-                      background: 'transparent',
-                      color: '#555',
-                    }}
+                  <FormButton
                     onClick={() => {
                       setLocalSpace(space)
                       setShowPopover(false)
                     }}
                   >
-                    Close
-                  </button>
+                    Cancel
+                  </FormButton>
                 </div>
               </div>
             </div>
@@ -258,6 +253,67 @@ const SpacePopover = ({
         </>
       )}
     </div>
+  )
+}
+
+const FormButton = ({
+  isDisabled = false,
+  children,
+  style,
+  ...props
+}: { isDisabled?: boolean } & ButtonHTMLAttributes<
+  HTMLButtonElement
+>): JSX.Element => (
+  <button
+    style={{
+      border: '1px solid #E8E8E8',
+      borderRadius: '6px',
+      fontSize: '18px',
+      padding: ' 12px 24px',
+      background: 'transparent',
+      color: '#555',
+      cursor: isDisabled ? 'not-allowed' : 'pointer',
+      opacity: isDisabled ? 0.5 : 1,
+      ...style,
+    }}
+    disabled={isDisabled}
+    {...props}
+  >
+    {children}
+  </button>
+)
+
+const CurrentLocationButton = ({
+  setLocalSpace,
+}: {
+  setLocalSpace: (s: Space) => void
+}): JSX.Element => {
+  const [loading, setLoading] = useState(false)
+  return (
+    <FormButton
+      isDisabled={loading}
+      style={{ position: 'relative' }}
+      onClick={() => {
+        setLoading(true)
+        getSpace()
+          .then((s) => setLocalSpace(s))
+          .catch((e) => alert(e.message))
+          .finally(() => setLoading(false))
+      }}
+    >
+      {loading ? 'Getting Location...' : 'Use Current Location'} &nbsp; &nbsp;
+      <span
+        style={{
+          position: 'absolute',
+          top: 'calc(50% - 2px)', // weird glyph box
+          right: '15px',
+          transform: 'translateY(-50%)',
+          fontSize: '24px',
+        }}
+      >
+        ⌖
+      </span>
+    </FormButton>
   )
 }
 
