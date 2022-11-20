@@ -2,13 +2,13 @@ import { Space } from '~singletons/interfaces'
 
 const LS_KEY = 'space'
 
-const DEFAULT_LOCATION = {
+export const DEFAULT_LOCATION = {
   latitude: 47.606209,
   longitude: -122.332069,
 }
 
 export const getSpace = (): Promise<Space> =>
-  new Promise((resolve) => {
+  new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const latitude = position.coords.latitude
@@ -17,10 +17,7 @@ export const getSpace = (): Promise<Space> =>
         setSavedSpace(space)
         resolve(space)
       },
-      (e) => {
-        alert(e.message + ', using default location (Seattle).')
-        resolve(DEFAULT_LOCATION)
-      },
+      (e) => reject(e),
     )
   })
 

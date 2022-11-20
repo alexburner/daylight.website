@@ -12,7 +12,12 @@ import {
   State,
 } from '~singletons/interfaces'
 import reducer from '~singletons/reducer'
-import { getSavedSpace, getSpace, clearSavedSpace } from '~singletons/space'
+import {
+  getSavedSpace,
+  getSpace,
+  clearSavedSpace,
+  DEFAULT_LOCATION,
+} from '~singletons/space'
 import { calculateState } from '~singletons/state'
 
 {
@@ -42,7 +47,12 @@ ReactDOM.render(
 
 if (!space) {
   // request user device geolocation if not already set
-  getSpace().then((s) => store.dispatch({ type: ActionType.Space, space: s }))
+  getSpace()
+    .then((s) => store.dispatch({ type: ActionType.Space, space: s }))
+    .catch((e) => {
+      alert(e.message + ', using default location (Seattle)')
+      store.dispatch({ type: ActionType.Space, space: DEFAULT_LOCATION })
+    })
 }
 
 // update time every second
