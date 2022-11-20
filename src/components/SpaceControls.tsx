@@ -89,6 +89,9 @@ const SpacePopover = ({
             height: '100%',
           }}
         >
+          <div>
+            <button className="button">Button</button>
+          </div>
           <div style={{ padding: POPOVER_PADDING, flexGrow: 1 }}>
             {/* Lat/Long fields */}
             <div style={{ width: '200px', margin: '0 auto' }}>
