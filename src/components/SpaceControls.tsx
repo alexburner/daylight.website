@@ -88,11 +88,11 @@ const SpacePopover = ({
           {/* Backdrop */}
           <div
             style={{
-              position: 'absolute',
-              top: '-100vh',
-              bottom: '-100vh',
-              left: '-100vw',
-              right: '-100vw',
+              position: 'fixed',
+              top: '-0',
+              bottom: '0',
+              left: '0',
+              right: '0',
               background: 'rgba(0, 0, 0, 0.3)',
               zIndex: 10,
             }}
