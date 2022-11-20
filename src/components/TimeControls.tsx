@@ -64,6 +64,7 @@ const TimeControls = ({ now, nudge, children }: Props): JSX.Element => {
           <Button
             label="◀"
             callback={() => nudge(NudgeDirection.Backward, NudgeDuration.Day)}
+            delay={200}
           />
           <Button
             label="◀◀"
@@ -88,6 +89,7 @@ const TimeControls = ({ now, nudge, children }: Props): JSX.Element => {
           <Button
             label="▶"
             callback={() => nudge(NudgeDirection.Forward, NudgeDuration.Day)}
+            delay={200}
           />
           <Button
             label="▶▶"
@@ -102,11 +104,13 @@ const TimeControls = ({ now, nudge, children }: Props): JSX.Element => {
 const Button = ({
   label,
   callback,
+  delay,
 }: {
   label: string
   callback: () => void
+  delay?: number
 }): JSX.Element => {
-  const mouseHold = useMouseHold(callback)
+  const mouseHold = useMouseHold(callback, delay)
   return (
     <button
       style={{
