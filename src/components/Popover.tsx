@@ -71,11 +71,11 @@ export const Popover = ({
         }}
         onClick={setClose}
       ></div>
-      {/* Popover */}
+      {/* Popover Body */}
       <div
         style={{
           width: '400px',
-          height: '600px',
+          height: 'auto',
           position: 'absolute',
           bottom: 'calc(100% + 15px)',
           right: '50%',

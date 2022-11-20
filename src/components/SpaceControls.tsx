@@ -21,7 +21,7 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps
 
-const Space = ({ space, setSpace }: Props): JSX.Element => {
+const SpaceControls = ({ space, setSpace }: Props): JSX.Element => {
   if (!space) return <div />
   return (
     <div style={{ margin: '36px 0 0' }}>
@@ -341,4 +341,4 @@ const mapDispatchToProps = (dispatch: Dispatch<State>): DispatchProps => ({
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Space)
+export default connect(mapStateToProps, mapDispatchToProps)(SpaceControls)
