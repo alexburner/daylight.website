@@ -1,19 +1,11 @@
-import React, {
-  ButtonHTMLAttributes,
-  ReactNode,
-  useCallback,
-  useMemo,
-  useState,
-} from 'react'
+import React, { ReactNode, useMemo, useState } from 'react'
 import { connect, Dispatch } from 'react-redux'
 
 import { State, Space, ActionType } from '~singletons/interfaces'
-import { getSpace } from '~singletons/space'
 import { getDmsStrings } from '~util/dms'
 import { Popover, PopoverTrigger, PopoverWrapper, usePopover } from './Popover'
 import { LatLongFields } from './SpaceControls/LatLongFields'
 import { SaveCancel } from './SpaceControls/SaveCancel'
-import { SearchForLocation } from './SpaceControls/SearchForLocation'
 import { UseCurrentLocation } from './SpaceControls/UseCurrentLocation'
 
 interface StateProps {
@@ -53,15 +45,14 @@ const SpaceDisplay = ({ space }: { space: Space }): JSX.Element => {
       >
         {strings.lat} | {strings.long}
       </div>
-      <div
+      {/* <div
         style={{
           fontSize: '12px',
           color: 'rgba(0, 0, 0, 0.6)',
         }}
       >
-        {/* 10733 Durland Avenue Northeast, Seattle, WA, USA */}
         Seattle, WA, USA
-      </div>
+      </div> */}
     </div>
   )
 }
