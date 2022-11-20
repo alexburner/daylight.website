@@ -205,7 +205,7 @@ const SpacePopover = ({
               <div
                 style={{
                   padding: POPOVER_PADDING,
-                  height: '70px',
+                  height: '74px',
                   borderTop: '1px solid #E8E8E8',
                   display: 'flex',
                   justifyContent: 'center',
@@ -219,7 +219,7 @@ const SpacePopover = ({
                       border: '1px solid #E8E8E8',
                       borderRadius: '6px',
                       fontSize: '18px',
-                      padding: ' 12px 18px',
+                      padding: ' 12px 24px',
                       background: 'transparent',
                       color: '#555',
                       cursor: hasChanges ? 'pointer' : 'not-allowed',
@@ -240,7 +240,7 @@ const SpacePopover = ({
                       borderRadius: '6px',
                       cursor: 'pointer',
                       fontSize: '18px',
-                      padding: ' 12px 18px',
+                      padding: ' 12px 24px',
                       background: 'transparent',
                       color: '#555',
                     }}
