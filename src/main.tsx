@@ -65,56 +65,56 @@ setInterval(
   1000,
 )
 
-// shift time with arrow keys
-window.addEventListener('keydown', (e) => {
-  let direction: NudgeDirection
-  let duration: NudgeDuration
-  switch (e.key) {
-    case 'm': {
-      direction = NudgeDirection.Forward
-      duration = NudgeDuration.Minute
-      break
-    }
-    case 'M': {
-      direction = NudgeDirection.Backward
-      duration = NudgeDuration.Minute
-      break
-    }
-    case 'h': {
-      direction = NudgeDirection.Forward
-      duration = NudgeDuration.Hour
-      break
-    }
-    case 'H': {
-      direction = NudgeDirection.Backward
-      duration = NudgeDuration.Hour
-      break
-    }
-    case 'd': {
-      direction = NudgeDirection.Forward
-      duration = NudgeDuration.Day
-      break
-    }
-    case 'D': {
-      direction = NudgeDirection.Backward
-      duration = NudgeDuration.Day
-      break
-    }
-    case 'w': {
-      direction = NudgeDirection.Forward
-      duration = NudgeDuration.Week
-      break
-    }
-    case 'W': {
-      direction = NudgeDirection.Backward
-      duration = NudgeDuration.Week
-      break
-    }
-    default: {
-      return
-    }
-  }
-  e.preventDefault()
-  e.stopPropagation()
-  store.dispatch({ type: ActionType.Nudge, direction, duration })
-})
+// // shift time with arrow keys
+// window.addEventListener('keydown', (e) => {
+//   let direction: NudgeDirection
+//   let duration: NudgeDuration
+//   switch (e.key) {
+//     case 'm': {
+//       direction = NudgeDirection.Forward
+//       duration = NudgeDuration.Minute
+//       break
+//     }
+//     case 'M': {
+//       direction = NudgeDirection.Backward
+//       duration = NudgeDuration.Minute
+//       break
+//     }
+//     case 'h': {
+//       direction = NudgeDirection.Forward
+//       duration = NudgeDuration.Hour
+//       break
+//     }
+//     case 'H': {
+//       direction = NudgeDirection.Backward
+//       duration = NudgeDuration.Hour
+//       break
+//     }
+//     case 'd': {
+//       direction = NudgeDirection.Forward
+//       duration = NudgeDuration.Day
+//       break
+//     }
+//     case 'D': {
+//       direction = NudgeDirection.Backward
+//       duration = NudgeDuration.Day
+//       break
+//     }
+//     case 'w': {
+//       direction = NudgeDirection.Forward
+//       duration = NudgeDuration.Week
+//       break
+//     }
+//     case 'W': {
+//       direction = NudgeDirection.Backward
+//       duration = NudgeDuration.Week
+//       break
+//     }
+//     default: {
+//       return
+//     }
+//   }
+//   e.preventDefault()
+//   e.stopPropagation()
+//   store.dispatch({ type: ActionType.Nudge, direction, duration })
+// })

@@ -62,7 +62,7 @@ const SpaceDisplay = ({ space }: { space: Space }): JSX.Element => {
 }
 
 const ARROW_SIZE = 15
-const POPOVER_PADDING = '10px'
+const POPOVER_PADDING = '20px'
 const FIELD_FONT_SIZE = '16px'
 
 const SpacePopover = ({
@@ -96,7 +96,7 @@ const SpacePopover = ({
           <div
             style={{
               position: 'fixed',
-              top: '-0',
+              top: '0',
               bottom: '0',
               left: '0',
               right: '0',
@@ -105,13 +105,13 @@ const SpacePopover = ({
             }}
             onClick={() => setShowPopover(false)}
           ></div>
-          {/* Panel */}
+          {/* Popover */}
           <div
             style={{
               width: '400px',
               height: '600px',
               position: 'absolute',
-              bottom: '50px',
+              bottom: 'calc(100% + 15px)',
               right: '50%',
               zIndex: 10,
               transform: 'translateX(50%)',
@@ -120,10 +120,9 @@ const SpacePopover = ({
               borderRadius: '10px',
               boxShadow:
                 '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-              paddingTop: POPOVER_PADDING,
             }}
           >
-            {/* Arrow */}
+            {/* Popover Arrow */}
             <div
               style={{
                 width: `${ARROW_SIZE}px`,
@@ -137,7 +136,7 @@ const SpacePopover = ({
                 background: '#FFF',
               }}
             />
-            {/* Popover content */}
+            {/* Popover Content */}
             <div
               style={{
                 display: 'flex',
@@ -214,8 +213,12 @@ const SpacePopover = ({
                 <div style={{ margin: '12px 0 0', textAlign: 'center' }}>
                   <CurrentLocationButton setLocalSpace={setLocalSpace} />
                 </div>
+                {/* Search for location */}
+                <div style={{ margin: '12px 0 0', textAlign: 'center' }}>
+                  <SearchForLocation setLocalSpace={setLocalSpace} />
+                </div>
               </div>
-              {/* Popover footer */}
+              {/* Popover Footer */}
               <div
                 style={{
                   padding: POPOVER_PADDING,
@@ -314,6 +317,68 @@ const CurrentLocationButton = ({
         ⌖
       </span>
     </FormButton>
+  )
+}
+
+const SearchForLocation = ({
+  setLocalSpace,
+}: {
+  setLocalSpace: (s: Space) => void
+}): JSX.Element => {
+  const [loading, setLoading] = useState(false)
+  const [query, setQuery] = useState('')
+  return (
+    <div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <input
+          type="text"
+          placeholder="Search for location..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          disabled={loading}
+          style={{
+            flexGrow: 1,
+            fontSize: '16px',
+            padding: ' 13px 16px',
+            border: '1px solid #EEE',
+            borderRadius: '6px',
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 0,
+          }}
+        />
+        <FormButton
+          isDisabled={loading}
+          style={{
+            position: 'relative',
+            borderLeft: 'none',
+            borderTopLeftRadius: 0,
+            borderBottomLeftRadius: 0,
+          }}
+          onClick={() => {
+            setLoading(true)
+          }}
+        >
+          &nbsp;
+          <span
+            style={{
+              position: 'absolute',
+              top: 'calc(50%)',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              fontSize: '24px',
+            }}
+          >
+            {loading ? '⇄' : '⚲'}
+          </span>
+        </FormButton>
+      </div>
+    </div>
   )
 }
 
