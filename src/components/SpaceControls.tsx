@@ -161,9 +161,9 @@ const SpacePopover = ({
                       }}
                       style={{
                         width: '14ch',
+                        padding: '2px',
                         textAlign: 'right',
                         border: 'none',
-                        padding: '2px',
                         color: 'rgba(0, 0, 0, 0.6)',
                         fontSize: FIELD_FONT_SIZE,
                       }}
@@ -190,11 +190,11 @@ const SpacePopover = ({
                         }))
                       }}
                       style={{
-                        marginBottom: '2px',
+                        marginTop: '2px',
                         width: '14ch',
+                        padding: '2px',
                         textAlign: 'right',
                         border: 'none',
-                        padding: '2px',
                         color: 'rgba(0, 0, 0, 0.6)',
                         fontSize: FIELD_FONT_SIZE,
                       }}
