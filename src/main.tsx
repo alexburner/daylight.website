@@ -5,12 +5,7 @@ import { createStore, Reducer } from 'redux'
 import { install } from 'redux-loop'
 
 import App from '~components/App'
-import {
-  ActionType,
-  NudgeDirection,
-  NudgeDuration,
-  State,
-} from '~singletons/interfaces'
+import { ActionType, State } from '~singletons/interfaces'
 import reducer from '~singletons/reducer'
 import {
   getSavedSpace,
