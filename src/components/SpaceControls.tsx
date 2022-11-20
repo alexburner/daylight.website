@@ -1,7 +1,8 @@
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, useEffect, useMemo, useState } from 'react'
 import { connect, Dispatch } from 'react-redux'
 
 import { State, Space, ActionType } from '~singletons/interfaces'
+import { getDmsStrings } from '~util/dms'
 
 interface StateProps {
   space?: Space
@@ -25,7 +26,11 @@ const Space = ({ space, setSpace }: Props): JSX.Element => {
 }
 
 const SpaceDisplay = ({ space }: { space: Space }): JSX.Element => {
-  if (!space) return <div />
+  if (!space) throw new Error('Unreachable')
+  const strings = useMemo(
+    () => getDmsStrings(space.latitude, space.longitude),
+    [space.latitude, space.longitude],
+  )
   return (
     <div>
       <div
@@ -34,7 +39,7 @@ const SpaceDisplay = ({ space }: { space: Space }): JSX.Element => {
           fontSize: '14px',
         }}
       >
-        46°59′5″ N | 122°54′8″ W
+        {strings.lat} | {strings.long}
       </div>
       <div
         style={{
