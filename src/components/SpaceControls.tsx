@@ -10,6 +10,7 @@ import { State, Space, ActionType } from '~singletons/interfaces'
 import { getSpace } from '~singletons/space'
 import { getDmsStrings } from '~util/dms'
 import { Popover, PopoverTrigger, PopoverWrapper, usePopover } from './Popover'
+import { LatLongFields } from './SpaceControls/LatLongFields'
 import { SearchForLocation } from './SpaceControls/SearchForLocation'
 import { UseCurrentLocation } from './SpaceControls/UseCurrentLocation'
 
@@ -91,84 +92,18 @@ const SpacePopover = ({
             height: '100%',
           }}
         >
-          <div>
-            <button className="button">
-              <span>Button</span>
-              <span className="icon is-small">
-                <i className="fa fa-crosshairs" aria-hidden="true" />
-              </span>
-            </button>
-          </div>
-          <div style={{ padding: POPOVER_PADDING, flexGrow: 1 }}>
-            {/* Lat/Long fields */}
-            <div style={{ width: '200px', margin: '0 auto' }}>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'baseline',
-                }}
-              >
-                <label htmlFor="latitude">Latitude</label>
-                &nbsp;
-                <input
-                  id="latitude"
-                  type="number"
-                  value={localSpace.latitude}
-                  onChange={(e) => {
-                    const latitude = Number(e.target.value)
-                    setLocalSpace((prev) => ({
-                      latitude,
-                      longitude: prev.longitude,
-                    }))
-                  }}
-                  style={{
-                    width: '14ch',
-                    padding: '2px',
-                    textAlign: 'right',
-                    border: 'none',
-                    color: 'rgba(0, 0, 0, 0.6)',
-                    fontSize: FIELD_FONT_SIZE,
-                  }}
-                />
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'baseline',
-                }}
-              >
-                <label htmlFor="longitude">Longitude</label>
-                &nbsp;
-                <input
-                  id="longitude"
-                  type="number"
-                  value={localSpace.longitude}
-                  onChange={(e) => {
-                    const longitude = Number(e.target.value)
-                    setLocalSpace((prev) => ({
-                      latitude: prev.latitude,
-                      longitude,
-                    }))
-                  }}
-                  style={{
-                    marginTop: '2px',
-                    width: '14ch',
-                    padding: '2px',
-                    textAlign: 'right',
-                    border: 'none',
-                    color: 'rgba(0, 0, 0, 0.6)',
-                    fontSize: FIELD_FONT_SIZE,
-                  }}
-                />
-              </div>
-            </div>
+          <div style={{ padding: POPOVER_PADDING }}>
+            {/* <div style={{ margin: '12px 0 0', textAlign: 'center' }}>
+              <SearchForLocation setLocalSpace={setLocalSpace} />
+            </div> */}
             <div style={{ margin: '12px 0 0', textAlign: 'center' }}>
               <UseCurrentLocation setLocalSpace={setLocalSpace} />
             </div>
             <div style={{ margin: '12px 0 0', textAlign: 'center' }}>
-              <SearchForLocation setLocalSpace={setLocalSpace} />
+              <LatLongFields
+                localSpace={localSpace}
+                setLocalSpace={setLocalSpace}
+              />
             </div>
           </div>
           {/* Popover Footer */}
