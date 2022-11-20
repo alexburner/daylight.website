@@ -16,51 +16,79 @@ type Props = StateProps & DispatchProps
 const Space = ({ space, setSpace }: Props): JSX.Element => {
   if (!space) return <div />
   return (
-    <div
-      style={{
-        margin: '24px 0 0',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: '2px',
-      }}
-    >
-      <div>
-        <label htmlFor="longitude">lat</label>
-        &nbsp;
-        <input
-          id="longitude"
-          type="number"
-          value={space.longitude}
-          onChange={(e) => {
-            setSpace(+e.target.value, space.latitude)
-          }}
+    <div>
+      <div
+        className="space-display"
+        style={{
+          margin: '36px 0 0',
+        }}
+      >
+        <div
           style={{
-            width: '14ch',
-            textAlign: 'center',
-            border: 'none',
-            padding: '2px',
+            margin: '0 0 6px',
+            fontSize: '14px',
           }}
-        />
-      </div>
-      <div>
-        <label htmlFor="latitude">long</label>
-        &nbsp;
-        <input
-          id="latitude"
-          type="number"
-          value={space.latitude}
-          onChange={(e) => {
-            setSpace(space.longitude, +e.target.value)
-          }}
+        >
+          46°59′5″ N | 122°54′8″ W
+        </div>
+        <div
           style={{
-            width: '14ch',
-            textAlign: 'center',
-            border: 'none',
-            padding: '2px',
+            fontSize: '12px',
+            color: 'rgba(0, 0, 0, 0.6)',
           }}
-        />
+        >
+          {/* 10733 Durland Avenue Northeast, Seattle, WA, USA */}
+          Seattle, WA, USA
+        </div>
+        {/* <div
+          style={{
+            margin: '6px 0 0',
+            display: 'flex',
+            justifyContent: 'center',
+            fontSize: '12px',
+          }}
+        >
+          <div>
+            <label htmlFor="longitude">lat.</label>
+            &nbsp;
+            <input
+              id="longitude"
+              type="number"
+              value={space.longitude}
+              onChange={(e) => {
+                setSpace(+e.target.value, space.latitude)
+              }}
+              style={{
+                width: '14ch',
+                textAlign: 'center',
+                border: 'none',
+                padding: '2px',
+                color: 'rgba(0, 0, 0, 0.6)',
+                fontSize: '12px',
+              }}
+            />
+          </div>
+          <div>
+            <label htmlFor="latitude">long.</label>
+            &nbsp;
+            <input
+              id="latitude"
+              type="number"
+              value={space.latitude}
+              onChange={(e) => {
+                setSpace(space.longitude, +e.target.value)
+              }}
+              style={{
+                width: '14ch',
+                textAlign: 'center',
+                border: 'none',
+                padding: '2px',
+                color: 'rgba(0, 0, 0, 0.6)',
+                fontSize: '12px',
+              }}
+            />
+          </div>
+        </div> */}
       </div>
     </div>
   )
