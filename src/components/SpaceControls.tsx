@@ -10,6 +10,8 @@ import { State, Space, ActionType } from '~singletons/interfaces'
 import { getSpace } from '~singletons/space'
 import { getDmsStrings } from '~util/dms'
 import { Popover, PopoverTrigger, PopoverWrapper, usePopover } from './Popover'
+import { SearchForLocation } from './SpaceControls/SearchForLocation'
+import { UseCurrentLocation } from './SpaceControls/UseCurrentLocation'
 
 interface StateProps {
   space?: Space
@@ -162,11 +164,9 @@ const SpacePopover = ({
                 />
               </div>
             </div>
-            {/* Detect current location */}
             <div style={{ margin: '12px 0 0', textAlign: 'center' }}>
-              <CurrentLocationButton setLocalSpace={setLocalSpace} />
+              <UseCurrentLocation setLocalSpace={setLocalSpace} />
             </div>
-            {/* Search for location */}
             <div style={{ margin: '12px 0 0', textAlign: 'center' }}>
               <SearchForLocation setLocalSpace={setLocalSpace} />
             </div>
@@ -236,102 +236,6 @@ const FormButton = ({
     {children}
   </button>
 )
-
-const CurrentLocationButton = ({
-  setLocalSpace,
-}: {
-  setLocalSpace: (s: Space) => void
-}): JSX.Element => {
-  const [loading, setLoading] = useState(false)
-  return (
-    <FormButton
-      isDisabled={loading}
-      style={{ position: 'relative' }}
-      onClick={() => {
-        setLoading(true)
-        getSpace()
-          .then((s) => setLocalSpace(s))
-          .catch((e) => alert(e.message))
-          .finally(() => setLoading(false))
-      }}
-    >
-      {loading ? 'Getting Location...' : 'Use Current Location'} &nbsp; &nbsp;
-      <span
-        style={{
-          position: 'absolute',
-          top: 'calc(50% - 2px)', // weird glyph box
-          right: '15px',
-          transform: 'translateY(-50%)',
-          fontSize: '24px',
-        }}
-      >
-        ⌖
-      </span>
-    </FormButton>
-  )
-}
-
-const SearchForLocation = ({
-  setLocalSpace,
-}: {
-  setLocalSpace: (s: Space) => void
-}): JSX.Element => {
-  const [loading, setLoading] = useState(false)
-  const [query, setQuery] = useState('')
-  return (
-    <div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <input
-          type="text"
-          placeholder="Search for location..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          disabled={loading}
-          style={{
-            flexGrow: 1,
-            fontSize: '16px',
-            padding: ' 13px 16px',
-            border: '1px solid #EEE',
-            borderRadius: '6px',
-            borderTopRightRadius: 0,
-            borderBottomRightRadius: 0,
-          }}
-        />
-        <FormButton
-          isDisabled={loading}
-          style={{
-            position: 'relative',
-            borderLeft: 'none',
-            borderTopLeftRadius: 0,
-            borderBottomLeftRadius: 0,
-          }}
-          onClick={() => {
-            setLoading(true)
-          }}
-        >
-          &nbsp;
-          <span
-            style={{
-              position: 'absolute',
-              top: 'calc(50%)',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              fontSize: '24px',
-            }}
-          >
-            {loading ? '⇄' : '⚲'}
-          </span>
-        </FormButton>
-      </div>
-    </div>
-  )
-}
 
 const mapStateToProps = ({ space }: State): StateProps => ({ space })
 
