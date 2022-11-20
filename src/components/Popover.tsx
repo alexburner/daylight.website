@@ -12,8 +12,8 @@ export const usePopover = (): {
   setClose: SetFn
 } => {
   // TEMP
-  const [isOpen, setIsOpen] = useState(true)
-  // const [isOpen, setIsOpen] = useState(false)
+  // const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
   const setOpen = useCallback(() => setIsOpen(true), [])
   const setClose = useCallback(() => setIsOpen(false), [])
   return useMemo(
