@@ -3,9 +3,9 @@ import { Space } from '~singletons/interfaces'
 import { getSpace } from '~singletons/space'
 
 export const UseCurrentLocation = ({
-  setLocalSpace,
+  onSuccess,
 }: {
-  setLocalSpace: (s: Space) => void
+  onSuccess: (s: Space) => void
 }): JSX.Element => {
   const [loading, setLoading] = useState(false)
   return (
@@ -15,7 +15,7 @@ export const UseCurrentLocation = ({
       onClick={() => {
         setLoading(true)
         getSpace()
-          .then((s) => setLocalSpace(s))
+          .then((s) => onSuccess(s))
           .catch((e) => alert(e.message))
           .finally(() => setLoading(false))
       }}

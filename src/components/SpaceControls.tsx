@@ -1,6 +1,7 @@
 import React, {
   ButtonHTMLAttributes,
   ReactNode,
+  useCallback,
   useMemo,
   useState,
 } from 'react'
@@ -11,6 +12,7 @@ import { getSpace } from '~singletons/space'
 import { getDmsStrings } from '~util/dms'
 import { Popover, PopoverTrigger, PopoverWrapper, usePopover } from './Popover'
 import { LatLongFields } from './SpaceControls/LatLongFields'
+import { SaveCancel } from './SpaceControls/SaveCancel'
 import { SearchForLocation } from './SpaceControls/SearchForLocation'
 import { UseCurrentLocation } from './SpaceControls/UseCurrentLocation'
 
@@ -64,8 +66,6 @@ const SpaceDisplay = ({ space }: { space: Space }): JSX.Element => {
   )
 }
 
-const POPOVER_PADDING = '20px'
-
 const SpacePopover = ({
   children,
   space,
@@ -86,7 +86,13 @@ const SpacePopover = ({
       <Popover isOpen={isOpen} setClose={setClose}>
         <div className="space-popover-items">
           <div className="p-5">
-            <UseCurrentLocation setLocalSpace={setLocalSpace} />
+            <UseCurrentLocation
+              onSuccess={(s) => {
+                setLocalSpace(s)
+                setSpace(s.longitude, s.latitude)
+                setClose()
+              }}
+            />
           </div>
           <div className="p-3">
             <LatLongFields
@@ -94,61 +100,24 @@ const SpacePopover = ({
               setLocalSpace={setLocalSpace}
             />
           </div>
-          <div className="p-2">
-            {/* Save/Cancel */}
-            <div style={{ textAlign: 'center' }}>
-              <FormButton
-                isDisabled={!hasChanges}
-                onClick={() => {
-                  setSpace(localSpace.longitude, localSpace.latitude)
-                  setClose()
-                }}
-              >
-                Save
-              </FormButton>
-              &nbsp; &nbsp;
-              <FormButton
-                onClick={() => {
-                  setLocalSpace(space)
-                  setClose()
-                }}
-              >
-                Cancel
-              </FormButton>
-            </div>
+          <div className="p-4">
+            <SaveCancel
+              canSave={hasChanges}
+              onSave={() => {
+                setSpace(localSpace.longitude, localSpace.latitude)
+                setClose()
+              }}
+              onCancel={() => {
+                setLocalSpace(space)
+                setClose()
+              }}
+            />
           </div>
         </div>
       </Popover>
     </PopoverWrapper>
   )
 }
-
-const FormButton = ({
-  isDisabled = false,
-  children,
-  style,
-  ...props
-}: { isDisabled?: boolean } & ButtonHTMLAttributes<
-  HTMLButtonElement
->): JSX.Element => (
-  <button
-    style={{
-      border: '1px solid #E8E8E8',
-      borderRadius: '6px',
-      fontSize: '18px',
-      padding: ' 12px 24px',
-      background: 'transparent',
-      color: '#555',
-      cursor: isDisabled ? 'not-allowed' : 'pointer',
-      opacity: isDisabled ? 0.5 : 1,
-      ...style,
-    }}
-    disabled={isDisabled}
-    {...props}
-  >
-    {children}
-  </button>
-)
 
 const mapStateToProps = ({ space }: State): StateProps => ({ space })
 
