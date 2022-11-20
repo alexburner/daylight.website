@@ -90,7 +90,12 @@ const SpacePopover = ({
           }}
         >
           <div>
-            <button className="button">Button</button>
+            <button className="button">
+              <span>Button</span>
+              <span className="icon is-small">
+                <i className="fa fa-crosshairs" aria-hidden="true" />
+              </span>
+            </button>
           </div>
           <div style={{ padding: POPOVER_PADDING, flexGrow: 1 }}>
             {/* Lat/Long fields */}
