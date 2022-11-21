@@ -2,6 +2,7 @@ import React, { ReactNode, useMemo, useState } from 'react'
 import { connect, Dispatch } from 'react-redux'
 
 import { State, Space, ActionType } from '~singletons/interfaces'
+import { useSpaceLabel } from '~singletons/lookup'
 import { getDmsStrings } from '~util/dms'
 import { Popover, PopoverTrigger, PopoverWrapper, usePopover } from './Popover'
 import { LatLongFields } from './SpaceControls/LatLongFields'
@@ -31,10 +32,11 @@ const SpaceControls = ({ space, setSpace }: Props): JSX.Element => {
 
 const SpaceDisplay = ({ space }: { space: Space }): JSX.Element => {
   if (!space) throw new Error('Unreachable')
-  const strings = useMemo(
+  const dmsStrings = useMemo(
     () => getDmsStrings(space.latitude, space.longitude),
     [space.latitude, space.longitude],
   )
+  const spaceLabel = useSpaceLabel(space)
   return (
     <div style={{ display: 'inline-block', padding: '4px 8px' }}>
       <div
@@ -43,16 +45,18 @@ const SpaceDisplay = ({ space }: { space: Space }): JSX.Element => {
           fontSize: '14px',
         }}
       >
-        {strings.lat} | {strings.long}
+        {dmsStrings.lat} | {dmsStrings.long}
       </div>
-      {/* <div
-        style={{
-          fontSize: '12px',
-          color: 'rgba(0, 0, 0, 0.6)',
-        }}
-      >
-        Seattle, WA, USA
-      </div> */}
+      {spaceLabel && (
+        <div
+          style={{
+            fontSize: '12px',
+            color: 'rgba(0, 0, 0, 0.6)',
+          }}
+        >
+          {spaceLabel}
+        </div>
+      )}
     </div>
   )
 }
