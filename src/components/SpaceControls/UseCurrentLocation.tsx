@@ -20,7 +20,7 @@ export const UseCurrentLocation = ({
           .finally(() => setLoading(false))
       }}
     >
-      <span>{loading ? 'Getting Location...' : 'Use Current Location'}</span>
+      <span>{loading ? 'Requesting Location...' : 'Use Current Location'}</span>
       <span className="icon is-small">
         {loading ? (
           <i className="fa fa-circle-o-notch fa-spin fa-fw" />

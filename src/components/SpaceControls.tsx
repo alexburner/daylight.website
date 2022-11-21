@@ -21,7 +21,7 @@ type Props = StateProps & DispatchProps
 const SpaceControls = ({ space, setSpace }: Props): JSX.Element => {
   if (!space) return <div />
   return (
-    <div style={{ margin: '36px 0 0' }}>
+    <div style={{ margin: '24px 0 0' }}>
       <SpacePopover space={space} setSpace={setSpace}>
         <SpaceDisplay space={space} />
       </SpacePopover>
@@ -36,7 +36,7 @@ const SpaceDisplay = ({ space }: { space: Space }): JSX.Element => {
     [space.latitude, space.longitude],
   )
   return (
-    <div>
+    <div style={{ display: 'inline-block', padding: '4px 8px' }}>
       <div
         style={{
           margin: '0 auto 6px',

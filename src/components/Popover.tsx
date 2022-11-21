@@ -39,7 +39,13 @@ export const PopoverTrigger = ({
   children?: ReactNode
   setOpen: SetFn
 }): JSX.Element => (
-  <div style={{ cursor: 'pointer' }} onClick={setOpen}>
+  <div
+    style={{
+      display: 'inline-block',
+      cursor: 'pointer',
+    }}
+    onClick={setOpen}
+  >
     {children}
   </div>
 )
