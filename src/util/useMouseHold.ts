@@ -11,22 +11,42 @@ export const useMouseHold = (
   onTouchEnd: () => void
 } => {
   const callbackRef = useRef(callback)
-  const [isMouseDown, setIsMouseDown] = useState(false)
-  const onMouseDown = useCallback(() => setIsMouseDown(true), [])
-  const onMouseUp = useCallback(() => setIsMouseDown(false), [])
+  const [isHolding, setIsHolding] = useState(false)
 
-  // Initial callback
+  // This is in case we're on iOS,
+  // which fires touch THEN mouse events
+  // causing double hold responses
+  const heardTouch = useRef(false)
+
+  const onMouseDown = useCallback(() => {
+    if (heardTouch.current) return
+    setIsHolding(true)
+  }, [])
+  const onMouseUp = useCallback(() => {
+    if (heardTouch.current) return
+    setIsHolding(false)
+  }, [])
+  const onTouchStart = useCallback(() => {
+    heardTouch.current = true
+    setIsHolding(true)
+  }, [])
+  const onTouchEnd = useCallback(() => {
+    heardTouch.current = true
+    setIsHolding(false)
+  }, [])
+
+  // Leading edge callback
   useEffect(() => {
-    if (isMouseDown) callbackRef.current()
-  }, [isMouseDown])
+    if (isHolding) callbackRef.current()
+  }, [isHolding])
 
   // Repeated callbacks
-  useInterval(callbackRef.current, isMouseDown ? delay : null)
+  useInterval(callbackRef.current, isHolding ? delay : null)
 
   return {
     onMouseDown,
     onMouseUp,
-    onTouchStart: onMouseDown,
-    onTouchEnd: onMouseUp,
+    onTouchStart,
+    onTouchEnd,
   }
 }
