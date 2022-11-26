@@ -70,6 +70,34 @@ const API_LOL = [
   '8',
 ].join('')
 
+export const useLookupQuery = (
+  query?: string,
+): { loading: boolean; results?: LookupResult[]; error?: Error } => {
+  const [loading, setLoading] = useState(false)
+  const [results, setResults] = useState<LookupResult[]>()
+  const [error, setError] = useState<Error>()
+
+  useEffect(() => {
+    if (!query) {
+      // Unset
+      setLoading(false)
+      setResults(undefined)
+      setError(undefined)
+    } else {
+      // Run query
+      setLoading(true)
+      setResults(undefined)
+      setError(undefined)
+      lookupQuery(query)
+        .then((r) => setResults(r))
+        .catch((e) => setError(e))
+        .finally(() => setLoading(false))
+    }
+  }, [query])
+
+  return { loading, results, error }
+}
+
 export const useSpaceLabel = (space: Space): string | undefined => {
   const [label, setLabel] = useState<string>()
   useEffect(() => {
@@ -82,16 +110,24 @@ const lookupCoordsLabel = async (space: Space): Promise<string | undefined> => {
   const results = await lookupCoords(space)
   const result = results[0]
   if (!result) return
+  if (!result.locality) return result.label
   return [result.locality, result.region_code, result.country_code].join(', ')
 }
 
-const lookupCoords = async ({
+const lookupCoords = ({
   latitude,
   longitude,
 }: Space): Promise<LookupResult[]> => {
-  // Build request URL
   const url = `${API_URL}/reverse?${API_LOL}&query=${latitude},${longitude}`
+  return lookup(url)
+}
 
+const lookupQuery = (query: string): Promise<LookupResult[]> => {
+  const url = `${API_URL}/forward?${API_LOL}&query=${query}`
+  return lookup(url)
+}
+
+const lookup = async (url: string): Promise<LookupResult[]> => {
   // Attempt local cache first
   const saved = localStorage.getItem(url)
   if (saved && saved.length) {

@@ -1,76 +1,68 @@
 import React, { useState } from 'react'
 import { Space } from '~singletons/interfaces'
+import { useLookupQuery } from '~singletons/lookup'
 
 export const SearchForLocation = ({
-  setLocalSpace,
+  onSelect,
 }: {
-  setLocalSpace: (s: Space) => void
+  onSelect: (s: Space) => void
 }): JSX.Element => {
-  const [loading, setLoading] = useState(false)
-  const [query, setQuery] = useState('')
+  const [inputValue, setInputValue] = useState('')
+  const [query, setQuery] = useState<string>()
+  const { loading, results, error } = useLookupQuery(query)
+  const queryInput = () => inputValue && setQuery(inputValue)
   return (
     <div>
       <div className="field has-addons">
-        <div className="control">
+        <div className="control is-expanded">
           <input
             className="input"
             type="text"
-            placeholder="Find a repository"
+            placeholder="Search for a location..."
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && queryInput()}
+            disabled={loading}
           />
         </div>
         <div className="control">
-          <a className="button is-info">Search</a>
+          <button
+            className="button is-info"
+            onClick={() => queryInput()}
+            disabled={loading}
+          >
+            {loading ? 'Searching...' : 'Search'}
+          </button>
         </div>
       </div>
-      {/* <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <input
-          type="text"
-          placeholder="Search for location..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          disabled={loading}
-          style={{
-            flexGrow: 1,
-            fontSize: '16px',
-            padding: ' 13px 16px',
-            border: '1px solid #EEE',
-            borderRadius: '6px',
-            borderTopRightRadius: 0,
-            borderBottomRightRadius: 0,
-          }}
-        />
-        <FormButton
-          isDisabled={loading}
-          style={{
-            position: 'relative',
-            borderLeft: 'none',
-            borderTopLeftRadius: 0,
-            borderBottomLeftRadius: 0,
-          }}
-          onClick={() => {
-            setLoading(true)
-          }}
-        >
-          &nbsp;
-          <span
-            style={{
-              position: 'absolute',
-              top: 'calc(50%)',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              fontSize: '24px',
-            }}
-          >
-            {loading ? '⇄' : '⚲'}
-          </span>
-        </FormButton>
-      </div> */}
+      {error && (
+        <div className="notification is-danger is-light">{error.message}</div>
+      )}
+      {results &&
+        (results.length === 0 ? (
+          <div className="notification">No results for {`"${query}"`}</div>
+        ) : (
+          <div className="p-1">
+            {results.map((result) => (
+              <div
+                key={result.label}
+                style={{ overflow: 'hidden', display: 'flex' }}
+              >
+                <button
+                  className="button is-white is-flex-grow-1"
+                  onClick={() =>
+                    onSelect({
+                      latitude: result.latitude,
+                      longitude: result.longitude,
+                    })
+                  }
+                >
+                  {result.label}
+                </button>
+              </div>
+            ))}
+          </div>
+        ))}
     </div>
   )
 }

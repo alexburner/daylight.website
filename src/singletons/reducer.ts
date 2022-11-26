@@ -12,6 +12,7 @@ import {
 import { getNow, getNudgeMs } from '~singletons/times'
 import { asserNever } from '~singletons/types'
 import { calculateState } from '~singletons/state'
+import { setSavedSpace } from './space'
 
 export default (state: State, action: Action): State | Loop<State, Action> => {
   switch (action.type) {
@@ -21,6 +22,8 @@ export default (state: State, action: Action): State | Loop<State, Action> => {
     case ActionType.Space: {
       // only update if location has changed
       if (_.isEqual(state.space, action.space)) return state
+      // side effect alert! so sue me
+      setSavedSpace(action.space)
       // location has changed, update both space and time
       return calculateState({
         ms: state.ms,

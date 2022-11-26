@@ -7,6 +7,7 @@ import { getDmsStrings } from '~util/dms'
 import { Popover, PopoverTrigger, PopoverWrapper, usePopover } from './Popover'
 import { LatLongFields } from './SpaceControls/LatLongFields'
 import { SaveCancel } from './SpaceControls/SaveCancel'
+import { SearchForLocation } from './SpaceControls/SearchForLocation'
 import { UseCurrentLocation } from './SpaceControls/UseCurrentLocation'
 
 interface StateProps {
@@ -89,7 +90,16 @@ const SpacePopover = ({
               }}
             />
           </div>
-          <div className="p-3">
+          <div className="p-4">
+            <SearchForLocation
+              onSelect={(s) => {
+                setLocalSpace(s)
+                setSpace(s.longitude, s.latitude)
+                setClose()
+              }}
+            />
+          </div>
+          <div className="p-4">
             <LatLongFields
               localSpace={localSpace}
               setLocalSpace={setLocalSpace}
