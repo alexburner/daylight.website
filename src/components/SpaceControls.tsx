@@ -41,7 +41,6 @@ const SpaceDisplay = ({ space }: { space: Space }): JSX.Element => {
     <div style={{ display: 'inline-block', padding: '4px 8px' }}>
       <div
         style={{
-          margin: '0 auto 6px',
           fontSize: '14px',
         }}
       >
@@ -50,6 +49,7 @@ const SpaceDisplay = ({ space }: { space: Space }): JSX.Element => {
       {spaceLabel && (
         <div
           style={{
+            margin: '2px 0 0',
             fontSize: '12px',
             color: 'rgba(0, 0, 0, 0.6)',
           }}

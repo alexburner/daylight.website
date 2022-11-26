@@ -48,34 +48,49 @@ const API_LOL = [
   '8',
 ].join('')
 
+interface LookupResult {
+  latitude: number // 47.708022
+  longitude: number // -122.278749
+  type: string // "address"
+  distance: number // 0.02
+  name: string // "10727 Durland Avenue Northeast"
+  number: string // "10727"
+  postal_code: string // "98125"
+  street: string // "Durland Avenue Northeast"
+  confidence: number // 0.8
+  region: string // "Washington"
+  region_code: string // "WA"
+  county: string // "King County"
+  locality: string // "Seattle"
+  administrative_area: null
+  neighbourhood: string // "Matthews Beach"
+  country: string // "United States"
+  country_code: string // "USA"
+  continent: string // "North America"
+  label: string // "10727 Durland Avenue Northeast, Seattle, WA, USA"
+}
+
 export const useSpaceLabel = (space: Space): string | undefined => {
   const [label, setLabel] = useState<string>()
   useEffect(() => {
-    lookupSpaceLabel(space).then((result) => setLabel(result))
+    lookupCoordsLabel(space).then((l) => setLabel(l))
   }, [space])
   return label
 }
 
-const lookupSpaceLabel = async ({
+const lookupCoordsLabel = async (space: Space): Promise<string | undefined> => {
+  const results = await lookupCoords(space)
+  const result = results[0]
+  if (!result) return
+  return [result.locality, result.region_code, result.country_code].join(', ')
+}
+
+const lookupCoords = async ({
   latitude,
   longitude,
-}: Space): Promise<string | undefined> => {
-  /**
-   * Note TODO
-   * API request forwards to HTTPS
-   * Which, I gotta pay for
-   * This seems to happen in Chrome by default?
-   * Testing in Postman, it doesn't
-   * Wtf
-   */
-
+}: Space): Promise<LookupResult[]> => {
   const url = `${API_URL}/reverse?${API_LOL}&query=${latitude},${longitude}`
   const response = await fetch(url, { referrerPolicy: 'unsafe-url' })
   const json = await response.json()
-
-  console.log(json)
-
-  if (json.data && json.data.results && json.data.results[0]) {
-    return json.data.results[0].label
-  }
+  return json.data ?? []
 }
