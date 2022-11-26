@@ -23,7 +23,7 @@ interface LookupResult {
   label: string // "10727 Durland Avenue Northeast, Seattle, WA, USA"
 }
 
-const API_URL = 'http://api.positionstack.com/v1'
+const API_URL = 'https://api.positionstack.com/v1'
 const API_LOL = [
   'a',
   'c',
@@ -135,7 +135,7 @@ const lookup = async (url: string): Promise<LookupResult[]> => {
   }
 
   // Fetch from API if no cache hit
-  const response = await fetch(url, { referrerPolicy: 'unsafe-url' })
+  const response = await fetch(url)
   const json = await response.json()
   const results = json.data ?? []
 
