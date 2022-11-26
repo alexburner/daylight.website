@@ -28,9 +28,10 @@ const Now = ({ now }: Props): JSX.Element => {
           `}
       />
       <text
-        x={point.x + PADDING + SEGMENT + 14}
+        x={point.x + PADDING + SEGMENT + LENGTH / 2}
         y={point.y}
-        baselineShift="-28%"
+        dominantBaseline="middle"
+        textAnchor="middle"
         style={{
           fill: '#FFF',
           fontSize: '11px',
