@@ -9,8 +9,8 @@ export const LatLongFields = ({
   setLocalSpace: (s: Space) => void
 }): JSX.Element => {
   return (
-    <div className="level">
-      <div className="level-item">
+    <div className="columns is-variable is-1">
+      <div className="column">
         <div className="field has-addons">
           <div className="control">
             <a className="button is-small is-static">Lat</a>
@@ -30,7 +30,7 @@ export const LatLongFields = ({
           </div>
         </div>
       </div>
-      <div className="level-item">
+      <div className="column">
         <div className="field has-addons">
           <div className="control">
             <a className="button is-small is-static">Long</a>
