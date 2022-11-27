@@ -15,6 +15,7 @@ import {
   clearSavedSpace,
   DEFAULT_LOCATION,
 } from '~singletons/space'
+import { getSavedPlace } from '~singletons/place'
 import { calculateState } from '~singletons/state'
 
 {
@@ -29,9 +30,10 @@ import { calculateState } from '~singletons/state'
 }
 
 const space = getSavedSpace()
-const store = createStore(
+const place = getSavedPlace()
+export const store = createStore(
   (reducer as unknown) as Reducer<State>,
-  calculateState({ ms: Date.now(), space }),
+  calculateState({ ms: Date.now(), space, place }),
   install(),
 )
 

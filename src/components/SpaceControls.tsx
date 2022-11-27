@@ -1,8 +1,7 @@
 import React, { ReactNode, useMemo, useState } from 'react'
 import { connect, Dispatch } from 'react-redux'
 
-import { State, Space, ActionType } from '~singletons/interfaces'
-import { useSpaceLabel } from '~singletons/lookup'
+import { State, Space, ActionType, Place } from '~singletons/interfaces'
 import { getDmsStrings } from '~util/dms'
 import { Popover, PopoverTrigger, PopoverWrapper, usePopover } from './Popover'
 import { LatLongFields } from './SpaceControls/LatLongFields'
@@ -12,6 +11,7 @@ import { UseCurrentLocation } from './SpaceControls/UseCurrentLocation'
 
 interface StateProps {
   space?: Space
+  place?: Place
 }
 
 interface DispatchProps {
@@ -20,24 +20,29 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps
 
-const SpaceControls = ({ space, setSpace }: Props): JSX.Element => {
+const SpaceControls = ({ space, setSpace, place }: Props): JSX.Element => {
   if (!space) return <div />
   return (
     <div style={{ margin: '24px 0 0' }}>
       <SpacePopover space={space} setSpace={setSpace}>
-        <SpaceDisplay space={space} />
+        <SpaceDisplay space={space} place={place} />
       </SpacePopover>
     </div>
   )
 }
 
-const SpaceDisplay = ({ space }: { space: Space }): JSX.Element => {
+const SpaceDisplay = ({
+  space,
+  place,
+}: {
+  space: Space
+  place?: Place
+}): JSX.Element => {
   if (!space) throw new Error('Unreachable')
   const dmsStrings = useMemo(
     () => getDmsStrings(space.latitude, space.longitude),
     [space.latitude, space.longitude],
   )
-  const spaceLabel = useSpaceLabel(space)
   return (
     <div style={{ display: 'inline-block', padding: '4px 8px' }}>
       <div
@@ -47,7 +52,7 @@ const SpaceDisplay = ({ space }: { space: Space }): JSX.Element => {
       >
         {dmsStrings.lat} | {dmsStrings.long}
       </div>
-      {spaceLabel && (
+      {place && (
         <div
           style={{
             margin: '2px 0 0',
@@ -55,7 +60,7 @@ const SpaceDisplay = ({ space }: { space: Space }): JSX.Element => {
             color: 'rgba(0, 0, 0, 0.6)',
           }}
         >
-          {spaceLabel}
+          {place.label}
         </div>
       )}
     </div>
@@ -124,7 +129,10 @@ const SpacePopover = ({
   )
 }
 
-const mapStateToProps = ({ space }: State): StateProps => ({ space })
+const mapStateToProps = ({ space, place }: State): StateProps => ({
+  space,
+  place,
+})
 
 const mapDispatchToProps = (dispatch: Dispatch<State>): DispatchProps => ({
   setSpace: (longitude, latitude) => {

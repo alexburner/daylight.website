@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Space } from './interfaces'
 
-interface LookupResult {
+export interface LookupResult {
   latitude: number // 47.708022
   longitude: number // -122.278749
   type: string // "address"
@@ -114,7 +114,7 @@ const lookupCoordsLabel = async (space: Space): Promise<string | undefined> => {
   return [result.locality, result.region_code, result.country_code].join(', ')
 }
 
-const lookupCoords = ({
+export const lookupCoords = ({
   latitude,
   longitude,
 }: Space): Promise<LookupResult[]> => {

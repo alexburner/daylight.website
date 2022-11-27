@@ -1,3 +1,5 @@
+import { LookupResult } from './lookup'
+
 export const enum NudgeDirection {
   Forward = 'Forward',
   Backward = 'Backward',
@@ -13,6 +15,7 @@ export const enum NudgeDuration {
 export const enum ActionType {
   ReduxInit = '@@redux/INIT',
   Space = 'Space',
+  Place = 'Place',
   Time = 'Time',
   Nudge = 'Nudge',
 }
@@ -21,9 +24,28 @@ interface ActionReduxInit {
   type: ActionType.ReduxInit
 }
 
+/**
+ * TODO
+ *
+ * accept Place value
+ * but allow undefined, too (for Current Location)
+ *
+ * if place undefined
+ * trigger async lookup
+ * and update on complete
+ *
+ * (can i just add this in the reducer for ActionType.Space?)
+ */
+
 interface ActionSpace {
   type: ActionType.Space
   space: Space
+  place?: Place
+}
+
+interface ActionPlace {
+  type: ActionType.Place
+  place: Place
 }
 
 export interface ActionTime {
@@ -37,7 +59,12 @@ interface ActionNudge {
   duration: NudgeDuration
 }
 
-export type Action = ActionReduxInit | ActionSpace | ActionTime | ActionNudge
+export type Action =
+  | ActionReduxInit
+  | ActionSpace
+  | ActionPlace
+  | ActionTime
+  | ActionNudge
 
 export interface Point {
   x: number
@@ -49,8 +76,11 @@ export interface Space {
   longitude: number
 }
 
+export type Place = LookupResult
+
 export interface State {
   space?: Space
+  place?: Place
   suns?: Suns
   now?: Time
   hours?: Time[]

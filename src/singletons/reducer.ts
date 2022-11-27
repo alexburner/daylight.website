@@ -13,6 +13,9 @@ import { getNow, getNudgeMs } from '~singletons/times'
 import { asserNever } from '~singletons/types'
 import { calculateState } from '~singletons/state'
 import { setSavedSpace } from './space'
+import { lookupCoords } from './lookup'
+import { store } from '~main'
+import { setSavedPlace } from './place'
 
 export default (state: State, action: Action): State | Loop<State, Action> => {
   switch (action.type) {
@@ -20,14 +23,39 @@ export default (state: State, action: Action): State | Loop<State, Action> => {
       return state
     }
     case ActionType.Space: {
-      // only update if location has changed
+      // only update if space has changed
       if (_.isEqual(state.space, action.space)) return state
       // side effect alert! so sue me
       setSavedSpace(action.space)
-      // location has changed, update both space and time
+      // side effect 2, double yikes: lookup place if missing
+      if (!action.place) {
+        lookupCoords(action.space).then((results) => {
+          const result = results[0]
+          if (result) {
+            store.dispatch({
+              type: ActionType.Place,
+              place: result,
+            })
+          }
+        })
+      }
+      // space has changed
       return calculateState({
         ms: state.ms,
         space: action.space,
+        place: action.place,
+        nudge: state.nudge,
+      })
+    }
+    case ActionType.Place: {
+      // only update if place has changed
+      if (_.isEqual(state.place, action.place)) return state
+      // side effect alert! so sue me
+      setSavedPlace(action.place)
+      // place has changed
+      return calculateState({
+        ms: state.ms,
+        place: action.place,
         nudge: state.nudge,
       })
     }
