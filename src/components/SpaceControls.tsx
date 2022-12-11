@@ -39,7 +39,7 @@ const SpaceDisplay = ({ space }: { space: Space }): JSX.Element => {
   )
   const spaceLabel = useSpaceLabel(space)
   return (
-    <div style={{ display: 'inline-block', padding: '4px 8px' }}>
+    <div style={{ display: 'inline-block' }}>
       <div
         style={{
           fontSize: '14px',
@@ -50,7 +50,6 @@ const SpaceDisplay = ({ space }: { space: Space }): JSX.Element => {
       {spaceLabel && (
         <div
           style={{
-            margin: '2px 0 0',
             fontSize: '12px',
             color: 'rgba(0, 0, 0, 0.6)',
           }}
@@ -81,7 +80,7 @@ const SpacePopover = ({
       <PopoverTrigger setOpen={setOpen}>{children}</PopoverTrigger>
       <Popover isOpen={isOpen} setClose={setClose}>
         <div className="space-popover-items">
-          <div className="p-5">
+          <div className="p-6">
             <UseCurrentLocation
               onSuccess={(s) => {
                 setLocalSpace(s)
@@ -90,7 +89,7 @@ const SpacePopover = ({
               }}
             />
           </div>
-          <div className="p-4">
+          <div className="p-5">
             <SearchForLocation
               onSelect={(s) => {
                 setLocalSpace(s)
@@ -105,7 +104,7 @@ const SpacePopover = ({
               setLocalSpace={setLocalSpace}
             />
           </div>
-          <div className="p-4">
+          <div className="p-5">
             <SaveCancel
               canSave={hasChanges}
               onSave={() => {

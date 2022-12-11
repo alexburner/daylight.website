@@ -9,7 +9,7 @@ export const LatLongFields = ({
   setLocalSpace: (s: Space) => void
 }): JSX.Element => {
   return (
-    <div className="columns is-variable is-1">
+    <div className="columns is-mobile is-variable is-1">
       <div className="column">
         <div className="field has-addons">
           <div className="control">
