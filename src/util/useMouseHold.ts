@@ -14,18 +14,13 @@ export const useMouseHold = (
   const [isHolding, setIsHolding] = useState(false)
 
   // This is in case we're on iOS,
-  // which fires touch THEN mouse events
+  // which fires touch AND mouse events
   // causing double hold responses
+  //
+  // Touch is first
+  // So we ignore mouse
   const heardTouch = useRef(false)
 
-  const onMouseDown = useCallback(() => {
-    if (heardTouch.current) return
-    setIsHolding(true)
-  }, [])
-  const onMouseUp = useCallback(() => {
-    if (heardTouch.current) return
-    setIsHolding(false)
-  }, [])
   const onTouchStart = useCallback(() => {
     heardTouch.current = true
     setIsHolding(true)
@@ -35,12 +30,21 @@ export const useMouseHold = (
     setIsHolding(false)
   }, [])
 
-  // Leading edge callback
+  const onMouseDown = useCallback(() => {
+    if (heardTouch.current) return
+    setIsHolding(true)
+  }, [])
+  const onMouseUp = useCallback(() => {
+    if (heardTouch.current) return
+    setIsHolding(false)
+  }, [])
+
+  // Leading edge isHolding callback
   useEffect(() => {
     if (isHolding) callbackRef.current()
   }, [isHolding])
 
-  // Repeated callbacks
+  // Repeated isHolding callbacks
   useInterval(callbackRef.current, isHolding ? delay : null)
 
   return {
